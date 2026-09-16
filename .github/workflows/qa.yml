@@ -1,0 +1,42 @@
+name: QA
+
+on:
+  pull_request:
+    branches: [develop, main]
+  push:
+    branches: [develop, main]
+
+jobs:
+  quality:
+    name: Lint, format, unit tests, build and types
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node from .nvmrc
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies from the lockfile
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Check formatting
+        run: npm run format:check
+
+      - name: Unit tests
+        run: npm test
+
+      # Build must precede the type check: Next generates the route types that
+      # layout.tsx and page.tsx rely on, and they do not exist in a clean clone.
+      - name: Build
+        run: npm run build
+
+      - name: Type check
+        run: npm run typecheck
