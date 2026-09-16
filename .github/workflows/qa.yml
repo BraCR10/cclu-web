@@ -8,7 +8,7 @@ on:
 
 jobs:
   quality:
-    name: Lint, format, types, unit tests and build
+    name: Lint, format, unit tests, build and types
     runs-on: ubuntu-latest
 
     steps:
@@ -30,11 +30,13 @@ jobs:
       - name: Check formatting
         run: npm run format:check
 
-      - name: Type check
-        run: npm run typecheck
-
       - name: Unit tests
         run: npm test
 
+      # Build must precede the type check: Next generates the route types that
+      # layout.tsx and page.tsx rely on, and they do not exist in a clean clone.
       - name: Build
         run: npm run build
+
+      - name: Type check
+        run: npm run typecheck
