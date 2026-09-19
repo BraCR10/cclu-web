@@ -57,6 +57,32 @@ same thing, it belongs in `shared/`.
 This mirrors the rule the API applies to its services: a dependency between two
 modules is a design decision, not an import statement.
 
+## Session
+
+The session is a cookie the API sets and the browser returns on its own. No
+script here can read it, which is the point: a cross-site scripting flaw cannot
+carry it away. It also means this client cannot tell who it is by looking, so it
+asks, and the answer comes from a token the API verified rather than one the
+browser decoded for itself.
+
+| Piece               | Answers                                         |
+| ------------------- | ----------------------------------------------- |
+| `requestApi`        | Sends the cookie and reports a refusal          |
+| `useSession`        | Loading, signed in as whom, or nobody           |
+| `useRequireSession` | Sends an expired session to sign in             |
+| `RequireRole`       | Shows a part of a screen to the roles it serves |
+
+`requestApi` sets `credentials: 'include'` because the API answers from another
+origin and the browser withholds cookies across origins unless asked.
+
+`useSession` reads the identity once, when the application loads. Signing out is
+a request rather than a local delete, since the cookie belongs to the server and
+nothing here can reach it.
+
+**`RequireRole` hides; it does not protect.** Anyone can call the API directly,
+so who may do what is the server's answer and only the server's. What this buys
+is a person not being shown a door that will not open for them.
+
 ## Data access
 
 This client reaches `cclu-api` over HTTP and by no other means. It holds no
