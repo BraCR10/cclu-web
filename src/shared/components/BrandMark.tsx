@@ -17,13 +17,16 @@ const SIZES = {
 type BrandMarkProps = {
   size?: keyof typeof SIZES;
   className?: string;
+  // Drops the full legal name, which needs a width a navigation rail does not
+  // have. The symbol and the cantón still identify the chamber.
+  compact?: boolean;
 };
 
-export function BrandMark({ size = 'md', className = '' }: BrandMarkProps) {
+export function BrandMark({ size = 'md', className = '', compact = false }: BrandMarkProps) {
   const scale = SIZES[size];
 
   return (
-    <div className={`flex items-center gap-4 ${className}`}>
+    <div className={`flex items-center gap-3 ${className}`}>
       <Image
         src={SYMBOL.source}
         alt=""
@@ -33,10 +36,17 @@ export function BrandMark({ size = 'md', className = '' }: BrandMarkProps) {
         className={scale.symbol}
       />
       <span className="flex flex-col leading-tight">
-        <span className={`${scale.line} font-medium tracking-wide uppercase opacity-80`}>
-          Cámara de Comercio, Turismo, Industria y Afines
+        {!compact && (
+          <span className={`${scale.line} font-medium tracking-wide uppercase opacity-80`}>
+            Cámara de Comercio, Turismo, Industria y Afines
+          </span>
+        )}
+        <span className={`${scale.name} font-semibold tracking-tight`}>
+          {compact ? 'CCLU' : 'Cantón de La Unión'}
         </span>
-        <span className={`${scale.name} font-semibold tracking-tight`}>Cantón de La Unión</span>
+        {compact && (
+          <span className="text-xs font-medium text-content-muted">Cantón de La Unión</span>
+        )}
       </span>
     </div>
   );
