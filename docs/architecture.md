@@ -15,15 +15,15 @@ src/
   shared/     Used by two or more modules
 ```
 
-| Module folder          | Module in the ERS     |
-| ---------------------- | --------------------- |
-| `modules/agremiados`   | Gestión de Agremiados |
-| `modules/marketplace`  | Marketplace           |
-| `modules/bolsa-empleo` | Bolsa de Empleo       |
-| `modules/panel`        | Panel Administrativo  |
+| Module folder         | Module in the ERS     |
+| --------------------- | --------------------- |
+| `modules/members`     | Gestión de Agremiados |
+| `modules/marketplace` | Marketplace           |
+| `modules/jobs`        | Bolsa de Empleo       |
+| `modules/admin`       | Panel Administrativo  |
 
-Module folder names keep their domain term in Spanish. An `agremiado` is an
-`agremiado`; translating it loses the meaning the ERS gave it.
+Folder names are English, like every other identifier. The ERS names stay beside
+them here because that is what a reader will be holding when they come looking.
 
 ## What goes where
 

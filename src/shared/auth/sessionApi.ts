@@ -1,7 +1,7 @@
 import { requestApi } from '@/shared/api/request';
 import type { Identity } from './roles';
 
-export const SIGN_IN_PATH = '/ingreso';
+export const SIGN_IN_PATH = '/login';
 
 export function fetchIdentity(): Promise<Identity> {
   return requestApi<Identity>('/api/auth/me');

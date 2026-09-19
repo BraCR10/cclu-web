@@ -11,7 +11,7 @@ vi.mock('next/navigation', () => ({
 
 const AUTHENTICATED: Session = {
   status: 'authenticated',
-  identity: { id: 'abc', role: ROLES.AGREMIADO },
+  identity: { id: 'abc', role: ROLES.MEMBER },
 };
 
 describe('useRequireSession', () => {

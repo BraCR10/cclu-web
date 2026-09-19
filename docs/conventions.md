@@ -12,9 +12,12 @@ here needs to change, change it deliberately and tell the team.
 | Commit messages               | English  |
 | Content shown to end users    | Spanish  |
 
-The source requirement documents (ERS, SAD) are in Spanish. Translating a
-domain term is the exception, not the rule: an `agremiado` is an `agremiado`,
-not a `member`.
+The source requirement documents (ERS, SAD) are in Spanish, and the interface is
+Spanish because the people using it are. Everything else is English, including
+the parts that are easy to forget: route paths, module folder names and the
+values exchanged with the API.
+
+What a person reads is Spanish. What names a thing is English.
 
 ## Versioning
 
@@ -39,7 +42,7 @@ Rules:
   the code they describe, not in a follow-up commit.
 - Never commit generated credentials, `.env` files, co-author trailers, or AI
   attribution lines.
-- Subject line in the imperative mood: `add agremiado lookup`, not `added`.
+- Subject line in the imperative mood: `add member lookup`, not `added`.
 
 Commits made up to 15 September 2026 are written in Spanish. They stay that
 way: the history is public and rewriting it costs more than the inconsistency.

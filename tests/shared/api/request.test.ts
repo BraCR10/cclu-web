@@ -11,7 +11,7 @@ function respondWith(body: unknown, status = 200, statusText = 'OK') {
 
 describe('requestApi', () => {
   it('lets the browser attach the session cookie, which it withholds by default', async () => {
-    const fetchImplementation = respondWith({ id: 'abc', role: 'agremiado' });
+    const fetchImplementation = respondWith({ id: 'abc', role: 'member' });
 
     await requestApi('/api/auth/me', {}, fetchImplementation);
 
@@ -19,11 +19,11 @@ describe('requestApi', () => {
   });
 
   it('returns what the API answered', async () => {
-    const fetchImplementation = respondWith({ id: 'abc', role: 'agremiado' });
+    const fetchImplementation = respondWith({ id: 'abc', role: 'member' });
 
     await expect(requestApi('/api/auth/me', {}, fetchImplementation)).resolves.toEqual({
       id: 'abc',
-      role: 'agremiado',
+      role: 'member',
     });
   });
 
