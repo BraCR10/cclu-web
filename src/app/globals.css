@@ -82,6 +82,9 @@
   --color-on-support: var(--on-support);
   --color-highlight: var(--highlight);
   --color-on-highlight: var(--on-highlight);
+  --color-wash-from: var(--wash-from);
+  --color-wash-to: var(--wash-to);
+  --color-on-wash: var(--on-wash);
 }
 
 :root {
@@ -96,6 +99,9 @@
   --on-support: #ffffff;
   --highlight: var(--color-accent-300);
   --on-highlight: var(--color-accent-900);
+  --wash-from: var(--color-primary-800);
+  --wash-to: var(--color-secondary-800);
+  --on-wash: var(--color-primary-50);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -111,6 +117,9 @@
     --on-support: var(--color-secondary-950);
     --highlight: var(--color-accent-300);
     --on-highlight: var(--color-accent-900);
+    --wash-from: var(--color-primary-950);
+    --wash-to: var(--color-secondary-950);
+    --on-wash: var(--color-primary-100);
   }
 }
 

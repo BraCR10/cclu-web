@@ -53,6 +53,34 @@ keeps a page from looking like two unrelated palettes sharing a screen.
 Every `on-` token exists because a colour is only half a decision. Putting text
 on a filled surface without one is how contrast gets lost.
 
+## The mark
+
+`public/logo-cclu.png` is the full lockup and `public/logo-cclu-symbol.png` is
+the symbol alone, both taken from the chamber's own file with the white
+background removed.
+
+**Screens use the symbol, not the lockup.** The lockup carries its own dark blue
+wordmark, which vanishes on a dark surface and cannot be recoloured without
+altering the mark. The symbol is coloured art that reads on anything, and the
+name beside it is set in our own type, which also lets it wrap on a phone.
+
+`BrandMark` does this and is the only place that knows it.
+
+Vector originals are still missing. A raster mark will not hold up in a printed
+membership card, so they have to be asked for.
+
+## The wash
+
+`wash-from` and `wash-to` run blue into green, which is the movement the mark
+itself makes from the water to the hill. `on-wash` is the text that sits on it.
+
+The amber appears once, as light rather than as a shape: a blurred circle of
+`highlight` bled off a corner, standing in for the sun. It carries no meaning
+and no text, which is what lets a colour that fails contrast be used at all.
+
+Used on a full panel it should stay rare. A gradient that appears on every
+screen stops being an accent and becomes the background.
+
 ## Light and dark
 
 Both schemes answer through the same token names, so a component is written
