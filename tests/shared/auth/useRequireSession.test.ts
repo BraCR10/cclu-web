@@ -18,7 +18,7 @@ describe('useRequireSession', () => {
   it('sends the person to sign in once the session has expired', () => {
     const redirect = vi.fn();
 
-    renderHook(() => useRequireSession({ status: 'anonymous', identity: null }, redirect));
+    renderHook(() => useRequireSession({ status: 'anonymous', identity: null }, { redirect }));
 
     expect(redirect).toHaveBeenCalledWith(SIGN_IN_PATH);
   });
@@ -26,7 +26,7 @@ describe('useRequireSession', () => {
   it('leaves a working session where it is', () => {
     const redirect = vi.fn();
 
-    renderHook(() => useRequireSession(AUTHENTICATED, redirect));
+    renderHook(() => useRequireSession(AUTHENTICATED, { redirect }));
 
     expect(redirect).not.toHaveBeenCalled();
   });
@@ -34,7 +34,7 @@ describe('useRequireSession', () => {
   it('waits for the answer instead of redirecting while it is still loading', () => {
     const redirect = vi.fn();
 
-    renderHook(() => useRequireSession({ status: 'loading', identity: null }, redirect));
+    renderHook(() => useRequireSession({ status: 'loading', identity: null }, { redirect }));
 
     expect(redirect).not.toHaveBeenCalled();
   });
@@ -42,7 +42,7 @@ describe('useRequireSession', () => {
   it('redirects once, not on every render', () => {
     const redirect = vi.fn();
     const { rerender } = renderHook(() =>
-      useRequireSession({ status: 'anonymous', identity: null }, redirect),
+      useRequireSession({ status: 'anonymous', identity: null }, { redirect }),
     );
 
     rerender();
