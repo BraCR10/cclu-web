@@ -2,11 +2,25 @@ import { buildApiUrl } from './apiUrl';
 
 export class ApiError extends Error {
   readonly status: number;
+  // Present when the API named why, so a screen can answer in its own words
+  // rather than by matching on English text.
+  readonly reason?: string;
 
-  constructor(status: number, statusText: string) {
+  constructor(status: number, statusText: string, reason?: string) {
     super(`The API answered ${status} ${statusText}`.trim());
     this.name = 'ApiError';
     this.status = status;
+    this.reason = reason;
+  }
+}
+
+async function reasonFrom(response: Response): Promise<string | undefined> {
+  try {
+    const body = await response.clone().json();
+
+    return typeof body?.reason === 'string' ? body.reason : undefined;
+  } catch {
+    return undefined;
   }
 }
 
@@ -32,7 +46,7 @@ export async function requestApi<T>(
   });
 
   if (!response.ok) {
-    throw new ApiError(response.status, response.statusText);
+    throw new ApiError(response.status, response.statusText, await reasonFrom(response));
   }
 
   if (response.status === NO_CONTENT) {
