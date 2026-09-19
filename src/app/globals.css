@@ -1,26 +1,121 @@
 @import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+  Brand ramps. Generated in OKLCH from the three hues of the logo, with chroma
+  clipped to the sRGB gamut, so the steps are perceptually even rather than
+  eyeballed. Shade 700 of each is the colour the logo actually uses.
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  These are raw material. Reach for a semantic token below instead, so that
+  changing the palette stays one edit.
+*/
+@theme {
+  --color-primary-50: #f0f8ff;
+  --color-primary-100: #def0ff;
+  --color-primary-200: #bbe0ff;
+  --color-primary-300: #8fcbfc;
+  --color-primary-400: #62aae3;
+  --color-primary-500: #3e8bc5;
+  --color-primary-600: #1f6ea5;
+  --color-primary-700: #065686;
+  --color-primary-800: #00426a;
+  --color-primary-900: #003252;
+  --color-primary-950: #001b30;
+
+  --color-secondary-50: #e6fee9;
+  --color-secondary-100: #d2f9d7;
+  --color-secondary-200: #b2ecba;
+  --color-secondary-300: #8bda98;
+  --color-secondary-400: #5bbb6e;
+  --color-secondary-500: #329c4d;
+  --color-secondary-600: #047f32;
+  --color-secondary-700: #006325;
+  --color-secondary-800: #004d1b;
+  --color-secondary-900: #003a13;
+  --color-secondary-950: #002107;
+
+  --color-accent-50: #fff5e9;
+  --color-accent-100: #ffe9ce;
+  --color-accent-200: #ffd298;
+  --color-accent-300: #f5b761;
+  --color-accent-400: #da920e;
+  --color-accent-500: #b37600;
+  --color-accent-600: #8e5d00;
+  --color-accent-700: #6f4800;
+  --color-accent-800: #563700;
+  --color-accent-900: #422900;
+  --color-accent-950: #261500;
+
+  --color-neutral-50: #f5f7f8;
+  --color-neutral-100: #ebedef;
+  --color-neutral-200: #d7dbde;
+  --color-neutral-300: #c0c5c9;
+  --color-neutral-400: #9ea4a9;
+  --color-neutral-500: #80858a;
+  --color-neutral-600: #646a6e;
+  --color-neutral-700: #4d5256;
+  --color-neutral-800: #3b3f42;
+  --color-neutral-900: #2c2f32;
+  --color-neutral-950: #181a1c;
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --radius-control: 0.5rem;
+  --radius-panel: 0.75rem;
+  --radius-pill: 9999px;
+}
+
+/*
+  Semantic tokens. A component names the job a colour does, never the colour
+  itself, which is what lets the palette change in one place. They are declared
+  inline so that the values below can answer to the colour scheme.
+*/
+@theme inline {
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-content: var(--content);
+  --color-content-muted: var(--content-muted);
+  --color-border: var(--border);
+  --color-brand: var(--brand);
+  --color-on-brand: var(--on-brand);
+  --color-support: var(--support);
+  --color-on-support: var(--on-support);
+  --color-highlight: var(--highlight);
+  --color-on-highlight: var(--on-highlight);
+}
+
+:root {
+  --surface: var(--color-neutral-50);
+  --surface-raised: #ffffff;
+  --content: var(--color-neutral-900);
+  --content-muted: var(--color-neutral-700);
+  --border: var(--color-neutral-200);
+  --brand: var(--color-primary-700);
+  --on-brand: #ffffff;
+  --support: var(--color-secondary-700);
+  --on-support: #ffffff;
+  --highlight: var(--color-accent-300);
+  --on-highlight: var(--color-accent-900);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --surface: var(--color-neutral-950);
+    --surface-raised: var(--color-neutral-900);
+    --content: var(--color-neutral-100);
+    --content-muted: var(--color-neutral-400);
+    --border: var(--color-neutral-800);
+    --brand: var(--color-primary-300);
+    --on-brand: var(--color-primary-950);
+    --support: var(--color-secondary-300);
+    --on-support: var(--color-secondary-950);
+    --highlight: var(--color-accent-300);
+    --on-highlight: var(--color-accent-900);
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-surface);
+  color: var(--color-content);
+  font-family: var(--font-sans);
 }
