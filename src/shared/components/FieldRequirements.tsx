@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { AlertIcon } from './icons';
+import { unsaidRequirements } from '@/shared/forms';
 
 type FieldRequirementsProps = {
   // What was refused, and what the field asks for. Both live in the note rather
@@ -22,6 +23,7 @@ export function FieldRequirements({ message, requirements }: FieldRequirementsPr
   const [pointedAt, setPointedAt] = useState(false);
   const container = useRef<HTMLSpanElement>(null);
   const open = pinned || pointedAt;
+  const unsaid = unsaidRequirements(message, requirements);
 
   function close() {
     setPinned(false);
@@ -77,14 +79,14 @@ export function FieldRequirements({ message, requirements }: FieldRequirementsPr
         >
           <span className="block text-sm font-medium text-danger">{message}</span>
 
-          {requirements.length > 0 && (
+          {unsaid.length > 0 && (
             <span className="mt-3 block border-t border-border pt-3">
               <span className="mb-1.5 block text-xs font-medium tracking-wide text-content-muted uppercase">
                 Requisitos
               </span>
 
               <span className="flex flex-col gap-1.5">
-                {requirements.map((requirement) => (
+                {unsaid.map((requirement) => (
                   <span
                     key={requirement}
                     className="flex items-start gap-2 text-sm font-normal text-content"

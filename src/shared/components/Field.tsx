@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { FieldRequirements } from './FieldRequirements';
 import { describeField } from '@/shared/config/messages';
+import { unsaidRequirements } from '@/shared/forms';
 
 // What the control needs so a screen reader ties the message to it, and so the
 // control can style itself as wrong. Spread rather than wired by hand in every
@@ -55,7 +56,7 @@ export function Field({ id, label, error, hint, requirements, children }: FieldP
           having to find and open anything. */}
       {errorId !== undefined && (
         <span id={errorId} className="sr-only">
-          {[error, ...rules].join(' ')}
+          {[error, ...unsaidRequirements(error ?? '', rules)].join(' ')}
         </span>
       )}
     </div>
