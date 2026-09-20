@@ -23,7 +23,8 @@ function registration(overrides: Partial<RejectedRegistration> = {}): RejectedRe
 }
 
 function renderForm(overrides: Partial<Parameters<typeof ResubmissionForm>[0]> = {}) {
-  const resubmit = overrides.resubmit ?? vi.fn(async () => ({ applicationStatus: 'pending_review' }));
+  const resubmit =
+    overrides.resubmit ?? vi.fn(async () => ({ applicationStatus: 'pending_review' }));
 
   render(
     <ResubmissionForm
