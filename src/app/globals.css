@@ -122,6 +122,7 @@
   --color-wash-from: var(--wash-from);
   --color-wash-to: var(--wash-to);
   --color-on-wash: var(--on-wash);
+  --color-danger: var(--danger);
 }
 
 /*
@@ -143,6 +144,10 @@
   --on-support: light-dark(#ffffff, var(--color-secondary-950));
   --highlight: var(--color-accent-300);
   --on-highlight: var(--color-accent-900);
+  /* Errors wear the accent, the one hue in the mark that reads as attention.
+     A red would shout louder but belongs to no part of the logo. */
+  --danger: light-dark(var(--color-accent-700), var(--color-accent-300));
+
   --wash-from: light-dark(var(--color-primary-800), var(--color-primary-950));
   --wash-to: light-dark(var(--color-secondary-800), var(--color-secondary-950));
   --on-wash: light-dark(var(--color-primary-50), var(--color-primary-100));

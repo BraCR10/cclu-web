@@ -2,6 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ProfileForm } from '@/modules/members/components/ProfileForm';
+import { MESSAGES } from '@/shared/config/messages';
 import type { MemberProfile } from '@/modules/members/api/profile';
 
 const CANTONS = [
@@ -88,7 +89,31 @@ describe('ProfileForm', () => {
     await screen.findByLabelText('Nombre comercial');
     await save(user);
 
-    expect(await screen.findByText('No hay cambios que guardar')).toBeTruthy();
+    expect(await screen.findByText(MESSAGES.nothing_to_change)).toBeTruthy();
+    expect(saveProfile).not.toHaveBeenCalled();
+  });
+
+  // A form that only refuses leaves the person hunting for what it disliked.
+  it('names the field it is refusing rather than only refusing', async () => {
+    const { saveProfile, user } = renderForm();
+
+    const name = await screen.findByLabelText('Nombre comercial');
+    await user.clear(name);
+    await save(user);
+
+    expect(await screen.findByText(MESSAGES.required)).toBeTruthy();
+    expect(name.getAttribute('aria-invalid')).toBe('true');
+    expect(saveProfile).not.toHaveBeenCalled();
+  });
+
+  it('refuses a web address that is not one, without asking the server first', async () => {
+    const { saveProfile, user } = renderForm();
+
+    const website = await screen.findByLabelText('Sitio web');
+    await user.type(website, 'panaderia.cr');
+    await save(user);
+
+    expect(await screen.findByText(MESSAGES.invalid_format)).toBeTruthy();
     expect(saveProfile).not.toHaveBeenCalled();
   });
 

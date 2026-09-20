@@ -1,5 +1,6 @@
 import { MEMBER_TYPES, type MemberType, type Registration } from './api/registration';
-import { PASSWORD, checkField, checkPassword, messageForCode } from '@/shared/config/memberRules';
+import { PASSWORD, checkField, checkPassword } from '@/shared/config/memberRules';
+import { messageForCode } from '@/shared/config/messages';
 
 export const MINIMUM_PASSWORD_LENGTH = PASSWORD.minimumLength;
 

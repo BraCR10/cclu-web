@@ -152,3 +152,55 @@ export function IdCardIcon(props: IconProps) {
     </Svg>
   );
 }
+
+function FilledSvg({ className, children }: IconProps & { children: React.ReactNode }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className ?? BASE}>
+      {children}
+    </svg>
+  );
+}
+
+export function InstagramIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
+      <circle cx="12" cy="12" r="3.8" />
+      <circle cx="17" cy="7" r="0.9" fill="currentColor" stroke="none" />
+    </Svg>
+  );
+}
+
+export function FacebookIcon(props: IconProps) {
+  return (
+    <FilledSvg {...props}>
+      <path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5h1.65V3.6A22 22 0 0 0 14.3 3.5c-2.4 0-4 1.45-4 4.1v2.3H7.6V13h2.7v8z" />
+    </FilledSvg>
+  );
+}
+
+export function LinkedInIcon(props: IconProps) {
+  return (
+    <FilledSvg {...props}>
+      <path d="M6.94 8.5H4.2V20h2.74zM5.57 3.9a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 0 0 0-3.2M20 13.6c0-3-1.6-4.4-3.74-4.4-1.72 0-2.49.95-2.92 1.61V8.5H10.6c.04.78 0 11.5 0 11.5h2.74v-6.42c0-.25.02-.49.09-.67.2-.49.65-1 1.4-1 1 0 1.4.75 1.4 1.85V20H19z" />
+    </FilledSvg>
+  );
+}
+
+export function WhatsAppIcon(props: IconProps) {
+  return (
+    <FilledSvg {...props}>
+      <path d="M12 3a9 9 0 0 0-7.7 13.65L3 21l4.5-1.25A9 9 0 1 0 12 3m0 1.7a7.3 7.3 0 1 1-3.75 13.56l-.27-.16-2.3.63.64-2.24-.18-.29A7.3 7.3 0 0 1 12 4.7m-3.3 3.5c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.54 2.02.78 2.43.63 2.87.59.44-.04 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28s-1.42-.7-1.64-.78c-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.42-1.34-1.66-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.19-.46-.39-.4-.54-.41z" />
+    </FilledSvg>
+  );
+}
+
+export function GlobeIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3.2 9h17.6M3.2 15h17.6" />
+      <path d="M12 3c2.2 2.4 3.3 5.4 3.3 9s-1.1 6.6-3.3 9c-2.2-2.4-3.3-5.4-3.3-9s1.1-6.6 3.3-9" />
+    </Svg>
+  );
+}

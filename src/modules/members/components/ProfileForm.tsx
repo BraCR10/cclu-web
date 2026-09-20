@@ -5,7 +5,9 @@ import { Field, CONTROL_CLASS } from '@/shared/components/Field';
 import { ToastStack } from '@/shared/components/ToastStack';
 import { useToasts } from '@/shared/components/useToasts';
 import { formatMemberCode } from '@/shared/format';
-import { ApiError } from '@/shared/api/request';
+import { WithContactIcon, contactPadding } from '@/shared/components/contactFields';
+import { MESSAGES, messageForError } from '@/shared/config/messages';
+import { checkField } from '@/shared/config/memberRules';
 import { IDENTIFICATION_TYPE_LABELS, MEMBER_TYPE_LABELS } from '@/modules/admin/applicationRules';
 import {
   fetchCantons,
@@ -31,16 +33,47 @@ type ProfileFormProps = {
 
 type Draft = Record<string, string>;
 
-const TEXT_FIELDS: { name: keyof ProfileChanges; label: string; hint?: string }[] = [
-  { name: 'businessName', label: 'Nombre comercial' },
-  { name: 'phone', label: 'Teléfono' },
-  { name: 'location', label: 'Ubicación', hint: 'Dirección o señas del local.' },
+const TEXT_FIELDS: {
+  name: keyof ProfileChanges;
+  label: string;
+  hint?: string;
+  required?: boolean;
+}[] = [
+  { name: 'businessName', label: 'Nombre comercial', required: true },
+  { name: 'phone', label: 'Teléfono', required: true },
+  { name: 'location', label: 'Ubicación', hint: 'Dirección o señas del local.', required: true },
   { name: 'whatsappNumber', label: 'WhatsApp' },
   { name: 'instagram', label: 'Instagram' },
   { name: 'facebook', label: 'Facebook' },
   { name: 'linkedin', label: 'LinkedIn' },
   { name: 'website', label: 'Sitio web', hint: 'Debe empezar con https://' },
 ];
+
+type FieldErrors = Partial<Record<string, string>>;
+
+// The same codes the API answers with, so a person reads one sentence whether
+// the form caught the mistake or the server did.
+function findFieldErrors(draft: Draft): FieldErrors {
+  const errors: FieldErrors = {};
+
+  for (const { name, required } of TEXT_FIELDS) {
+    const code = checkField(name, draft[name] ?? '', { required: required ?? false });
+
+    if (code !== null) {
+      errors[name] = MESSAGES[code];
+    }
+  }
+
+  const descriptionCode = checkField('businessDescription', draft.businessDescription ?? '', {
+    required: true,
+  });
+
+  if (descriptionCode !== null) {
+    errors.businessDescription = MESSAGES[descriptionCode];
+  }
+
+  return errors;
+}
 
 function toDraft(profile: MemberProfile): Draft {
   return {
@@ -95,6 +128,7 @@ export function ProfileForm({
   const [sectors, setSectors] = useState<Sector[]>([]);
   const [loadFailed, setLoadFailed] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [errors, setErrors] = useState<FieldErrors>({});
   const { toasts, show, dismiss } = useToasts();
 
   const read = useCallback(async () => {
@@ -145,10 +179,18 @@ export function ProfileForm({
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
+    const found = findFieldErrors(draft);
+    setErrors(found);
+
+    if (Object.keys(found).length > 0) {
+      show({ tone: 'problem', title: MESSAGES.form_incomplete });
+      return;
+    }
+
     const changes = changedFields(draft, original);
 
     if (Object.keys(changes).length === 0) {
-      show({ tone: 'info', title: 'No hay cambios que guardar' });
+      show({ tone: 'info', title: MESSAGES.nothing_to_change });
       return;
     }
 
@@ -161,10 +203,10 @@ export function ProfileForm({
       show({
         tone: 'problem',
         title: 'No se pudo guardar',
-        detail:
-          caught instanceof ApiError && caught.status === 400
-            ? 'Revise los datos: alguno no tiene el formato esperado.'
-            : 'Intente de nuevo en unos momentos.',
+        detail: messageForError(caught, {
+          byStatus: { 400: 'form_incomplete' },
+          fallback: MESSAGES.save_unavailable,
+        }),
       });
     } finally {
       setSaving(false);
@@ -233,22 +275,25 @@ export function ProfileForm({
 
         <div className="grid gap-5 sm:grid-cols-2">
           {TEXT_FIELDS.map(({ name, label, hint }) => (
-            <Field key={name} id={name} label={label} hint={hint}>
-              {(describedBy) => (
-                <input
-                  id={name}
-                  value={draft[name] ?? ''}
-                  onChange={(event) => set(name, event.target.value)}
-                  aria-describedby={describedBy}
-                  className={CONTROL_CLASS}
-                />
+            <Field key={name} id={name} label={label} hint={hint} error={errors[name]}>
+              {(control) => (
+                <WithContactIcon field={name}>
+                  <input
+                    id={name}
+                    value={draft[name] ?? ''}
+                    onChange={(event) => set(name, event.target.value)}
+                    {...control}
+                    className={`${CONTROL_CLASS} w-full ${contactPadding(name)}`}
+                  />
+                </WithContactIcon>
               )}
             </Field>
           ))}
 
           <Field id="memberType" label="Tipo de afiliación">
-            {() => (
+            {(control) => (
               <select
+                {...control}
                 id="memberType"
                 value={draft.memberType ?? ''}
                 onChange={(event) => set('memberType', event.target.value)}
@@ -264,8 +309,9 @@ export function ProfileForm({
           </Field>
 
           <Field id="canton" label="Cantón">
-            {() => (
+            {(control) => (
               <select
+                {...control}
                 id="canton"
                 value={draft.canton ?? ''}
                 onChange={(event) => set('canton', event.target.value)}
@@ -281,8 +327,9 @@ export function ProfileForm({
           </Field>
 
           <Field id="sector" label="Sector">
-            {() => (
+            {(control) => (
               <select
+                {...control}
                 id="sector"
                 value={draft.sector ?? ''}
                 onChange={(event) => set('sector', event.target.value)}
@@ -303,12 +350,12 @@ export function ProfileForm({
           label="Descripción del negocio"
           hint="Esto es lo que verá quien lo encuentre en el directorio."
         >
-          {(describedBy) => (
+          {(control) => (
             <textarea
               id="businessDescription"
               value={draft.businessDescription ?? ''}
               onChange={(event) => set('businessDescription', event.target.value)}
-              aria-describedby={describedBy}
+              {...control}
               rows={4}
               maxLength={500}
               className={`${CONTROL_CLASS} resize-y`}

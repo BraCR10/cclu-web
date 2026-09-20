@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { MEMBER_TYPE_LABELS } from '@/modules/admin/applicationRules';
+import { contactIcon } from '@/shared/components/contactFields';
+import { GlobeIcon } from '@/shared/components/icons';
 import { fetchPublicProfile, type PublicProfile as Profile } from '../api/directory';
 
 type PublicProfileProps = {
@@ -67,9 +69,9 @@ export function PublicProfile({
   }
 
   const handles = [
-    { label: 'Instagram', value: profile.instagram },
-    { label: 'Facebook', value: profile.facebook },
-    { label: 'LinkedIn', value: profile.linkedin },
+    { field: 'instagram', label: 'Instagram', value: profile.instagram },
+    { field: 'facebook', label: 'Facebook', value: profile.facebook },
+    { field: 'linkedin', label: 'LinkedIn', value: profile.linkedin },
   ].filter((handle) => handle.value !== null);
 
   return (
@@ -119,8 +121,9 @@ export function PublicProfile({
               href={profile.website}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-pill border border-brand px-4 py-1.5 text-sm font-medium text-brand transition-colors hover:bg-brand hover:text-on-brand"
+              className="flex items-center gap-2 rounded-pill border border-brand px-4 py-1.5 text-sm font-medium text-brand transition-colors hover:bg-brand hover:text-on-brand"
             >
+              <GlobeIcon className="size-4" />
               Sitio web
             </a>
           )}
@@ -128,8 +131,13 @@ export function PublicProfile({
           {/* Stored as free text, so they may be a handle rather than an address
               and must not be turned into one. */}
           {handles.map((handle) => (
-            <span key={handle.label} className="rounded-pill bg-surface px-3 py-1.5 text-sm">
-              <span className="text-content-muted">{handle.label}</span> {handle.value}
+            <span
+              key={handle.field}
+              title={handle.label}
+              className="flex items-center gap-2 rounded-pill bg-surface px-3 py-1.5 text-sm"
+            >
+              <span className="text-content-muted">{contactIcon(handle.field)}</span>
+              {handle.value}
             </span>
           ))}
         </div>

@@ -69,7 +69,7 @@ describe('CodeVerifier', () => {
 
     await check(user, 'MA7K2Q4');
 
-    expect((await screen.findByRole('alert')).textContent).toContain('Demasiadas consultas');
+    expect((await screen.findByRole('alert')).textContent).toContain('Demasiados intentos');
   });
 
   it('separates a server that broke from a code that does not stand', async () => {
@@ -84,13 +84,27 @@ describe('CodeVerifier', () => {
     expect(screen.queryByText(/no corresponde a un afiliado/)).toBeNull();
   });
 
-  it('will not ask about an empty code', async () => {
+  // A disabled button leaves the person guessing which rule they broke, so the
+  // form takes the press and says what is missing.
+  it('says the code is missing rather than refusing to be pressed', async () => {
     const verify = vi.fn(async () => AFFILIATE);
-    renderVerifier(verify);
+    const user = renderVerifier(verify);
 
     const button = screen.getByRole('button', { name: 'Verificar' }) as HTMLButtonElement;
+    expect(button.disabled).toBe(false);
 
-    expect(button.disabled).toBe(true);
+    await user.click(button);
+
+    expect(await screen.findByText('Este dato es obligatorio.')).toBeTruthy();
     expect(verify).not.toHaveBeenCalled();
+  });
+
+  it('marks the control itself as wrong, not only the text below it', async () => {
+    const user = renderVerifier(vi.fn(async () => AFFILIATE));
+
+    await user.click(screen.getByRole('button', { name: 'Verificar' }));
+
+    const input = await screen.findByLabelText('Código de agremiado');
+    expect(input.getAttribute('aria-invalid')).toBe('true');
   });
 });

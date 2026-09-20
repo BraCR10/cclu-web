@@ -36,36 +36,7 @@ export const PASSWORD = {
   ],
 } as const;
 
-// Every refusal the API can answer with, said once in Spanish. The screen reads
-// the code, never the English message, so wording changes on either side do not
-// break the other.
-export const MESSAGES: Record<string, string> = {
-  required: 'Este dato es obligatorio.',
-  not_text: 'Este dato no tiene un formato válido.',
-  too_long: 'Este dato es más largo de lo permitido.',
-  invalid_format: 'Revise el formato de este dato.',
-  not_allowed: 'Seleccione una de las opciones disponibles.',
-  unknown_reference: 'La opción seleccionada ya no existe. Recargue la página.',
-  already_registered:
-    'No fue posible completar el registro. Comuníquese con la Cámara para continuar.',
-  nothing_to_change: 'No hay cambios que guardar.',
-  body_missing: 'No se recibió información.',
-  invalid_current_password: 'La contraseña actual no es correcta.',
-  invalid_code: 'El código no es válido o ya venció. Solicite uno nuevo.',
-  password_too_short: `La contraseña debe tener al menos ${PASSWORD.minimumLength} caracteres.`,
-  password_too_long: 'La contraseña es más larga de lo que el sistema puede usar.',
-  password_needs_letter: 'La contraseña debe incluir al menos una letra.',
-  password_needs_digit: 'La contraseña debe incluir al menos un número.',
-  password_needs_special: 'La contraseña debe incluir al menos un símbolo.',
-};
-
 export const PASSWORD_HINT = `Al menos ${PASSWORD.minimumLength} caracteres, con una letra, un número y un símbolo.`;
-
-const FALLBACK = 'Revise este dato e intente de nuevo.';
-
-export function messageForCode(code: string | undefined): string {
-  return code === undefined ? FALLBACK : (MESSAGES[code] ?? FALLBACK);
-}
 
 // Answers the code the API would answer, so the person reads the same sentence
 // whether the form caught it or the server did.
