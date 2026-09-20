@@ -50,6 +50,8 @@ export const MESSAGES: Record<string, string> = {
     'No fue posible completar el registro. Comuníquese con la Cámara para continuar.',
   nothing_to_change: 'No hay cambios que guardar.',
   body_missing: 'No se recibió información.',
+  invalid_current_password: 'La contraseña actual no es correcta.',
+  invalid_code: 'El código no es válido o ya venció. Solicite uno nuevo.',
   password_too_short: `La contraseña debe tener al menos ${PASSWORD.minimumLength} caracteres.`,
   password_too_long: 'La contraseña es más larga de lo que el sistema puede usar.',
   password_needs_letter: 'La contraseña debe incluir al menos una letra.',

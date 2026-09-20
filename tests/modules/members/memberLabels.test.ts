@@ -17,21 +17,23 @@ describe('messageFor', () => {
   });
 
   it('explains a pending application, which the API only names once the password was right', () => {
-    const shown = messageFor(new ApiError(403, 'Forbidden', REFUSAL_REASONS.APPLICATION_PENDING));
+    const shown = messageFor(
+      new ApiError(403, 'Forbidden', { reason: REFUSAL_REASONS.APPLICATION_PENDING }),
+    );
 
     expect(shown).toBe(MESSAGES.pending);
   });
 
   it('explains a rejected application and points at the message that carries the reason', () => {
-    expect(messageFor(new ApiError(403, 'Forbidden', REFUSAL_REASONS.APPLICATION_REJECTED))).toBe(
-      MESSAGES.rejected,
-    );
+    expect(
+      messageFor(new ApiError(403, 'Forbidden', { reason: REFUSAL_REASONS.APPLICATION_REJECTED })),
+    ).toBe(MESSAGES.rejected);
   });
 
   it('explains a suspended account', () => {
-    expect(messageFor(new ApiError(403, 'Forbidden', REFUSAL_REASONS.ACCOUNT_SUSPENDED))).toBe(
-      MESSAGES.suspended,
-    );
+    expect(
+      messageFor(new ApiError(403, 'Forbidden', { reason: REFUSAL_REASONS.ACCOUNT_SUSPENDED })),
+    ).toBe(MESSAGES.suspended);
   });
 
   it('separates a rate limit from credentials that were wrong', () => {
@@ -39,7 +41,9 @@ describe('messageFor', () => {
   });
 
   it('falls back rather than inventing a message for a reason it does not know', () => {
-    expect(messageFor(new ApiError(403, 'Forbidden', 'algo_nuevo'))).toBe(MESSAGES.unavailable);
+    expect(messageFor(new ApiError(403, 'Forbidden', { reason: 'algo_nuevo' }))).toBe(
+      MESSAGES.unavailable,
+    );
     expect(messageFor(new ApiError(403, 'Forbidden'))).toBe(MESSAGES.unavailable);
   });
 

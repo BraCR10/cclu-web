@@ -5,22 +5,36 @@ export class ApiError extends Error {
   // Present when the API named why, so a screen can answer in its own words
   // rather than by matching on English text.
   readonly reason?: string;
+  // The refusal's code and the field it belongs to, so a form can put the
+  // message beside the input that caused it.
+  readonly code?: string;
+  readonly field?: string;
 
-  constructor(status: number, statusText: string, reason?: string) {
+  constructor(status: number, statusText: string, detail: ApiErrorDetail = {}) {
     super(`The API answered ${status} ${statusText}`.trim());
     this.name = 'ApiError';
     this.status = status;
-    this.reason = reason;
+    this.reason = detail.reason;
+    this.code = detail.code;
+    this.field = detail.field;
   }
 }
 
-async function reasonFrom(response: Response): Promise<string | undefined> {
+type ApiErrorDetail = { reason?: string; code?: string; field?: string };
+
+const textOrNothing = (value: unknown) => (typeof value === 'string' ? value : undefined);
+
+async function detailFrom(response: Response): Promise<ApiErrorDetail> {
   try {
     const body = await response.clone().json();
 
-    return typeof body?.reason === 'string' ? body.reason : undefined;
+    return {
+      reason: textOrNothing(body?.reason),
+      code: textOrNothing(body?.code),
+      field: textOrNothing(body?.field),
+    };
   } catch {
-    return undefined;
+    return {};
   }
 }
 
@@ -46,7 +60,7 @@ export async function requestApi<T>(
   });
 
   if (!response.ok) {
-    throw new ApiError(response.status, response.statusText, await reasonFrom(response));
+    throw new ApiError(response.status, response.statusText, await detailFrom(response));
   }
 
   if (response.status === NO_CONTENT) {
