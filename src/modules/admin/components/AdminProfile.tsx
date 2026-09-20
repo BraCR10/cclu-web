@@ -115,7 +115,11 @@ export function AdminProfile({
     <div className="flex flex-col gap-8">
       <ToastStack toasts={toasts} onDismiss={dismiss} />
 
-      <section className="flex flex-col gap-5 rounded-panel border border-border bg-surface-raised p-6">
+      {/* Three lines in one card, in the order somebody would read them out:
+          who they are, where the chamber writes to them, what they may do. The
+          first is the only one they decide, so it is the only one that is a
+          field. */}
+      <section className="flex flex-col gap-6 rounded-panel border border-border bg-surface-raised p-6">
         <div className="flex flex-col gap-1">
           <h2 className="text-lg font-semibold tracking-tight">Su cuenta</h2>
           <p className="text-sm text-content-muted">
@@ -123,24 +127,31 @@ export function AdminProfile({
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} noValidate className="flex max-w-sm flex-col gap-4">
-          <Field
-            id="name"
-            label="Nombre"
-            hint="Es como lo verán en el panel quienes trabajan con usted."
-            error={error}
-          >
-            {(control) => (
-              <input
-                id="name"
-                autoComplete="name"
-                {...control}
-                className={CONTROL_CLASS}
-                value={name}
-                onChange={(event) => setName(event.target.value)}
-              />
-            )}
-          </Field>
+        <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-6">
+          <div className="max-w-sm">
+            <Field
+              id="name"
+              label="Nombre"
+              hint="Es como lo verán en el panel quienes trabajan con usted."
+              error={error}
+            >
+              {(control) => (
+                <input
+                  id="name"
+                  autoComplete="name"
+                  {...control}
+                  className={CONTROL_CLASS}
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
+                />
+              )}
+            </Field>
+          </div>
+
+          <dl className="flex flex-col gap-4">
+            <ReadOnly label="Correo" value={profile.email} />
+            <ReadOnly label="Rol" value="Administrador" />
+          </dl>
 
           <button
             type="submit"
@@ -150,11 +161,6 @@ export function AdminProfile({
             {saving ? 'Guardando…' : 'Guardar'}
           </button>
         </form>
-
-        <dl className="grid gap-5 border-t border-border pt-5 sm:grid-cols-2">
-          <ReadOnly label="Correo" value={profile.email} />
-          <ReadOnly label="Rol" value="Administrador" />
-        </dl>
       </section>
 
       <PasswordSection />
