@@ -9,6 +9,9 @@ const SYMBOL = {
 };
 
 const SIZES = {
+  // For a bar that also has to hold navigation. The descriptor is forty six
+  // characters, so its width is what decides whether the row fits.
+  xs: { symbol: 'h-8 w-auto', line: 'text-[0.625rem]', name: 'text-sm' },
   sm: { symbol: 'h-9 w-auto', line: 'text-xs', name: 'text-base' },
   md: { symbol: 'h-14 w-auto', line: 'text-sm', name: 'text-2xl' },
   lg: { symbol: 'h-20 w-auto', line: 'text-sm', name: 'text-4xl' },

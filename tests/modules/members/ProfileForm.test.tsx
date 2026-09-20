@@ -101,8 +101,8 @@ describe('ProfileForm', () => {
     await user.clear(name);
     await save(user);
 
-    expect(await screen.findByText(MESSAGES.required)).toBeTruthy();
-    expect(name.getAttribute('aria-invalid')).toBe('true');
+    await waitFor(() => expect(name.getAttribute('aria-invalid')).toBe('true'));
+    expect(document.getElementById('businessName-error')?.textContent).toContain(MESSAGES.required);
     expect(saveProfile).not.toHaveBeenCalled();
   });
 
@@ -115,14 +115,13 @@ describe('ProfileForm', () => {
     await user.type(website, 'panaderia.cr');
     await save(user);
 
-    // Scoped to the paragraph, because the same rules are also carried in a
-    // hidden copy the control points at, so a screen reader reaches them
-    // without opening anything.
-    const shown = await screen.findByText(messageForFieldCode('website', 'invalid_format'), {
-      selector: 'p',
-    });
-
-    expect(shown).toBeTruthy();
+    // The refusal is reached through the control, not from a line below it:
+    // a line appearing there would push every field after it down the screen.
+    await waitFor(() =>
+      expect(document.getElementById('website-error')?.textContent).toContain(
+        messageForFieldCode('website', 'invalid_format'),
+      ),
+    );
     expect(saveProfile).not.toHaveBeenCalled();
   });
 

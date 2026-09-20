@@ -1,9 +1,16 @@
 import Link from 'next/link';
 import { ArrowRightIcon } from './icons';
-import type { SiteSection } from '@/shared/config/siteNavigation';
+
+export type Unfinished = {
+  label: string;
+  summary: string;
+  // What it will offer once it is finished. Shown so a visitor knows what is
+  // coming rather than only that something is missing.
+  coming?: readonly string[];
+};
 
 type ComingSoonProps = {
-  section: SiteSection;
+  section: Unfinished;
   // What already works in this section, when something does. A screen that says
   // only "not yet" hides the part a visitor could be using today.
   children?: React.ReactNode;

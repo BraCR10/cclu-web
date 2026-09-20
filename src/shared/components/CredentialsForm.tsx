@@ -1,11 +1,16 @@
 'use client';
 
+import Link from 'next/link';
 import { useState, type FormEvent, type ReactNode } from 'react';
 import { CONTROL_CLASS, Field } from './Field';
 import { MESSAGES, messageForError } from '@/shared/config/messages';
 import { checkField } from '@/shared/config/memberRules';
 
 type Credentials = { email: string; password: string };
+
+// One screen for both roles: the chamber sends the same link whoever asked for
+// it, and the address does not say which kind of account was behind it.
+export const FORGOTTEN_PASSWORD_PATH = '/password/forgot';
 
 type CredentialsFormProps = {
   onSignedIn: () => void;
@@ -124,6 +129,13 @@ export function CredentialsForm({
       >
         {submitting ? 'Ingresando…' : 'Ingresar'}
       </button>
+
+      <Link
+        href={FORGOTTEN_PASSWORD_PATH}
+        className="text-sm font-medium text-brand hover:underline"
+      >
+        ¿Olvidó su contraseña?
+      </Link>
 
       {footer}
     </form>

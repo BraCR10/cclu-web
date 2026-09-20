@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react';
-import { AlertIcon } from './icons';
 import { FieldRequirements } from './FieldRequirements';
 import { describeField } from '@/shared/config/messages';
 
@@ -23,19 +22,21 @@ type FieldProps = {
 };
 
 export function Field({ id, label, error, hint, requirements, children }: FieldProps) {
-  const errorId = error ? `${id}-error` : undefined;
   const hintId = hint ? `${id}-hint` : undefined;
-  const rules = requirements ?? describeField(id);
-  const rulesId = rules.length > 0 ? `${id}-requirements` : undefined;
+  const rules = error === undefined ? [] : (requirements ?? describeField(id));
+  const errorId = error === undefined ? undefined : `${id}-error`;
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex items-center gap-1.5">
+      {/* The mark sits on the label's row, not under the control. A line that
+          appears below pushes every field after it down the screen, which is
+          the moment somebody loses the place they were typing in. */}
+      <div className="flex min-h-6 items-center justify-between gap-2">
         <label htmlFor={id} className="text-sm font-medium">
           {label}
         </label>
 
-        {rulesId !== undefined && error === undefined && <FieldRequirements requirements={rules} />}
+        {error !== undefined && <FieldRequirements message={error} requirements={rules} />}
       </div>
 
       {hint && (
@@ -45,30 +46,16 @@ export function Field({ id, label, error, hint, requirements, children }: FieldP
       )}
 
       {children({
-        'aria-describedby': [hintId, rulesId, errorId].filter(Boolean).join(' ') || undefined,
+        'aria-describedby': [hintId, errorId].filter(Boolean).join(' ') || undefined,
         'aria-invalid': error ? true : undefined,
       })}
 
-      {/* A refusal has to look different from a hint. They were the same grey,
-          which made every error read as advice. */}
-      {error && (
-        <p id={errorId} className="flex items-start gap-1.5 text-sm font-medium text-danger">
-          {rulesId === undefined ? (
-            <AlertIcon className="mt-0.5 size-4 shrink-0" />
-          ) : (
-            <span className="mt-0.5">
-              <FieldRequirements requirements={rules} tone="alert" />
-            </span>
-          )}
-          {error}
-        </p>
-      )}
-
-      {/* The popup is a convenience, never the only copy. Somebody using a
-          screen reader reaches the rules through the control itself. */}
-      {rulesId !== undefined && (
-        <span id={rulesId} className="sr-only">
-          {rules.join(' ')}
+      {/* The note is a convenience, never the only copy. Somebody using a screen
+          reader is told what was refused through the control itself, without
+          having to find and open anything. */}
+      {errorId !== undefined && (
+        <span id={errorId} className="sr-only">
+          {[error, ...rules].join(' ')}
         </span>
       )}
     </div>
