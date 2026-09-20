@@ -8,12 +8,12 @@ import { RequireRole } from '@/shared/auth/RequireRole';
 import { ROLES } from '@/shared/auth/roles';
 import { PanelShell } from '@/shared/components/PanelShell';
 import { ProfileMenu } from '@/shared/components/ProfileMenu';
-import { InboxIcon, ShieldIcon } from '@/shared/components/icons';
+import { InboxIcon, UserIcon } from '@/shared/components/icons';
 import { AdminNotifications } from './AdminNotifications';
 
 export const ADMIN_NAVIGATION = [
   { href: '/admin', label: 'Solicitudes', Icon: InboxIcon },
-  { href: '/admin/security', label: 'Seguridad', Icon: ShieldIcon },
+  { href: '/admin/profile', label: 'Mi perfil', Icon: UserIcon },
 ];
 
 type AdminPanelShellProps = {
@@ -40,6 +40,7 @@ export function AdminPanelShell({ children }: AdminPanelShellProps) {
               displayName={session.identity.displayName}
               email={session.identity.email}
               roleLabel="Administrador"
+              links={[{ href: '/admin/profile', label: 'Mi perfil' }]}
               onSignOut={session.signOut}
             />
           )}

@@ -158,15 +158,6 @@ export function BadgeCheckIcon(props: IconProps) {
   );
 }
 
-export function ShieldIcon(props: IconProps) {
-  return (
-    <Svg {...props}>
-      <path d="M12 3.5 5.5 6v5.5c0 4 2.7 7.2 6.5 8.5 3.8-1.3 6.5-4.5 6.5-8.5V6z" />
-      <path d="m9.5 12 1.8 1.8 3.4-3.6" />
-    </Svg>
-  );
-}
-
 export function IdCardIcon(props: IconProps) {
   return (
     <Svg {...props}>

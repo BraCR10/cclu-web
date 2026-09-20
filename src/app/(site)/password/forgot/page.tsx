@@ -1,15 +1,5 @@
-import { ComingSoon } from '@/shared/components/ComingSoon';
-
-const SECTION = {
-  label: 'Recuperar su contraseña',
-  summary:
-    'Todavía estamos construyendo este paso. Mientras tanto, escriba a la Cámara y le restablecemos el acceso.',
-  coming: [
-    'Pida el enlace escribiendo el correo con el que se registró.',
-    'La Cámara le envía un enlace temporal a ese correo.',
-    'Desde el enlace establece una contraseña nueva, sin necesitar la anterior.',
-  ],
-} as const;
+import { ForgottenPasswordForm } from '@/shared/components/ForgottenPasswordForm';
+import { BackLink } from '@/shared/components/BackLink';
 
 export const metadata = {
   title: 'Recuperar su contraseña',
@@ -17,8 +7,17 @@ export const metadata = {
 
 export default function ForgottenPasswordPage() {
   return (
-    <main className="mx-auto w-full max-w-3xl px-6 py-16">
-      <ComingSoon section={SECTION} />
+    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-8 px-6 py-16">
+      <BackLink href="/login" label="Volver a iniciar sesión" />
+
+      <div className="flex flex-col gap-3">
+        <h1 className="text-3xl font-semibold tracking-tight">Recuperar su contraseña</h1>
+        <p className="max-w-prose text-content-muted">
+          Escriba el correo de su cuenta y le enviaremos un enlace para establecer una nueva.
+        </p>
+      </div>
+
+      <ForgottenPasswordForm />
     </main>
   );
 }
