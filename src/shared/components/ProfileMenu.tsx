@@ -19,11 +19,13 @@ function initial(name: string): string {
   return name.trim().charAt(0).toUpperCase() || '?';
 }
 
-// An administrator has no name stored anywhere, so the API answers with their
-// address for both. Printed twice it reads like a mistake, so the role takes
-// the line the name would have had.
-function heading(displayName: string, email: string, roleLabel: string): string {
-  return displayName === email ? roleLabel : displayName;
+// The API answers with the address where an account holds no name, so the two
+// arrive identical. Printed one above the other that reads like a mistake, and
+// collapsing the card to two lines hid the role along with it: the card says
+// the same three things either way, and where the name is missing it says so,
+// which is something somebody can act on from the link below it.
+function nameOf(displayName: string, email: string): string | null {
+  return displayName === email ? null : displayName;
 }
 
 export function ProfileMenu({
@@ -43,7 +45,7 @@ export function ProfileMenu({
             {initial(displayName)}
           </span>
           <span className="hidden max-w-36 truncate font-medium sm:block">
-            {heading(displayName, email, roleLabel)}
+            {nameOf(displayName, email) ?? roleLabel}
           </span>
           <ChevronDownIcon className="size-4 text-content-muted" />
         </>
@@ -52,9 +54,13 @@ export function ProfileMenu({
       {(close) => (
         <>
           <div className="flex flex-col gap-1 border-b border-border p-4">
-            <p className="font-medium">{heading(displayName, email, roleLabel)}</p>
+            {nameOf(displayName, email) === null ? (
+              <p className="text-sm text-content-muted italic">Sin nombre</p>
+            ) : (
+              <p className="font-medium">{nameOf(displayName, email)}</p>
+            )}
             <p className="truncate text-sm text-content-muted">{email}</p>
-            {displayName !== email && <p className="text-xs text-content-muted">{roleLabel}</p>}
+            <p className="text-xs text-content-muted">{roleLabel}</p>
           </div>
 
           {memberCode !== undefined && memberCode !== null && (
