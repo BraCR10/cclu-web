@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useEffect, useState, type FormEvent } from 'react';
 import { CONTROL_CLASS, Field } from '@/shared/components/Field';
 import { CharacterCount } from '@/shared/components/CharacterCount';
@@ -54,17 +55,25 @@ function messageFor(error: unknown): string {
   });
 }
 
+// Where somebody lands once the chamber has their application. A screen of its
+// own, so it survives a refresh and leaves this route free for the next person.
+export const REGISTRATION_SENT_PATH = '/register/sent';
+
 type MemberRegistrationFormProps = {
   loadCantons?: () => Promise<Canton[]>;
   loadSectors?: () => Promise<Sector[]>;
   submit?: (registration: Registration) => Promise<{ id: string }>;
+  navigate?: (path: string) => void;
 };
 
 export function MemberRegistrationForm({
   loadCantons = fetchCantons,
   loadSectors = fetchSectors,
   submit = registerMember,
+  navigate,
 }: MemberRegistrationFormProps) {
+  const router = useRouter();
+  const goTo = navigate ?? ((path: string) => router.push(path));
   const [cantons, setCantons] = useState<Canton[]>([]);
   const [sectors, setSectors] = useState<Sector[]>([]);
   const [draft, setDraft] = useState<RegistrationDraft>({
@@ -124,7 +133,11 @@ export function MemberRegistrationForm({
 
     try {
       await submit(toRegistration(draft));
+
+      // Kept true so the form does not flash back into view during the
+      // navigation, which takes a moment.
       setRegistered(true);
+      goTo(REGISTRATION_SENT_PATH);
     } catch (caught) {
       // The API refused, which no field could have caught on its own.
       reportProblem(messageFor(caught));
@@ -133,16 +146,7 @@ export function MemberRegistrationForm({
   }
 
   if (registered) {
-    return (
-      <div role="status" className="flex flex-col gap-3 rounded-panel border border-border p-6">
-        <span aria-hidden className="h-1 w-10 rounded-pill bg-support" />
-        <h2 className="text-xl font-semibold tracking-tight">Registro enviado</h2>
-        <p className="text-content-muted">
-          La Cámara revisará su solicitud. Le escribiremos al correo que indicó cuando haya una
-          respuesta.
-        </p>
-      </div>
-    );
+    return <p className="text-sm text-content-muted">Enviando su solicitud…</p>;
   }
 
   const memberType = (draft.memberType ?? MEMBER_TYPES.BUSINESS) as MemberType;
