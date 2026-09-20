@@ -40,6 +40,23 @@ describe('AdminProfile', () => {
     expect(screen.getByText('Administrador')).toBeTruthy();
   });
 
+  // Read out in the order somebody would say them: who they are, where the
+  // chamber writes to them, what they may do.
+  it('reads name, then address, then role', async () => {
+    const { container } = render(
+      <AdminProfile loadProfile={async () => profile()} saveName={vi.fn()} />,
+    );
+
+    await screen.findByDisplayValue('Ana Rojas');
+
+    // Scoped to the account card: the password section below it has a field of
+    // its own and is not part of this list.
+    const card = container.querySelector('section') as HTMLElement;
+    const labels = Array.from(card.querySelectorAll('label, dt')).map((node) => node.textContent);
+
+    expect(labels).toEqual(['Nombre', 'Correo', 'Rol']);
+  });
+
   // The chamber decides who is an administrator and at what address. Offering
   // a field for either would suggest otherwise.
   it('shows what the chamber decides as read only, never as a field', async () => {
