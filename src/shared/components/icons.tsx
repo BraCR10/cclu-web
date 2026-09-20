@@ -151,3 +151,13 @@ export function ShieldIcon(props: IconProps) {
     </Svg>
   );
 }
+
+export function IdCardIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <circle cx="9" cy="11" r="1.8" />
+      <path d="M6.2 16a3 3 0 0 1 5.6 0M14 10h4M14 13.5h4" />
+    </Svg>
+  );
+}
