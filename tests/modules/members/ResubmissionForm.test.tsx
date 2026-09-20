@@ -63,8 +63,12 @@ describe('ResubmissionForm', () => {
     await user.type(name, 'Ferretería Corregida');
     await user.click(screen.getByRole('button', { name: 'Enviar de nuevo' }));
 
-    await waitFor(() => expect(resubmit).toHaveBeenCalledOnce());
-    expect(resubmit.mock.calls[0][1].businessName).toBe('Ferretería Corregida');
+    await waitFor(() =>
+      expect(resubmit).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.objectContaining({ businessName: 'Ferretería Corregida' }),
+      ),
+    );
     expect(await screen.findByText('Su solicitud quedó enviada de nuevo')).toBeTruthy();
   });
 
