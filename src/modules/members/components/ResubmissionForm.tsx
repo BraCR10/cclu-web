@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState, type FormEvent } from 'react';
 import { Field, CONTROL_CLASS } from '@/shared/components/Field';
+import { focusFirstInvalid } from '@/shared/forms';
 import { WithContactIcon, contactPadding } from '@/shared/components/contactFields';
 import { AlertIcon, CheckCircleIcon } from '@/shared/components/icons';
 import { checkField } from '@/shared/config/memberRules';
@@ -114,6 +115,7 @@ export function ResubmissionForm({
     setErrors(found);
 
     if (Object.keys(found).length > 0) {
+      focusFirstInvalid([...REQUIRED, ...OPTIONAL], found);
       return;
     }
 

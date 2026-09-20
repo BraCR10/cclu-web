@@ -5,6 +5,7 @@ import { useState, type FormEvent, type ReactNode } from 'react';
 import { CONTROL_CLASS, Field } from './Field';
 import { MESSAGES, messageForError } from '@/shared/config/messages';
 import { checkField } from '@/shared/config/memberRules';
+import { focusFirstInvalid } from '@/shared/forms';
 import { ToastStack } from './ToastStack';
 import { useToasts } from './useToasts';
 
@@ -68,9 +69,10 @@ export function CredentialsForm({
     const found = findFieldErrors();
     setFieldErrors(found);
 
-    // No banner here. Each field carries its own mark, and repeating it above
-    // the form says less than the marks already do.
+    // No banner. Each field carries its own mark, and the form moves to the
+    // first one it refused rather than sitting still and looking broken.
     if (Object.keys(found).length > 0) {
+      focusFirstInvalid(['email', 'password'], found);
       return;
     }
 

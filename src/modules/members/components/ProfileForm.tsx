@@ -8,6 +8,7 @@ import { formatMemberCode } from '@/shared/format';
 import { WithContactIcon, contactPadding } from '@/shared/components/contactFields';
 import { MESSAGES, messageForError, messageForFieldCode } from '@/shared/config/messages';
 import { checkField } from '@/shared/config/memberRules';
+import { focusFirstInvalid } from '@/shared/forms';
 import { IDENTIFICATION_TYPE_LABELS, MEMBER_TYPE_LABELS } from '@/modules/admin/applicationRules';
 import {
   fetchCantons,
@@ -182,9 +183,11 @@ export function ProfileForm({
     const found = findFieldErrors(draft);
     setErrors(found);
 
-    // No notice here. Each field carries its own mark beside its label, and
-    // announcing the same thing again says less than the marks already do.
+    // No notice. Each field carries its own mark beside its label, and the
+    // form moves to the first one it refused: a mark scrolled out of view is
+    // indistinguishable from a button that does nothing.
     if (Object.keys(found).length > 0) {
+      focusFirstInvalid([...TEXT_FIELDS.map(({ name }) => name), 'businessDescription'], found);
       return;
     }
 

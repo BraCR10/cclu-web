@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type FormEvent } from 'react';
 import { CONTROL_CLASS, Field } from '@/shared/components/Field';
+import { focusFirstInvalid } from '@/shared/forms';
 import { WithContactIcon, contactPadding } from '@/shared/components/contactFields';
 import { MESSAGES, PASSWORD_HINT, messageForError } from '@/shared/config/messages';
 import { ToastStack } from '@/shared/components/ToastStack';
@@ -18,6 +19,7 @@ import {
   type Sector,
 } from '../api/registration';
 import {
+  FIELD_ORDER,
   LABELS,
   hasErrors,
   toRegistration,
@@ -112,7 +114,10 @@ export function MemberRegistrationForm({
     const found = validateRegistration(draft);
     setErrors(found);
 
+    // Fifteen fields is more than fits on one screen, so the form moves to the
+    // first one it refused instead of leaving the person to hunt for the mark.
     if (hasErrors(found)) {
+      focusFirstInvalid(FIELD_ORDER, found);
       return;
     }
 

@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { BrandMark } from '@/shared/components/BrandMark';
-import { BackToHome } from '@/shared/components/BackToHome';
+import { BackLink } from '@/shared/components/BackLink';
 import { ThemeToggle } from '@/shared/components/ThemeToggle';
 import { MemberLoginForm } from '@/modules/members/components/MemberLoginForm';
 
@@ -40,7 +40,7 @@ export default function MemberLoginPage() {
             <BrandMark size="sm" className="text-content" />
           </Link>
 
-          <BackToHome />
+          <BackLink href="/" label="Volver al inicio" />
 
           <div className="flex flex-col gap-2">
             <p className="text-sm font-medium tracking-wide text-content-muted uppercase">
