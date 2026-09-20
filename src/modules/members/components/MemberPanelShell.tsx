@@ -2,21 +2,20 @@
 
 import type { ReactNode } from 'react';
 import { useSession } from '@/shared/auth/useSession';
-import { useRequireSession } from '@/shared/auth/useRequireSession';
+import { useRequireRole } from '@/shared/auth/useRequireRole';
 import { SIGN_IN_PATH } from '@/shared/auth/sessionApi';
 import { RequireRole } from '@/shared/auth/RequireRole';
 import { ROLES } from '@/shared/auth/roles';
 import { PanelShell } from '@/shared/components/PanelShell';
 import { ProfileMenu } from '@/shared/components/ProfileMenu';
 import { NotificationsMenu } from '@/shared/components/NotificationsMenu';
-import { BadgeCheckIcon, IdCardIcon, ShieldIcon, UserIcon } from '@/shared/components/icons';
+import { BadgeCheckIcon, IdCardIcon, UserIcon } from '@/shared/components/icons';
 import { formatMemberCode } from '@/shared/format';
 
 export const MEMBER_NAVIGATION = [
   { href: '/member', label: 'Mi perfil', Icon: UserIcon },
   { href: '/member/card', label: 'Mi carné', Icon: IdCardIcon },
   { href: '/member/verify', label: 'Verificar código', Icon: BadgeCheckIcon },
-  { href: '/member/security', label: 'Seguridad', Icon: ShieldIcon },
 ];
 
 type MemberPanelShellProps = {
@@ -26,7 +25,7 @@ type MemberPanelShellProps = {
 export function MemberPanelShell({ children }: MemberPanelShellProps) {
   const session = useSession();
 
-  useRequireSession(session, { signInPath: SIGN_IN_PATH });
+  useRequireRole(session, { allow: [ROLES.MEMBER], signInPath: SIGN_IN_PATH });
 
   return (
     <PanelShell
