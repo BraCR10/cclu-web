@@ -2,7 +2,8 @@
 
 import { useState, type FormEvent } from 'react';
 import { ApiError } from '@/shared/api/request';
-import { checkPassword, messageForCode, PASSWORD_HINT } from '@/shared/config/memberRules';
+import { checkPassword, PASSWORD_HINT } from '@/shared/config/memberRules';
+import { messageForCode } from '@/shared/config/messages';
 import { confirmPasswordChange, requestPasswordCode } from '@/shared/auth/passwordChange';
 import { Field, CONTROL_CLASS } from './Field';
 import { ToastStack } from './ToastStack';
@@ -149,14 +150,14 @@ export function PasswordChangeForm({
         </div>
 
         <Field id="currentPassword" label="Contraseña actual" error={errors.currentPassword}>
-          {(describedBy) => (
+          {(control) => (
             <input
               id="currentPassword"
               type="password"
               autoComplete="current-password"
               value={currentPassword}
               onChange={(event) => setCurrentPassword(event.target.value)}
-              aria-describedby={describedBy}
+              {...control}
               disabled={minutesValid !== null}
               required
               className={`${CONTROL_CLASS} disabled:opacity-60`}
@@ -191,7 +192,7 @@ export function PasswordChangeForm({
         </div>
 
         <Field id="code" label="Código de verificación" error={errors.code}>
-          {(describedBy) => (
+          {(control) => (
             <input
               id="code"
               inputMode="numeric"
@@ -199,7 +200,7 @@ export function PasswordChangeForm({
               maxLength={6}
               value={code}
               onChange={(event) => setCode(event.target.value.replace(/[^0-9]/g, ''))}
-              aria-describedby={describedBy}
+              {...control}
               disabled={minutesValid === null}
               required
               className={`${CONTROL_CLASS} font-mono text-lg tracking-[0.4em] tabular-nums`}
@@ -213,14 +214,14 @@ export function PasswordChangeForm({
           hint={PASSWORD_HINT}
           error={errors.newPassword}
         >
-          {(describedBy) => (
+          {(control) => (
             <input
               id="newPassword"
               type="password"
               autoComplete="new-password"
               value={newPassword}
               onChange={(event) => setNewPassword(event.target.value)}
-              aria-describedby={describedBy}
+              {...control}
               disabled={minutesValid === null}
               required
               className={CONTROL_CLASS}
@@ -229,14 +230,14 @@ export function PasswordChangeForm({
         </Field>
 
         <Field id="confirmation" label="Repita la nueva contraseña" error={errors.confirmation}>
-          {(describedBy) => (
+          {(control) => (
             <input
               id="confirmation"
               type="password"
               autoComplete="new-password"
               value={confirmation}
               onChange={(event) => setConfirmation(event.target.value)}
-              aria-describedby={describedBy}
+              {...control}
               disabled={minutesValid === null}
               required
               className={CONTROL_CLASS}

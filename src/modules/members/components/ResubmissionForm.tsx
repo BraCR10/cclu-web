@@ -2,8 +2,10 @@
 
 import { useCallback, useEffect, useState, type FormEvent } from 'react';
 import { Field, CONTROL_CLASS } from '@/shared/components/Field';
+import { WithContactIcon, contactPadding } from '@/shared/components/contactFields';
 import { AlertIcon, CheckCircleIcon } from '@/shared/components/icons';
-import { checkField, messageForCode } from '@/shared/config/memberRules';
+import { checkField } from '@/shared/config/memberRules';
+import { messageForCode } from '@/shared/config/messages';
 import { ApiError } from '@/shared/api/request';
 import {
   fetchRejectedRegistration,
@@ -200,16 +202,18 @@ export function ResubmissionForm({
             .filter((field) => field !== 'businessDescription')
             .map((field) => (
               <Field key={field} id={field} label={LABELS[field]} error={errors[field]}>
-                {(describedBy) => (
-                  <input
-                    id={field}
-                    value={draft[field] ?? ''}
-                    onChange={(event) =>
-                      setDraft((current) => ({ ...current, [field]: event.target.value }))
-                    }
-                    aria-describedby={describedBy}
-                    className={CONTROL_CLASS}
-                  />
+                {(control) => (
+                  <WithContactIcon field={field}>
+                    <input
+                      id={field}
+                      value={draft[field] ?? ''}
+                      onChange={(event) =>
+                        setDraft((current) => ({ ...current, [field]: event.target.value }))
+                      }
+                      {...control}
+                      className={`${CONTROL_CLASS} w-full ${contactPadding(field)}`}
+                    />
+                  </WithContactIcon>
                 )}
               </Field>
             ))}
@@ -220,14 +224,14 @@ export function ResubmissionForm({
           label={LABELS.businessDescription}
           error={errors.businessDescription}
         >
-          {(describedBy) => (
+          {(control) => (
             <textarea
               id="businessDescription"
               value={draft.businessDescription ?? ''}
               onChange={(event) =>
                 setDraft((current) => ({ ...current, businessDescription: event.target.value }))
               }
-              aria-describedby={describedBy}
+              {...control}
               rows={4}
               maxLength={500}
               className={`${CONTROL_CLASS} resize-y`}

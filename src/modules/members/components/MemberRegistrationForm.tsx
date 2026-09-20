@@ -1,8 +1,10 @@
 'use client';
 
 import { useEffect, useState, type FormEvent } from 'react';
-import { ApiError } from '@/shared/api/request';
 import { CONTROL_CLASS, Field } from '@/shared/components/Field';
+import { WithContactIcon, contactPadding } from '@/shared/components/contactFields';
+import { MESSAGES, messageForError } from '@/shared/config/messages';
+import { PASSWORD_HINT } from '@/shared/config/memberRules';
 import {
   IDENTIFICATION_TYPES,
   MEMBER_TYPES,
@@ -16,7 +18,6 @@ import {
 } from '../api/registration';
 import {
   LABELS,
-  MINIMUM_PASSWORD_LENGTH,
   hasErrors,
   toRegistration,
   validateRegistration,
@@ -39,22 +40,16 @@ const OPTIONAL_FIELDS: { name: keyof Registration; label: string }[] = [
   { name: 'website', label: 'Página web' },
 ];
 
-const SUBMIT_MESSAGES = {
-  duplicate: 'No fue posible completar el registro. Comuníquese con la Cámara para continuar.',
-  invalid: 'Revise los datos marcados e intente de nuevo.',
-  unavailable: 'No fue posible enviar el registro. Intente de nuevo en unos momentos.',
-};
+// An address already registered and a body the API rejected mean different
+// things to somebody filling this in, so the form names both rather than
+// letting them fall through to the same sentence.
+const SUBMIT_STATUS = { 409: 'already_registered', 400: 'form_incomplete' };
 
 function messageFor(error: unknown): string {
-  if (error instanceof ApiError && error.status === 409) {
-    return SUBMIT_MESSAGES.duplicate;
-  }
-
-  if (error instanceof ApiError && error.status === 400) {
-    return SUBMIT_MESSAGES.invalid;
-  }
-
-  return SUBMIT_MESSAGES.unavailable;
+  return messageForError(error, {
+    byStatus: SUBMIT_STATUS,
+    fallback: MESSAGES.registration_unavailable,
+  });
 }
 
 type MemberRegistrationFormProps = {
@@ -91,7 +86,7 @@ export function MemberRegistrationForm({
       })
       .catch(() => {
         if (mounted) {
-          setSubmitError(SUBMIT_MESSAGES.unavailable);
+          setSubmitError(MESSAGES.registration_unavailable);
         }
       });
 
@@ -165,10 +160,10 @@ export function MemberRegistrationForm({
 
       <div className="grid gap-5 sm:grid-cols-2">
         <Field id="businessName" label={labels.name} error={errors.businessName}>
-          {(describedBy) => (
+          {(control) => (
             <input
               id="businessName"
-              aria-describedby={describedBy}
+              {...control}
               className={CONTROL_CLASS}
               value={draft.businessName ?? ''}
               onChange={(event) => set('businessName', event.target.value)}
@@ -177,8 +172,9 @@ export function MemberRegistrationForm({
         </Field>
 
         <Field id="identificationType" label="Tipo de identificación">
-          {() => (
+          {(control) => (
             <select
+              {...control}
               id="identificationType"
               className={CONTROL_CLASS}
               value={draft.identificationType ?? ''}
@@ -198,10 +194,10 @@ export function MemberRegistrationForm({
           label={labels.identification}
           error={errors.identificationNumber}
         >
-          {(describedBy) => (
+          {(control) => (
             <input
               id="identificationNumber"
-              aria-describedby={describedBy}
+              {...control}
               className={CONTROL_CLASS}
               value={draft.identificationNumber ?? ''}
               onChange={(event) => set('identificationNumber', event.target.value)}
@@ -210,12 +206,12 @@ export function MemberRegistrationForm({
         </Field>
 
         <Field id="email" label="Correo electrónico" error={errors.email}>
-          {(describedBy) => (
+          {(control) => (
             <input
               id="email"
               type="email"
               autoComplete="email"
-              aria-describedby={describedBy}
+              {...control}
               className={CONTROL_CLASS}
               value={draft.email ?? ''}
               onChange={(event) => set('email', event.target.value)}
@@ -224,10 +220,10 @@ export function MemberRegistrationForm({
         </Field>
 
         <Field id="phone" label="Teléfono" error={errors.phone}>
-          {(describedBy) => (
+          {(control) => (
             <input
               id="phone"
-              aria-describedby={describedBy}
+              {...control}
               className={CONTROL_CLASS}
               value={draft.phone ?? ''}
               onChange={(event) => set('phone', event.target.value)}
@@ -236,10 +232,10 @@ export function MemberRegistrationForm({
         </Field>
 
         <Field id="canton" label="Cantón" error={errors.canton}>
-          {(describedBy) => (
+          {(control) => (
             <select
               id="canton"
-              aria-describedby={describedBy}
+              {...control}
               className={CONTROL_CLASS}
               value={draft.canton ?? ''}
               onChange={(event) => set('canton', event.target.value)}
@@ -255,10 +251,10 @@ export function MemberRegistrationForm({
         </Field>
 
         <Field id="sector" label="Sector" error={errors.sector}>
-          {(describedBy) => (
+          {(control) => (
             <select
               id="sector"
-              aria-describedby={describedBy}
+              {...control}
               className={CONTROL_CLASS}
               value={draft.sector ?? ''}
               onChange={(event) => set('sector', event.target.value)}
@@ -274,10 +270,10 @@ export function MemberRegistrationForm({
         </Field>
 
         <Field id="location" label="Ubicación" error={errors.location}>
-          {(describedBy) => (
+          {(control) => (
             <input
               id="location"
-              aria-describedby={describedBy}
+              {...control}
               className={CONTROL_CLASS}
               value={draft.location ?? ''}
               onChange={(event) => set('location', event.target.value)}
@@ -287,11 +283,11 @@ export function MemberRegistrationForm({
       </div>
 
       <Field id="businessDescription" label="Descripción breve" error={errors.businessDescription}>
-        {(describedBy) => (
+        {(control) => (
           <textarea
             id="businessDescription"
             rows={3}
-            aria-describedby={describedBy}
+            {...control}
             className={CONTROL_CLASS}
             value={draft.businessDescription ?? ''}
             onChange={(event) => set('businessDescription', event.target.value)}
@@ -300,18 +296,13 @@ export function MemberRegistrationForm({
       </Field>
 
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field
-          id="password"
-          label="Contraseña"
-          hint={`Al menos ${MINIMUM_PASSWORD_LENGTH} caracteres.`}
-          error={errors.password}
-        >
-          {(describedBy) => (
+        <Field id="password" label="Contraseña" hint={PASSWORD_HINT} error={errors.password}>
+          {(control) => (
             <input
               id="password"
               type="password"
               autoComplete="new-password"
-              aria-describedby={describedBy}
+              {...control}
               className={CONTROL_CLASS}
               value={draft.password ?? ''}
               onChange={(event) => set('password', event.target.value)}
@@ -324,12 +315,12 @@ export function MemberRegistrationForm({
           label="Confirme la contraseña"
           error={errors.passwordConfirmation}
         >
-          {(describedBy) => (
+          {(control) => (
             <input
               id="passwordConfirmation"
               type="password"
               autoComplete="new-password"
-              aria-describedby={describedBy}
+              {...control}
               className={CONTROL_CLASS}
               value={draft.passwordConfirmation ?? ''}
               onChange={(event) => set('passwordConfirmation', event.target.value)}
@@ -342,15 +333,20 @@ export function MemberRegistrationForm({
         <summary className="cursor-pointer text-sm font-medium">Redes y contacto, opcional</summary>
 
         <div className="mt-5 grid gap-5 sm:grid-cols-2">
+          {/* These carry the control and the error like every other field.
+              Dropping them left a rejected handle silently marked wrong. */}
           {OPTIONAL_FIELDS.map(({ name, label }) => (
-            <Field key={name} id={name} label={label}>
-              {() => (
-                <input
-                  id={name}
-                  className={CONTROL_CLASS}
-                  value={draft[name] ?? ''}
-                  onChange={(event) => set(name, event.target.value)}
-                />
+            <Field key={name} id={name} label={label} error={errors[name]}>
+              {(control) => (
+                <WithContactIcon field={name}>
+                  <input
+                    id={name}
+                    {...control}
+                    className={`${CONTROL_CLASS} w-full ${contactPadding(name)}`}
+                    value={draft[name] ?? ''}
+                    onChange={(event) => set(name, event.target.value)}
+                  />
+                </WithContactIcon>
               )}
             </Field>
           ))}

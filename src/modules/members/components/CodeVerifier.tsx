@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, type FormEvent } from 'react';
-import { ApiError } from '@/shared/api/request';
+import { Field, CONTROL_CLASS } from '@/shared/components/Field';
+import { MESSAGES, messageForError } from '@/shared/config/messages';
 import { CheckCircleIcon, CrossCircleIcon } from '@/shared/components/icons';
 import { MEMBER_TYPE_LABELS } from '@/modules/admin/applicationRules';
 import { verifyMemberCode, type VerificationResult } from '../api/verification';
@@ -10,14 +11,10 @@ type CodeVerifierProps = {
   verify?: (code: string) => Promise<VerificationResult>;
 };
 
-const MESSAGES = {
-  tooMany: 'Demasiadas consultas. Espere unos minutos e intente de nuevo.',
-  unavailable: 'No fue posible verificar el código. Intente de nuevo en unos momentos.',
-};
-
 export function CodeVerifier({ verify = verifyMemberCode }: CodeVerifierProps) {
   const [code, setCode] = useState('');
   const [result, setResult] = useState<VerificationResult | null>(null);
+  const [fieldError, setFieldError] = useState<string | undefined>(undefined);
   const [problem, setProblem] = useState<string | null>(null);
   const [checking, setChecking] = useState(false);
 
@@ -25,16 +22,21 @@ export function CodeVerifier({ verify = verifyMemberCode }: CodeVerifierProps) {
     event.preventDefault();
     setResult(null);
     setProblem(null);
+
+    // The button stays pressable so the form can say what is missing. A
+    // disabled one leaves the person guessing which rule they broke.
+    if (code.trim() === '') {
+      setFieldError(MESSAGES.required);
+      return;
+    }
+
+    setFieldError(undefined);
     setChecking(true);
 
     try {
       setResult(await verify(code.trim()));
     } catch (caught) {
-      setProblem(
-        caught instanceof ApiError && caught.status === 429
-          ? MESSAGES.tooMany
-          : MESSAGES.unavailable,
-      );
+      setProblem(messageForError(caught, { fallback: MESSAGES.verification_unavailable }));
     } finally {
       setChecking(false);
     }
@@ -46,32 +48,34 @@ export function CodeVerifier({ verify = verifyMemberCode }: CodeVerifierProps) {
         onSubmit={handleSubmit}
         className="flex flex-col gap-4 rounded-panel border border-border bg-surface-raised p-6"
       >
-        <label htmlFor="member-code" className="text-sm font-medium">
-          Código de agremiado
-        </label>
-        <p className="text-sm text-content-muted">
-          Escríbalo como aparece en el carné. No importan las mayúsculas ni los guiones.
-        </p>
-
-        <div className="flex flex-col gap-3 sm:flex-row">
-          <input
-            id="member-code"
-            value={code}
-            onChange={(event) => setCode(event.target.value)}
-            required
-            autoComplete="off"
-            spellCheck={false}
-            placeholder="M-A7K2-Q4"
-            className="flex-1 rounded-control border border-border bg-surface px-4 py-3 font-mono text-lg tracking-widest tabular-nums uppercase outline-none focus-visible:ring-2 focus-visible:ring-brand"
-          />
-          <button
-            type="submit"
-            disabled={checking || code.trim() === ''}
-            className="rounded-control bg-brand px-6 py-3 font-medium text-on-brand disabled:opacity-50"
-          >
-            {checking ? 'Verificando…' : 'Verificar'}
-          </button>
-        </div>
+        <Field
+          id="member-code"
+          label="Código de agremiado"
+          hint="Escríbalo como aparece en el carné. No importan las mayúsculas ni los guiones."
+          error={fieldError}
+        >
+          {(control) => (
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <input
+                {...control}
+                id="member-code"
+                value={code}
+                onChange={(event) => setCode(event.target.value)}
+                autoComplete="off"
+                spellCheck={false}
+                placeholder="M-A7K2-Q4"
+                className={`${CONTROL_CLASS} flex-1 py-3 font-mono text-lg tracking-widest tabular-nums uppercase`}
+              />
+              <button
+                type="submit"
+                disabled={checking}
+                className="rounded-control bg-brand px-6 py-3 font-medium text-on-brand disabled:opacity-50"
+              >
+                {checking ? 'Verificando…' : 'Verificar'}
+              </button>
+            </div>
+          )}
+        </Field>
       </form>
 
       {problem !== null && (
