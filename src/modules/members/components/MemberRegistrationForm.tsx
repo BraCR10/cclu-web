@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type FormEvent } from 'react';
 import { CONTROL_CLASS, Field } from '@/shared/components/Field';
+import { CharacterCount } from '@/shared/components/CharacterCount';
 import { focusFirstInvalid } from '@/shared/forms';
 import { WithContactIcon, contactPadding } from '@/shared/components/contactFields';
 import { MESSAGES, PASSWORD_HINT, messageForError } from '@/shared/config/messages';
@@ -296,14 +297,17 @@ export function MemberRegistrationForm({
 
       <Field id="businessDescription" label="Descripción breve" error={errors.businessDescription}>
         {(control) => (
-          <textarea
-            id="businessDescription"
-            rows={3}
-            {...control}
-            className={CONTROL_CLASS}
-            value={draft.businessDescription ?? ''}
-            onChange={(event) => set('businessDescription', event.target.value)}
-          />
+          <div className="flex flex-col gap-1.5">
+            <textarea
+              id="businessDescription"
+              rows={3}
+              {...control}
+              className={CONTROL_CLASS}
+              value={draft.businessDescription ?? ''}
+              onChange={(event) => set('businessDescription', event.target.value)}
+            />
+            <CharacterCount field="businessDescription" value={draft.businessDescription ?? ''} />
+          </div>
         )}
       </Field>
 

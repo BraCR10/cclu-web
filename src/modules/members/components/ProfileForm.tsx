@@ -2,12 +2,13 @@
 
 import { useCallback, useEffect, useState, type FormEvent } from 'react';
 import { Field, CONTROL_CLASS } from '@/shared/components/Field';
+import { CharacterCount } from '@/shared/components/CharacterCount';
 import { ToastStack } from '@/shared/components/ToastStack';
 import { useToasts } from '@/shared/components/useToasts';
 import { formatMemberCode } from '@/shared/format';
 import { WithContactIcon, contactPadding } from '@/shared/components/contactFields';
 import { MESSAGES, messageForError, messageForFieldCode } from '@/shared/config/messages';
-import { checkField } from '@/shared/config/memberRules';
+import { FIELDS, checkField } from '@/shared/config/memberRules';
 import { focusFirstInvalid } from '@/shared/forms';
 import { IDENTIFICATION_TYPE_LABELS, MEMBER_TYPE_LABELS } from '@/modules/admin/applicationRules';
 import {
@@ -47,7 +48,7 @@ const TEXT_FIELDS: {
   { name: 'instagram', label: 'Instagram' },
   { name: 'facebook', label: 'Facebook' },
   { name: 'linkedin', label: 'LinkedIn' },
-  { name: 'website', label: 'Sitio web', hint: 'Debe empezar con https://' },
+  { name: 'website', label: 'Sitio web' },
 ];
 
 type FieldErrors = Partial<Record<string, string>>;
@@ -353,17 +354,21 @@ export function ProfileForm({
           id="businessDescription"
           label="Descripción del negocio"
           hint="Esto es lo que verá quien lo encuentre en el directorio."
+          error={errors.businessDescription}
         >
           {(control) => (
-            <textarea
-              id="businessDescription"
-              value={draft.businessDescription ?? ''}
-              onChange={(event) => set('businessDescription', event.target.value)}
-              {...control}
-              rows={4}
-              maxLength={500}
-              className={`${CONTROL_CLASS} resize-y`}
-            />
+            <div className="flex flex-col gap-1.5">
+              <textarea
+                id="businessDescription"
+                value={draft.businessDescription ?? ''}
+                onChange={(event) => set('businessDescription', event.target.value)}
+                {...control}
+                rows={4}
+                maxLength={FIELDS.businessDescription.maxLength}
+                className={`${CONTROL_CLASS} resize-y`}
+              />
+              <CharacterCount field="businessDescription" value={draft.businessDescription ?? ''} />
+            </div>
           )}
         </Field>
 

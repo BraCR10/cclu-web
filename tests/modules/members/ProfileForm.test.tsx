@@ -140,6 +140,32 @@ describe('ProfileForm', () => {
     await waitFor(() => expect(document.activeElement).toBe(name));
   });
 
+  // It carried no error, so a refusal on it was computed and thrown away, and
+  // the rules behind the mark never appeared either.
+  it('refuses an empty description and says so on that field', async () => {
+    const { saveProfile, user } = renderForm();
+
+    await user.clear(await screen.findByLabelText(/Descripción del negocio/));
+    await save(user);
+
+    await waitFor(() =>
+      expect(document.getElementById('businessDescription-error')?.textContent).toContain(
+        MESSAGES.required,
+      ),
+    );
+    expect(saveProfile).not.toHaveBeenCalled();
+  });
+
+  // The browser caps this one, so it can never refuse anything and the rule
+  // behind the mark would never appear. The count is how the limit is stated.
+  it('states the description limit as a count rather than only capping it', async () => {
+    renderForm();
+
+    await screen.findByLabelText(/Descripción del negocio/);
+
+    expect(screen.getByText(/de 500 caracteres/)).toBeTruthy();
+  });
+
   it('confirms a save that went through', async () => {
     const { user } = renderForm();
 
