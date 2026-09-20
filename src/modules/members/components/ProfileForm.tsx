@@ -4,9 +4,9 @@ import { useCallback, useEffect, useState, type FormEvent } from 'react';
 import { Field, CONTROL_CLASS } from '@/shared/components/Field';
 import { ToastStack } from '@/shared/components/ToastStack';
 import { useToasts } from '@/shared/components/useToasts';
-import { formatMemberCode } from '@/shared/format/memberCode';
+import { formatMemberCode } from '@/shared/format';
 import { ApiError } from '@/shared/api/request';
-import { IDENTIFICATION_TYPE_LABELS, MEMBER_TYPE_LABELS } from '@/modules/admin/applicationLabels';
+import { IDENTIFICATION_TYPE_LABELS, MEMBER_TYPE_LABELS } from '@/modules/admin/applicationRules';
 import {
   fetchCantons,
   fetchSectors,
@@ -20,7 +20,7 @@ import {
   type MemberProfile,
   type ProfileChanges,
 } from '../api/profile';
-import { MEMBER_STATE_LABELS, MEMBER_STATE_TONE } from '../memberStateLabels';
+import { MEMBER_STATE_LABELS, MEMBER_STATE_TONE } from '../memberLabels';
 
 type ProfileFormProps = {
   loadProfile?: () => Promise<MemberProfile>;

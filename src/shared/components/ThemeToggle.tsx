@@ -1,7 +1,7 @@
 'use client';
 
-import { useTheme } from '@/shared/theme/useTheme';
-import type { ThemeChoice } from '@/shared/theme/themeChoice';
+import { useTheme } from '@/shared/theme';
+import type { ThemeChoice } from '@/shared/theme';
 import { MoonIcon, SunIcon, SystemIcon } from './icons';
 
 const OPTIONS: { choice: ThemeChoice; label: string; Icon: typeof SunIcon }[] = [

@@ -1,7 +1,7 @@
-import { formatMemberCode } from '@/shared/format/memberCode';
+import { formatMemberCode } from '@/shared/format';
 import { CheckCircleIcon, CrossCircleIcon } from '@/shared/components/icons';
 import type { DecidedApplication } from '../api/applications';
-import { IDENTIFICATION_TYPE_LABELS, MEMBER_TYPE_LABELS } from '../applicationLabels';
+import { IDENTIFICATION_TYPE_LABELS, MEMBER_TYPE_LABELS } from '../applicationRules';
 
 const dateFormatter = new Intl.DateTimeFormat('es-CR', {
   day: 'numeric',

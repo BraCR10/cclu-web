@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from 'react';
 import { CONTROL_CLASS, Field } from '@/shared/components/Field';
 import { signInMember, type MemberCredentials } from '../api/memberSession';
-import { messageFor } from '../memberLoginMessages';
+import { messageFor } from '../memberLabels';
 
 type MemberLoginFormProps = {
   onSignedIn: () => void;

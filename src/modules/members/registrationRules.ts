@@ -1,6 +1,7 @@
 import { MEMBER_TYPES, type MemberType, type Registration } from './api/registration';
+import { PASSWORD, checkField, checkPassword, messageForCode } from '@/shared/config/memberRules';
 
-export const MINIMUM_PASSWORD_LENGTH = 12;
+export const MINIMUM_PASSWORD_LENGTH = PASSWORD.minimumLength;
 
 // Spanish, because these reach a person. The server validates the same things
 // again, and that is the check that counts.
@@ -33,12 +34,15 @@ const REQUIRED_FIELDS: (keyof Registration)[] = [
   'password',
 ];
 
-const MESSAGES = {
-  required: 'Este dato es obligatorio.',
-  email: 'Escriba un correo electrónico válido.',
-  password: `La contraseña debe tener al menos ${MINIMUM_PASSWORD_LENGTH} caracteres.`,
-  confirmation: 'Las contraseñas no coinciden.',
-};
+const OPTIONAL_FIELDS: (keyof Registration)[] = [
+  'whatsappNumber',
+  'instagram',
+  'facebook',
+  'linkedin',
+  'website',
+];
+
+const CONFIRMATION_MESSAGE = 'Las contraseñas no coinciden.';
 
 export type RegistrationErrors = Partial<Record<keyof RegistrationDraft, string>>;
 
@@ -47,26 +51,36 @@ export type RegistrationErrors = Partial<Record<keyof RegistrationDraft, string>
 export function validateRegistration(draft: RegistrationDraft): RegistrationErrors {
   const errors: RegistrationErrors = {};
 
+  // The same codes the API would answer with, so the sentence a person reads
+  // does not change depending on which side caught the mistake.
   for (const field of REQUIRED_FIELDS) {
-    if ((draft[field] ?? '').trim() === '') {
-      errors[field] = MESSAGES.required;
+    const code = checkField(field, draft[field] ?? '', { required: true });
+
+    if (code !== null) {
+      errors[field] = messageForCode(code);
     }
   }
 
-  const email = (draft.email ?? '').trim();
+  for (const field of OPTIONAL_FIELDS) {
+    const code = checkField(field, draft[field] ?? '', { required: false });
 
-  if (email !== '' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    errors.email = MESSAGES.email;
+    if (code !== null) {
+      errors[field] = messageForCode(code);
+    }
   }
 
   const password = draft.password ?? '';
 
-  if (password !== '' && password.length < MINIMUM_PASSWORD_LENGTH) {
-    errors.password = MESSAGES.password;
-  }
+  if (password !== '') {
+    const code = checkPassword(password);
 
-  if (password !== '' && draft.passwordConfirmation !== password) {
-    errors.passwordConfirmation = MESSAGES.confirmation;
+    if (code !== null) {
+      errors.password = messageForCode(code);
+    }
+
+    if (draft.passwordConfirmation !== password) {
+      errors.passwordConfirmation = CONFIRMATION_MESSAGE;
+    }
   }
 
   return errors;
@@ -75,14 +89,6 @@ export function validateRegistration(draft: RegistrationDraft): RegistrationErro
 export function hasErrors(errors: RegistrationErrors): boolean {
   return Object.keys(errors).length > 0;
 }
-
-const OPTIONAL_FIELDS: (keyof Registration)[] = [
-  'whatsappNumber',
-  'instagram',
-  'facebook',
-  'linkedin',
-  'website',
-];
 
 // Built field by field rather than by dropping the confirmation, so the request
 // carries what the API accepts and nothing the form happened to be holding.

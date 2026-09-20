@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { NotificationsMenu, type Notice } from '@/shared/components/NotificationsMenu';
-import { describeWaitLength } from '@/shared/format/relativeTime';
+import { describeWaitLength } from '@/shared/format';
 import { fetchPendingApplications, type PendingApplication } from '../api/applications';
 
 type AdminNotificationsProps = {

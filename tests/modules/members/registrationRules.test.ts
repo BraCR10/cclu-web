@@ -19,8 +19,8 @@ function completeDraft(overrides: RegistrationDraft = {}): RegistrationDraft {
     identificationNumber: '3101000000',
     businessName: 'Panadería La Unión',
     businessDescription: 'Panadería artesanal',
-    password: 'una-contrasena-larga',
-    passwordConfirmation: 'una-contrasena-larga',
+    password: 'Contrasena1!',
+    passwordConfirmation: 'Contrasena1!',
     ...overrides,
   };
 }
@@ -67,7 +67,7 @@ describe('validateRegistration', () => {
   });
 
   it('catches a confirmation that does not match', () => {
-    const errors = validateRegistration(completeDraft({ passwordConfirmation: 'otra-cosa-larga' }));
+    const errors = validateRegistration(completeDraft({ passwordConfirmation: 'Otracosa2!' }));
 
     expect(errors.passwordConfirmation).toBeDefined();
     expect(errors.password).toBeUndefined();
