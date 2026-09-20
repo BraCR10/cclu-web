@@ -1,40 +1,23 @@
 'use client';
 
 import { useTheme } from '@/shared/theme';
-import type { ThemeChoice } from '@/shared/theme';
-import { MoonIcon, SunIcon, SystemIcon } from './icons';
+import { MoonIcon, SunIcon } from './icons';
 
-const OPTIONS: { choice: ThemeChoice; label: string; Icon: typeof SunIcon }[] = [
-  { choice: 'light', label: 'Claro', Icon: SunIcon },
-  { choice: 'dark', label: 'Oscuro', Icon: MoonIcon },
-  { choice: 'system', label: 'Automático', Icon: SystemIcon },
-];
-
+// The icon shows where the button goes, not where it is: a sun on a dark screen
+// is the way back to light.
 export function ThemeToggle() {
-  const { choice, choose } = useTheme();
+  const { resolved, toggle } = useTheme();
+  const goingToDark = resolved === 'light';
 
   return (
-    <div
-      role="radiogroup"
-      aria-label="Tema de la interfaz"
-      className="flex items-center gap-0.5 rounded-pill border border-border p-0.5"
+    <button
+      type="button"
+      onClick={toggle}
+      aria-label={goingToDark ? 'Cambiar a tema oscuro' : 'Cambiar a tema claro'}
+      title={goingToDark ? 'Tema oscuro' : 'Tema claro'}
+      className="flex size-9 items-center justify-center rounded-pill text-content-muted transition-colors hover:bg-surface-raised hover:text-content"
     >
-      {OPTIONS.map(({ choice: option, label, Icon }) => (
-        <button
-          key={option}
-          type="button"
-          role="radio"
-          aria-checked={choice === option}
-          aria-label={label}
-          title={label}
-          onClick={() => choose(option)}
-          className={`flex size-7 items-center justify-center rounded-pill transition-colors ${
-            choice === option ? 'bg-brand text-on-brand' : 'text-content-muted hover:text-content'
-          }`}
-        >
-          <Icon className="size-4" />
-        </button>
-      ))}
-    </div>
+      {goingToDark ? <MoonIcon className="size-5" /> : <SunIcon className="size-5" />}
+    </button>
   );
 }
