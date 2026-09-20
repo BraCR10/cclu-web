@@ -1,12 +1,6 @@
 import Link from 'next/link';
 import { ArrowRightIcon, BadgeCheckIcon, IdCardIcon, InboxIcon } from '@/shared/components/icons';
-import {
-  JOIN_ENTRY,
-  SECTION_STATUS,
-  SECTION_STATUS_LABELS,
-  SIGN_IN_ENTRIES,
-  SITE_SECTIONS,
-} from '@/shared/config/siteNavigation';
+import { JOIN_ENTRY, SIGN_IN_ENTRIES, SITE_SECTIONS } from '@/shared/config/siteNavigation';
 
 // The three steps between asking to join and holding a card. Shown because the
 // wait between them is the part people write to the chamber about.
@@ -27,12 +21,6 @@ const JOINING_STEPS = [
     Icon: IdCardIcon,
   },
 ];
-
-const STATUS_TONE: Record<string, string> = {
-  [SECTION_STATUS.AVAILABLE]: 'bg-support text-on-support',
-  [SECTION_STATUS.PARTIAL]: 'bg-highlight text-on-highlight',
-  [SECTION_STATUS.PLANNED]: 'border border-border text-content-muted',
-};
 
 export default function Home() {
   return (
@@ -82,11 +70,7 @@ export default function Home() {
                 href={section.href}
                 className="flex h-full flex-col gap-3 rounded-panel border border-border bg-surface-raised p-6 transition-colors hover:border-brand"
               >
-                <span
-                  className={`w-fit rounded-pill px-2.5 py-0.5 text-xs font-medium ${STATUS_TONE[section.status]}`}
-                >
-                  {SECTION_STATUS_LABELS[section.status]}
-                </span>
+                <span aria-hidden className="h-1 w-10 rounded-pill bg-support" />
                 <h2 className="text-lg font-semibold tracking-tight">{section.label}</h2>
                 <p className="text-content-muted">{section.summary}</p>
               </Link>

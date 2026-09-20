@@ -1,12 +1,6 @@
 import Link from 'next/link';
 import { BrandMark } from './BrandMark';
-import {
-  JOIN_ENTRY,
-  SECTION_STATUS,
-  SECTION_STATUS_LABELS,
-  SIGN_IN_ENTRIES,
-  SITE_SECTIONS,
-} from '@/shared/config/siteNavigation';
+import { JOIN_ENTRY, SIGN_IN_ENTRIES, SITE_SECTIONS } from '@/shared/config/siteNavigation';
 
 const CURRENT_YEAR = new Date().getFullYear();
 
@@ -19,16 +13,11 @@ function Column({ title, children }: { title: string; children: React.ReactNode 
   );
 }
 
-function FooterLink({ href, label, note }: { href: string; label: string; note?: string }) {
+function FooterLink({ href, label }: { href: string; label: string }) {
   return (
     <li>
-      <Link href={href} className="flex items-center gap-2 text-sm hover:text-brand">
+      <Link href={href} className="text-sm hover:text-brand">
         {label}
-        {note !== undefined && (
-          <span className="rounded-pill border border-border px-2 py-0.5 text-[0.6875rem] text-content-muted">
-            {note}
-          </span>
-        )}
       </Link>
     </li>
   );
@@ -47,16 +36,7 @@ export function SiteFooter() {
 
         <Column title="Secciones">
           {SITE_SECTIONS.map((section) => (
-            <FooterLink
-              key={section.href}
-              href={section.href}
-              label={section.label}
-              note={
-                section.status === SECTION_STATUS.AVAILABLE
-                  ? undefined
-                  : SECTION_STATUS_LABELS[section.status]
-              }
-            />
+            <FooterLink key={section.href} href={section.href} label={section.label} />
           ))}
         </Column>
 

@@ -10,8 +10,6 @@ import { ChevronDownIcon, CloseIcon, MenuIcon, UserIcon } from './icons';
 import {
   HOME_SECTION,
   JOIN_ENTRY,
-  SECTION_STATUS,
-  SECTION_STATUS_LABELS,
   SIGN_IN_ENTRIES,
   SITE_SECTIONS,
 } from '@/shared/config/siteNavigation';
@@ -33,26 +31,17 @@ function NavigationLink({
 }) {
   const pathname = usePathname();
   const current = isCurrent(pathname, href);
-  const section = SITE_SECTIONS.find((entry) => entry.href === href);
-  const pending = section !== undefined && section.status !== SECTION_STATUS.AVAILABLE;
 
   return (
     <Link
       href={href}
       onClick={onClick}
       aria-current={current ? 'page' : undefined}
-      className={`flex items-center gap-2 rounded-control px-3 py-2 text-sm font-medium transition-colors ${
+      className={`rounded-control px-3 py-2 text-sm font-medium transition-colors ${
         current ? 'bg-surface-raised text-brand' : 'text-content-muted hover:text-content'
       }`}
     >
       {label}
-      {/* A section still being built says so on the way in, rather than letting
-          somebody arrive expecting it to work. */}
-      {pending && (
-        <span className="rounded-pill bg-highlight px-2 py-0.5 text-[0.6875rem] font-medium text-on-highlight">
-          {SECTION_STATUS_LABELS[section.status]}
-        </span>
-      )}
     </Link>
   );
 }

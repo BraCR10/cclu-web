@@ -1,6 +1,6 @@
 // What the platform is made of, and how much of each part actually exists. The
-// status is here rather than in the markup because the header, the landing page
-// and the placeholder screens all have to agree on it.
+// status decides which sections get a screen explaining what is still missing;
+// it is never printed as a label, because the screen itself says it in words.
 export const SECTION_STATUS = {
   AVAILABLE: 'available',
   PARTIAL: 'partial',
@@ -54,12 +54,6 @@ export const SITE_SECTIONS: readonly SiteSection[] = [
     ],
   },
 ];
-
-export const SECTION_STATUS_LABELS: Record<SectionStatus, string> = {
-  [SECTION_STATUS.AVAILABLE]: 'Disponible',
-  [SECTION_STATUS.PARTIAL]: 'En construcción',
-  [SECTION_STATUS.PLANNED]: 'Pronto',
-};
 
 export const HOME_SECTION = { href: '/', label: 'Inicio' };
 

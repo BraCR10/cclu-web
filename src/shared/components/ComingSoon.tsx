@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { ArrowRightIcon, ClockIcon } from './icons';
-import { SECTION_STATUS_LABELS, type SiteSection } from '@/shared/config/siteNavigation';
+import { ArrowRightIcon } from './icons';
+import type { SiteSection } from '@/shared/config/siteNavigation';
 
 type ComingSoonProps = {
   section: SiteSection;
@@ -13,11 +13,6 @@ export function ComingSoon({ section, children }: ComingSoonProps) {
   return (
     <div className="flex flex-col gap-10">
       <div className="flex flex-col gap-4">
-        <span className="flex w-fit items-center gap-2 rounded-pill bg-highlight px-3 py-1 text-xs font-medium text-on-highlight">
-          <ClockIcon className="size-4" />
-          {SECTION_STATUS_LABELS[section.status]}
-        </span>
-
         <h1 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
           {section.label}
         </h1>

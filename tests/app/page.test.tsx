@@ -1,13 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import Home from '@/app/(site)/page';
-import {
-  JOIN_ENTRY,
-  SECTION_STATUS,
-  SECTION_STATUS_LABELS,
-  SIGN_IN_ENTRIES,
-  SITE_SECTIONS,
-} from '@/shared/config/siteNavigation';
+import { JOIN_ENTRY, SIGN_IN_ENTRIES, SITE_SECTIONS } from '@/shared/config/siteNavigation';
 
 function hrefsOnScreen(): string[] {
   return screen.getAllByRole('link').map((link) => link.getAttribute('href') ?? '');
@@ -36,20 +30,6 @@ describe('Home', () => {
     }
 
     expect(hrefs).toContain(JOIN_ENTRY.href);
-  });
-
-  // A section that is not finished has to say so here, or somebody follows the
-  // link expecting it to work.
-  it('says which sections are not finished rather than letting them look ready', () => {
-    render(<Home />);
-
-    for (const section of SITE_SECTIONS) {
-      if (section.status === SECTION_STATUS.AVAILABLE) {
-        continue;
-      }
-
-      expect(screen.getAllByText(SECTION_STATUS_LABELS[section.status]).length).toBeGreaterThan(0);
-    }
   });
 
   it('explains the three steps between asking to join and holding a card', () => {
