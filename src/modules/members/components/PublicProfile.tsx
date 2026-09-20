@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { MEMBER_TYPE_LABELS } from '@/modules/admin/applicationRules';
+import { MEMBER_TYPE_LABELS } from '@/shared/config/memberTypes';
 import { contactIcon } from '@/shared/components/contactFields';
 import { AffiliateCard } from '@/shared/components/AffiliateCard';
 import { GlobeIcon } from '@/shared/components/icons';

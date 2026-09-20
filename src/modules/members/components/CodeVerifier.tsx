@@ -6,7 +6,7 @@ import { MESSAGES, messageForError } from '@/shared/config/messages';
 import { ToastStack } from '@/shared/components/ToastStack';
 import { useToasts } from '@/shared/components/useToasts';
 import { CheckCircleIcon, CrossCircleIcon } from '@/shared/components/icons';
-import { MEMBER_TYPE_LABELS } from '@/modules/admin/applicationRules';
+import { MEMBER_TYPE_LABELS } from '@/shared/config/memberTypes';
 import { verifyMemberCode, type VerificationResult } from '../api/verification';
 
 type CodeVerifierProps = {

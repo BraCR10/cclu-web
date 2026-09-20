@@ -1,4 +1,5 @@
-import { MEMBER_TYPES, type MemberType, type Registration } from './api/registration';
+import type { Registration } from './api/registration';
+import { MEMBER_TYPES, type MemberType } from '@/shared/config/memberTypes';
 import { PASSWORD, checkField, checkPassword } from '@/shared/config/memberRules';
 import { messageForCode, messageForFieldCode } from '@/shared/config/messages';
 

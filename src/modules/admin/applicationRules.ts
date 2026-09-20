@@ -1,19 +1,5 @@
 import { ApiError } from '@/shared/api/request';
 import { elapsedMilliseconds } from '@/shared/format';
-import type { IdentificationType, MemberType } from './api/applications';
-
-export const MEMBER_TYPE_LABELS: Record<MemberType, string> = {
-  business: 'Empresa',
-  independent_professional: 'Profesional independiente',
-};
-
-export const IDENTIFICATION_TYPE_LABELS: Record<IdentificationType, string> = {
-  national_id: 'Cédula',
-  legal_entity_id: 'Cédula jurídica',
-  passport: 'Pasaporte',
-  dimex: 'DIMEX',
-};
-
 export const DECISION_MESSAGES = {
   alreadyDecided: 'Otra persona ya decidió esta solicitud. La lista se actualizó.',
   gone: 'Esta solicitud ya no existe. La lista se actualizó.',

@@ -3,19 +3,17 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { CONTROL_CLASS, Field } from '@/shared/components/Field';
 import { CharacterCount } from '@/shared/components/CharacterCount';
-import { focusFirstInvalid } from '@/shared/forms';
 import { WithContactIcon, contactPadding } from '@/shared/components/contactFields';
-import { MESSAGES, PASSWORD_HINT, messageForError } from '@/shared/config/messages';
 import { ToastStack } from '@/shared/components/ToastStack';
 import { useToasts } from '@/shared/components/useToasts';
+import { MESSAGES, PASSWORD_HINT, messageForError } from '@/shared/config/messages';
+import { IDENTIFICATION_TYPES, MEMBER_TYPES, type MemberType } from '@/shared/config/memberTypes';
+import { focusFirstInvalid } from '@/shared/forms';
 import {
-  IDENTIFICATION_TYPES,
-  MEMBER_TYPES,
   fetchCantons,
   fetchSectors,
   registerMember,
   type Canton,
-  type MemberType,
   type Registration,
   type Sector,
 } from '../api/registration';

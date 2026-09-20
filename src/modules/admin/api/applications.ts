@@ -1,8 +1,5 @@
 import { requestApi } from '@/shared/api/request';
-
-export type MemberType = 'business' | 'independent_professional';
-
-export type IdentificationType = 'national_id' | 'legal_entity_id' | 'passport' | 'dimex';
+import type { IdentificationType, MemberType } from '@/shared/config/memberTypes';
 
 type NamedReference = { _id: string; name: string };
 

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { AffiliateCard } from '@/shared/components/AffiliateCard';
-import { MEMBER_TYPE_LABELS } from '@/modules/admin/applicationRules';
+import { MEMBER_TYPE_LABELS } from '@/shared/config/memberTypes';
 import { fetchOwnProfile, MEMBER_STATES, type MemberProfile } from '../api/profile';
 import { MEMBER_STATE_LABELS } from '../memberLabels';
 import { directoryUrlFor, displayCode, renderQrCode } from '../memberCard';
