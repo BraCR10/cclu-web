@@ -2,7 +2,7 @@
 
 import type { ReactNode } from 'react';
 import { useSession } from '@/shared/auth/useSession';
-import { useRequireSession } from '@/shared/auth/useRequireSession';
+import { useRequireRole } from '@/shared/auth/useRequireRole';
 import { SIGN_IN_PATH } from '@/shared/auth/sessionApi';
 import { RequireRole } from '@/shared/auth/RequireRole';
 import { ROLES } from '@/shared/auth/roles';
@@ -25,7 +25,7 @@ type MemberPanelShellProps = {
 export function MemberPanelShell({ children }: MemberPanelShellProps) {
   const session = useSession();
 
-  useRequireSession(session, { signInPath: SIGN_IN_PATH });
+  useRequireRole(session, { allow: [ROLES.MEMBER], signInPath: SIGN_IN_PATH });
 
   return (
     <PanelShell

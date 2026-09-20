@@ -2,7 +2,7 @@
 
 import type { ReactNode } from 'react';
 import { useSession } from '@/shared/auth/useSession';
-import { useRequireSession } from '@/shared/auth/useRequireSession';
+import { useRequireRole } from '@/shared/auth/useRequireRole';
 import { ADMIN_SIGN_IN_PATH } from '@/shared/auth/sessionApi';
 import { RequireRole } from '@/shared/auth/RequireRole';
 import { ROLES } from '@/shared/auth/roles';
@@ -23,7 +23,7 @@ type AdminPanelShellProps = {
 export function AdminPanelShell({ children }: AdminPanelShellProps) {
   const session = useSession();
 
-  useRequireSession(session, { signInPath: ADMIN_SIGN_IN_PATH });
+  useRequireRole(session, { allow: [ROLES.ADMIN], signInPath: ADMIN_SIGN_IN_PATH });
 
   const isAdministrator =
     session.status === 'authenticated' && session.identity.role === ROLES.ADMIN;
