@@ -43,6 +43,14 @@ const OPTIONAL_FIELDS: (keyof Registration)[] = [
   'website',
 ];
 
+// The order the fields appear in on the screen, which is the order somebody
+// filling the form would meet a mistake in.
+export const FIELD_ORDER: readonly string[] = [
+  ...REQUIRED_FIELDS,
+  'passwordConfirmation',
+  ...OPTIONAL_FIELDS,
+];
+
 const CONFIRMATION_MESSAGE = 'Las contraseñas no coinciden.';
 
 export type RegistrationErrors = Partial<Record<keyof RegistrationDraft, string>>;

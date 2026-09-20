@@ -30,7 +30,9 @@ describe('PublicProfile', () => {
     render(<PublicProfile memberCode="MA7K2Q4" loadProfile={async () => profile()} />);
 
     expect(await screen.findByText('Panadería Tres Ríos')).toBeTruthy();
-    expect(screen.getByText('Afiliado a la Cámara')).toBeTruthy();
+    // The same card the member carries, so a stranger who scanned the code
+    // recognises what they were handed.
+    expect(screen.getByText('Afiliación activa')).toBeTruthy();
     expect(screen.getByText('22791234')).toBeTruthy();
     expect(screen.getByText('M-A7K2-Q4')).toBeTruthy();
   });

@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { BrandMark } from '@/shared/components/BrandMark';
+import { AffiliateCard } from '@/shared/components/AffiliateCard';
 import { MEMBER_TYPE_LABELS } from '@/modules/admin/applicationRules';
 import { fetchOwnProfile, MEMBER_STATES, type MemberProfile } from '../api/profile';
 import { MEMBER_STATE_LABELS } from '../memberLabels';
@@ -13,8 +13,6 @@ type MemberCardProps = {
 };
 
 type Ready = { profile: MemberProfile; url: string; qr: string };
-
-const dateFormatter = new Intl.DateTimeFormat('es-CR', { month: 'long', year: 'numeric' });
 
 export function MemberCard({
   loadProfile = fetchOwnProfile,
@@ -97,53 +95,15 @@ export function MemberCard({
 
   return (
     <div className="flex flex-col gap-6">
-      <article className="animate-panel-in w-full max-w-md overflow-hidden rounded-panel border border-border bg-surface-raised shadow-xl">
-        <header className="relative overflow-hidden bg-linear-to-br from-wash-from to-wash-to px-6 py-5 text-on-wash">
-          <div className="pointer-events-none absolute -top-16 -right-12 size-44 rounded-full bg-highlight opacity-30 blur-3xl" />
-          <BrandMark size="sm" compact className="relative" />
-        </header>
-
-        <div className="flex flex-col gap-6 p-6">
-          <div className="flex flex-col gap-1">
-            <h2 className="text-xl font-semibold tracking-tight text-balance">
-              {profile.businessName}
-            </h2>
-            <p className="text-sm text-content-muted">
-              {MEMBER_TYPE_LABELS[profile.memberType]}
-              {profile.sector !== null && ` · ${profile.sector.name}`}
-            </p>
-          </div>
-
-          {/* Below about three hundred and sixty pixels the row does not fit:
-              the panel leaves 240 of them, the code block takes 128 and the
-              gap 20, and the code itself needs more than the 92 that remain. */}
-          <div className="flex flex-col items-start gap-4 min-[23rem]:flex-row min-[23rem]:items-center min-[23rem]:gap-5">
-            {/* The library builds this from an address this application made, so
-                no text a person typed reaches the markup. */}
-            <div
-              aria-hidden
-              className="size-32 shrink-0 rounded-control bg-white p-2 [&>svg]:size-full"
-              dangerouslySetInnerHTML={{ __html: qr }}
-            />
-
-            <div className="flex min-w-0 flex-col gap-2">
-              <span className="text-xs font-medium tracking-widest text-content-muted uppercase">
-                Código de agremiado
-              </span>
-              <span className="font-mono text-2xl font-semibold tracking-wider tabular-nums">
-                {displayCode(profile.memberCode ?? '')}
-              </span>
-              <span className="rounded-pill bg-support px-2.5 py-0.5 text-xs font-medium text-on-support w-fit">
-                Afiliación activa
-              </span>
-            </div>
-          </div>
-
-          <p className="border-t border-border pt-4 text-xs text-content-muted">
-            Afiliado desde {dateFormatter.format(new Date(profile.createdAt))}
-          </p>
-        </div>
-      </article>
+      <AffiliateCard
+        businessName={profile.businessName}
+        kind={`${MEMBER_TYPE_LABELS[profile.memberType]}${
+          profile.sector === null ? '' : ` · ${profile.sector.name}`
+        }`}
+        memberCode={displayCode(profile.memberCode ?? '')}
+        affiliatedSince={profile.createdAt}
+        qr={qr}
+      />
 
       <div className="flex max-w-md flex-col gap-2">
         <p className="text-sm text-content-muted">
