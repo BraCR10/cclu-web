@@ -6,7 +6,7 @@ import { ToastStack } from '@/shared/components/ToastStack';
 import { useToasts } from '@/shared/components/useToasts';
 import { formatMemberCode } from '@/shared/format';
 import { WithContactIcon, contactPadding } from '@/shared/components/contactFields';
-import { MESSAGES, messageForError } from '@/shared/config/messages';
+import { MESSAGES, messageForError, messageForFieldCode } from '@/shared/config/messages';
 import { checkField } from '@/shared/config/memberRules';
 import { IDENTIFICATION_TYPE_LABELS, MEMBER_TYPE_LABELS } from '@/modules/admin/applicationRules';
 import {
@@ -60,7 +60,7 @@ function findFieldErrors(draft: Draft): FieldErrors {
     const code = checkField(name, draft[name] ?? '', { required: required ?? false });
 
     if (code !== null) {
-      errors[name] = MESSAGES[code];
+      errors[name] = messageForFieldCode(name, code);
     }
   }
 
@@ -69,7 +69,7 @@ function findFieldErrors(draft: Draft): FieldErrors {
   });
 
   if (descriptionCode !== null) {
-    errors.businessDescription = MESSAGES[descriptionCode];
+    errors.businessDescription = messageForFieldCode('businessDescription', descriptionCode);
   }
 
   return errors;

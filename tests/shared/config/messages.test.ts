@@ -1,6 +1,13 @@
 import { describe, it, expect } from 'vitest';
 import { ApiError } from '@/shared/api/request';
-import { MESSAGES, messageForError } from '@/shared/config/messages';
+import {
+  EXPLAINED_PATTERNS,
+  MESSAGES,
+  describeField,
+  messageForError,
+  messageForFieldCode,
+} from '@/shared/config/messages';
+import { FIELDS } from '@/shared/config/memberRules';
 import { SIGN_IN_STATUS } from '@/shared/components/CredentialsForm';
 import { REFUSAL_REASONS } from '@/modules/members/api/memberSession';
 
@@ -71,5 +78,50 @@ describe('messageForError elsewhere', () => {
 
   it('does explain a lack of permission when the screen did not override it', () => {
     expect(messageForError(new ApiError(403, 'Forbidden'))).toBe(MESSAGES.not_allowed_role);
+  });
+});
+
+describe('describeField', () => {
+  // A pattern nobody wrote a sentence for is a field that refuses without ever
+  // saying what it wanted.
+  it('explains every pattern the rules can reject a field with', () => {
+    for (const pattern of EXPLAINED_PATTERNS) {
+      const field = Object.keys(FIELDS).find((name) => FIELDS[name].pattern === pattern);
+
+      expect(field, `no field uses the ${pattern} pattern`).toBeDefined();
+      expect(describeField(field as string).length).toBeGreaterThan(0);
+    }
+  });
+
+  it('states the character limit when the rule itself does not', () => {
+    expect(describeField('businessName')).toEqual(['Máximo 120 caracteres.']);
+  });
+
+  // The phone rule already says "between 8 and 20", so repeating "maximum 20"
+  // below it reads like a second, different rule.
+  it('does not repeat the length when the rule already gave it', () => {
+    expect(describeField('phone')).toHaveLength(1);
+    expect(describeField('phone')[0]).toContain('8 y 20');
+  });
+
+  it('says nothing about a field the rules do not govern', () => {
+    expect(describeField('memberType')).toEqual([]);
+  });
+});
+
+describe('messageForFieldCode', () => {
+  it('answers a bad format with the rule that was broken, not with "check the format"', () => {
+    const shown = messageForFieldCode('website', 'invalid_format');
+
+    expect(shown).toContain('https://');
+    expect(shown).not.toBe(MESSAGES.invalid_format);
+  });
+
+  it('falls back to the general sentence where there is no rule to state', () => {
+    expect(messageForFieldCode('memberType', 'invalid_format')).toBe(MESSAGES.invalid_format);
+  });
+
+  it('leaves every other code alone', () => {
+    expect(messageForFieldCode('website', 'required')).toBe(MESSAGES.required);
   });
 });

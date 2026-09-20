@@ -46,26 +46,15 @@ function NavigationLink({
   );
 }
 
-function EntryLink({
-  href,
-  label,
-  description,
-  onClick,
-}: {
-  href: string;
-  label: string;
-  description: string;
-  onClick: () => void;
-}) {
+function EntryLink({ href, label, onClick }: { href: string; label: string; onClick: () => void }) {
   return (
     <Link
       href={href}
       role="menuitem"
       onClick={onClick}
-      className="flex flex-col gap-0.5 px-4 py-3 transition-colors hover:bg-surface"
+      className="px-4 py-2.5 text-sm font-medium transition-colors hover:bg-surface"
     >
-      <span className="text-sm font-medium">{label}</span>
-      <span className="text-xs text-content-muted">{description}</span>
+      {label}
     </Link>
   );
 }
@@ -75,26 +64,24 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-20 border-b border-border bg-surface/90 backdrop-blur">
+      {/* The chamber's name and the navigation each get their own row. Side by
+          side they collided: forty six characters plus four sections plus the
+          controls do not fit on one line until well past a laptop's width. */}
       <div className="mx-auto flex w-full max-w-6xl items-center gap-4 px-6 py-3">
-        <Link href="/" className="shrink-0">
+        <Link href="/" className="min-w-0 shrink">
           <BrandMark size="sm" className="text-content" />
         </Link>
 
-        <nav aria-label="Secciones" className="hidden flex-1 items-center gap-1 lg:flex">
-          {NAVIGATION.map((entry) => (
-            <NavigationLink key={entry.href} href={entry.href} label={entry.label} />
-          ))}
-        </nav>
-
-        <div className="ml-auto flex items-center gap-1 lg:ml-0">
+        <div className="ml-auto flex shrink-0 items-center gap-1">
           <ThemeToggle />
 
           <Dropdown
             label="Opciones de ingreso"
+            width="w-56"
             button={
               <span className="flex items-center gap-2 rounded-control bg-brand px-3 py-1.5 font-medium text-on-brand">
                 <UserIcon className="size-4" />
-                Ingresar
+                <span className="hidden sm:inline">Ingresar</span>
                 <ChevronDownIcon className="size-4" />
               </span>
             }
@@ -125,6 +112,14 @@ export function SiteHeader() {
           </button>
         </div>
       </div>
+
+      <nav aria-label="Secciones" className="hidden border-t border-border lg:block">
+        <div className="mx-auto flex w-full max-w-6xl items-center gap-1 px-6 py-1">
+          {NAVIGATION.map((entry) => (
+            <NavigationLink key={entry.href} href={entry.href} label={entry.label} />
+          ))}
+        </div>
+      </nav>
 
       {menuOpen && (
         <nav

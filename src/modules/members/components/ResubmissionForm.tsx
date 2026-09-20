@@ -5,7 +5,7 @@ import { Field, CONTROL_CLASS } from '@/shared/components/Field';
 import { WithContactIcon, contactPadding } from '@/shared/components/contactFields';
 import { AlertIcon, CheckCircleIcon } from '@/shared/components/icons';
 import { checkField } from '@/shared/config/memberRules';
-import { messageForCode } from '@/shared/config/messages';
+import { messageForCode, messageForFieldCode } from '@/shared/config/messages';
 import { ApiError } from '@/shared/api/request';
 import {
   fetchRejectedRegistration,
@@ -105,7 +105,7 @@ export function ResubmissionForm({
       const code = checkField(field, draft[field] ?? '', { required: REQUIRED.includes(field) });
 
       if (code !== null) {
-        found[field] = messageForCode(code);
+        found[field] = messageForFieldCode(field, code);
       }
     }
 

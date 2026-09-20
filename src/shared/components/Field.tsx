@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
 import { AlertIcon } from './icons';
+import { FieldRequirements } from './FieldRequirements';
+import { describeField } from '@/shared/config/messages';
 
 // What the control needs so a screen reader ties the message to it, and so the
 // control can style itself as wrong. Spread rather than wired by hand in every
@@ -14,18 +16,27 @@ type FieldProps = {
   label: string;
   error?: string;
   hint?: string;
+  // Taken from the shared rules by default, so a field explains itself without
+  // each form repeating what the table already knows.
+  requirements?: string[];
   children: (control: FieldControlProps) => ReactNode;
 };
 
-export function Field({ id, label, error, hint, children }: FieldProps) {
+export function Field({ id, label, error, hint, requirements, children }: FieldProps) {
   const errorId = error ? `${id}-error` : undefined;
   const hintId = hint ? `${id}-hint` : undefined;
+  const rules = requirements ?? describeField(id);
+  const rulesId = rules.length > 0 ? `${id}-requirements` : undefined;
 
   return (
     <div className="flex flex-col gap-2">
-      <label htmlFor={id} className="text-sm font-medium">
-        {label}
-      </label>
+      <div className="flex items-center gap-1.5">
+        <label htmlFor={id} className="text-sm font-medium">
+          {label}
+        </label>
+
+        {rulesId !== undefined && error === undefined && <FieldRequirements requirements={rules} />}
+      </div>
 
       {hint && (
         <p id={hintId} className="text-sm text-content-muted">
@@ -34,7 +45,7 @@ export function Field({ id, label, error, hint, children }: FieldProps) {
       )}
 
       {children({
-        'aria-describedby': [hintId, errorId].filter(Boolean).join(' ') || undefined,
+        'aria-describedby': [hintId, rulesId, errorId].filter(Boolean).join(' ') || undefined,
         'aria-invalid': error ? true : undefined,
       })}
 
@@ -42,9 +53,23 @@ export function Field({ id, label, error, hint, children }: FieldProps) {
           which made every error read as advice. */}
       {error && (
         <p id={errorId} className="flex items-start gap-1.5 text-sm font-medium text-danger">
-          <AlertIcon className="mt-0.5 size-4 shrink-0" />
+          {rulesId === undefined ? (
+            <AlertIcon className="mt-0.5 size-4 shrink-0" />
+          ) : (
+            <span className="mt-0.5">
+              <FieldRequirements requirements={rules} tone="alert" />
+            </span>
+          )}
           {error}
         </p>
+      )}
+
+      {/* The popup is a convenience, never the only copy. Somebody using a
+          screen reader reaches the rules through the control itself. */}
+      {rulesId !== undefined && (
+        <span id={rulesId} className="sr-only">
+          {rules.join(' ')}
+        </span>
       )}
     </div>
   );

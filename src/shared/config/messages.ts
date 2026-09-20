@@ -1,5 +1,5 @@
 import { ApiError } from '@/shared/api/request';
-import { PASSWORD } from './memberRules';
+import { FIELDS, PASSWORD, PATTERNS, type PatternName } from './memberRules';
 
 // Everything the person reads when something is refused, said once. The screen
 // reads a code and never the API's English text, so a change of wording on
@@ -110,3 +110,72 @@ export function messageForError(error: unknown, options: ErrorOptions = {}): str
 export function leftListStale(error: unknown): boolean {
   return error instanceof ApiError && (error.status === 409 || error.status === 404);
 }
+
+// What each rule asks for, said the way a person would say it. Keyed by the
+// pattern it explains, so a pattern with no sentence here is a test failure
+// rather than a field that refuses without ever saying why.
+//
+// coversLength is set where the sentence already states the length, so the
+// field does not then repeat it as a second line.
+const PATTERN_REQUIREMENTS: Record<PatternName, { text: string; coversLength: boolean }> = {
+  email: { text: 'Debe tener la forma nombre@dominio.com', coversLength: false },
+  phone: {
+    text: 'Entre 8 y 20 caracteres. Solo números, espacios, paréntesis, el signo más y guiones.',
+    coversLength: true,
+  },
+  identificationNumber: {
+    text: 'Entre 6 y 20 caracteres. Solo letras, números y guiones.',
+    coversLength: true,
+  },
+  handle: { text: 'Sin espacios.', coversLength: false },
+  link: { text: 'Debe empezar con https:// o http://', coversLength: false },
+};
+
+// Everything a field asks of what is typed into it, as separate lines so the
+// popup can list them and a screen reader can read them one by one.
+export function describeField(field: string): string[] {
+  const rule = FIELDS[field];
+
+  if (rule === undefined) {
+    return [];
+  }
+
+  const requirements: string[] = [];
+  const pattern = rule.pattern === undefined ? undefined : PATTERN_REQUIREMENTS[rule.pattern];
+
+  if (pattern !== undefined) {
+    requirements.push(pattern.text);
+  }
+
+  if (pattern === undefined || !pattern.coversLength) {
+    requirements.push(`Máximo ${rule.maxLength} caracteres.`);
+  }
+
+  return requirements;
+}
+
+export function describePassword(): string[] {
+  return [
+    `Al menos ${PASSWORD.minimumLength} caracteres.`,
+    ...PASSWORD.requirements.map((requirement) => MESSAGES[requirement.code]),
+  ];
+}
+
+export const PASSWORD_HINT = `Al menos ${PASSWORD.minimumLength} caracteres, con una letra, un número y un símbolo.`;
+
+// A refusal that only says the format is wrong leaves the person guessing which
+// part of it. Where the field has a rule that can be stated, the rule is the
+// message.
+export function messageForFieldCode(field: string, code: string): string {
+  if (code !== 'invalid_format' && code !== 'too_long') {
+    return messageForCode(code);
+  }
+
+  const requirements = describeField(field);
+
+  return requirements.length === 0 ? messageForCode(code) : requirements.join(' ');
+}
+
+// Guards the pairing above: a pattern is only useful to a person once somebody
+// has written down what it asks for.
+export const EXPLAINED_PATTERNS = Object.keys(PATTERNS) as PatternName[];

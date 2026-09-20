@@ -60,23 +60,11 @@ export const HOME_SECTION = { href: '/', label: 'Inicio' };
 // The two ways in and the way to ask for one. Grouped because a visitor who
 // does not yet know which they are should see all three at once.
 export const SIGN_IN_ENTRIES = [
-  {
-    href: '/login',
-    label: 'Soy agremiado',
-    description: 'Su perfil, su carné digital y su código.',
-  },
-  {
-    href: '/admin/login',
-    label: 'Soy administrador',
-    description: 'Panel de la Cámara y revisión de solicitudes.',
-  },
+  { href: '/login', label: 'Soy agremiado' },
+  { href: '/admin/login', label: 'Soy administrador' },
 ] as const;
 
-export const JOIN_ENTRY = {
-  href: '/register',
-  label: 'Solicitar afiliación',
-  description: 'Envíe la solicitud de su comercio o actividad profesional.',
-};
+export const JOIN_ENTRY = { href: '/register', label: 'Solicitar afiliación' };
 
 export function findSection(href: string): SiteSection | undefined {
   return SITE_SECTIONS.find((section) => section.href === href);

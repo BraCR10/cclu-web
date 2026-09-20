@@ -3,8 +3,7 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { CONTROL_CLASS, Field } from '@/shared/components/Field';
 import { WithContactIcon, contactPadding } from '@/shared/components/contactFields';
-import { MESSAGES, messageForError } from '@/shared/config/messages';
-import { PASSWORD_HINT } from '@/shared/config/memberRules';
+import { MESSAGES, PASSWORD_HINT, messageForError } from '@/shared/config/messages';
 import {
   IDENTIFICATION_TYPES,
   MEMBER_TYPES,
