@@ -9,12 +9,13 @@ import { ROLES } from '@/shared/auth/roles';
 import { PanelShell } from '@/shared/components/PanelShell';
 import { ProfileMenu } from '@/shared/components/ProfileMenu';
 import { NotificationsMenu } from '@/shared/components/NotificationsMenu';
-import { BadgeCheckIcon, UserIcon } from '@/shared/components/icons';
+import { BadgeCheckIcon, ShieldIcon, UserIcon } from '@/shared/components/icons';
 import { formatMemberCode } from '@/shared/format';
 
 export const MEMBER_NAVIGATION = [
   { href: '/member', label: 'Mi perfil', Icon: UserIcon },
   { href: '/member/verify', label: 'Verificar código', Icon: BadgeCheckIcon },
+  { href: '/member/security', label: 'Seguridad', Icon: ShieldIcon },
 ];
 
 type MemberPanelShellProps = {
