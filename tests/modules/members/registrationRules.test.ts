@@ -1,11 +1,11 @@
 import { describe, it, expect } from 'vitest';
+import { IDENTIFICATION_TYPES, MEMBER_TYPES } from '@/shared/config/memberTypes';
 import {
   MINIMUM_PASSWORD_LENGTH,
   hasErrors,
   validateRegistration,
   type RegistrationDraft,
 } from '@/modules/members/registrationRules';
-import { IDENTIFICATION_TYPES, MEMBER_TYPES } from '@/modules/members/api/registration';
 
 function completeDraft(overrides: RegistrationDraft = {}): RegistrationDraft {
   return {

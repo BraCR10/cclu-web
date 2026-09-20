@@ -1,19 +1,5 @@
 import { requestApi } from '@/shared/api/request';
-
-export const MEMBER_TYPES = {
-  BUSINESS: 'business',
-  INDEPENDENT_PROFESSIONAL: 'independent_professional',
-} as const;
-
-export const IDENTIFICATION_TYPES = {
-  NATIONAL_ID: 'national_id',
-  LEGAL_ENTITY_ID: 'legal_entity_id',
-  PASSPORT: 'passport',
-  DIMEX: 'dimex',
-} as const;
-
-export type MemberType = (typeof MEMBER_TYPES)[keyof typeof MEMBER_TYPES];
-export type IdentificationType = (typeof IDENTIFICATION_TYPES)[keyof typeof IDENTIFICATION_TYPES];
+import type { IdentificationType, MemberType } from '@/shared/config/memberTypes';
 
 export type Canton = { _id: string; name: string; province: string };
 export type Sector = { _id: string; name: string };

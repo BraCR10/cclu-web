@@ -3,8 +3,9 @@
 import { useState, type FormEvent } from 'react';
 import { describeWaitLength } from '@/shared/format';
 import type { PendingApplication } from '../api/applications';
-import { IDENTIFICATION_TYPE_LABELS, MEMBER_TYPE_LABELS } from '../applicationRules';
+
 import { WAITING_TONE_CLASS, waitingTone } from '../applicationRules';
+import { IDENTIFICATION_TYPE_LABELS, MEMBER_TYPE_LABELS } from '@/shared/config/memberTypes';
 
 type ApplicationCardProps = {
   application: PendingApplication;

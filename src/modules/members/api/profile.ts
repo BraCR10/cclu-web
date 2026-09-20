@@ -1,5 +1,6 @@
 import { requestApi } from '@/shared/api/request';
-import type { Canton, IdentificationType, MemberType, Sector } from './registration';
+import type { Canton, Sector } from './registration';
+import type { IdentificationType, MemberType } from '@/shared/config/memberTypes';
 
 export const MEMBER_STATES = {
   UNDER_REVIEW: 'under_review',

@@ -1,5 +1,5 @@
 import { requestApi } from '@/shared/api/request';
-import type { MemberType } from './registration';
+import type { MemberType } from '@/shared/config/memberTypes';
 
 export type VerifiedMember = {
   memberCode: string;

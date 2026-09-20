@@ -10,14 +10,8 @@ import { WithContactIcon, contactPadding } from '@/shared/components/contactFiel
 import { MESSAGES, messageForError, messageForFieldCode } from '@/shared/config/messages';
 import { FIELDS, checkField } from '@/shared/config/memberRules';
 import { focusFirstInvalid } from '@/shared/forms';
-import { IDENTIFICATION_TYPE_LABELS, MEMBER_TYPE_LABELS } from '@/modules/admin/applicationRules';
-import {
-  fetchCantons,
-  fetchSectors,
-  MEMBER_TYPES,
-  type Canton,
-  type Sector,
-} from '../api/registration';
+import { IDENTIFICATION_TYPE_LABELS, MEMBER_TYPE_LABELS } from '@/shared/config/memberTypes';
+import { fetchCantons, fetchSectors, type Canton, type Sector } from '../api/registration';
 import {
   fetchOwnProfile,
   updateOwnProfile,
@@ -25,6 +19,7 @@ import {
   type ProfileChanges,
 } from '../api/profile';
 import { MEMBER_STATE_LABELS, MEMBER_STATE_TONE } from '../memberLabels';
+import { MEMBER_TYPES } from '@/shared/config/memberTypes';
 
 type ProfileFormProps = {
   loadProfile?: () => Promise<MemberProfile>;

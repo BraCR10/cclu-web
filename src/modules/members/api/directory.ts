@@ -1,5 +1,5 @@
 import { requestApi } from '@/shared/api/request';
-import type { MemberType } from './registration';
+import type { MemberType } from '@/shared/config/memberTypes';
 
 // What the chamber shows about a business to anyone who scans its card. The
 // API builds this field by field; nothing administrative can reach it.
