@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
-import { AlertIcon } from './icons';
+import { FieldRequirements } from './FieldRequirements';
+import { describeField } from '@/shared/config/messages';
 
 // What the control needs so a screen reader ties the message to it, and so the
 // control can style itself as wrong. Spread rather than wired by hand in every
@@ -14,18 +15,29 @@ type FieldProps = {
   label: string;
   error?: string;
   hint?: string;
+  // Taken from the shared rules by default, so a field explains itself without
+  // each form repeating what the table already knows.
+  requirements?: string[];
   children: (control: FieldControlProps) => ReactNode;
 };
 
-export function Field({ id, label, error, hint, children }: FieldProps) {
-  const errorId = error ? `${id}-error` : undefined;
+export function Field({ id, label, error, hint, requirements, children }: FieldProps) {
   const hintId = hint ? `${id}-hint` : undefined;
+  const rules = error === undefined ? [] : (requirements ?? describeField(id));
+  const errorId = error === undefined ? undefined : `${id}-error`;
 
   return (
     <div className="flex flex-col gap-2">
-      <label htmlFor={id} className="text-sm font-medium">
-        {label}
-      </label>
+      {/* The mark sits on the label's row, not under the control. A line that
+          appears below pushes every field after it down the screen, which is
+          the moment somebody loses the place they were typing in. */}
+      <div className="flex min-h-6 items-center justify-between gap-2">
+        <label htmlFor={id} className="text-sm font-medium">
+          {label}
+        </label>
+
+        {error !== undefined && <FieldRequirements message={error} requirements={rules} />}
+      </div>
 
       {hint && (
         <p id={hintId} className="text-sm text-content-muted">
@@ -38,13 +50,13 @@ export function Field({ id, label, error, hint, children }: FieldProps) {
         'aria-invalid': error ? true : undefined,
       })}
 
-      {/* A refusal has to look different from a hint. They were the same grey,
-          which made every error read as advice. */}
-      {error && (
-        <p id={errorId} className="flex items-start gap-1.5 text-sm font-medium text-danger">
-          <AlertIcon className="mt-0.5 size-4 shrink-0" />
-          {error}
-        </p>
+      {/* The note is a convenience, never the only copy. Somebody using a screen
+          reader is told what was refused through the control itself, without
+          having to find and open anything. */}
+      {errorId !== undefined && (
+        <span id={errorId} className="sr-only">
+          {[error, ...rules].join(' ')}
+        </span>
       )}
     </div>
   );

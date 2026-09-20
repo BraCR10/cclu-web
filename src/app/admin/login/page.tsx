@@ -1,7 +1,10 @@
 'use client';
 
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { BrandMark } from '@/shared/components/BrandMark';
+import { BackToHome } from '@/shared/components/BackToHome';
+import { ThemeToggle } from '@/shared/components/ThemeToggle';
 import { AdminLoginForm } from '@/modules/admin/components/AdminLoginForm';
 
 export default function AdminLoginPage() {
@@ -13,7 +16,9 @@ export default function AdminLoginPage() {
         {/* The sun of the mark, enlarged and bled off the corner. */}
         <div className="pointer-events-none absolute -top-28 -right-28 size-[26rem] rounded-full bg-highlight opacity-40 blur-[90px]" />
 
-        <BrandMark size="lg" className="relative" />
+        <Link href="/" className="relative w-fit">
+          <BrandMark size="lg" />
+        </Link>
 
         <div className="relative flex max-w-md flex-col gap-4">
           <p className="text-3xl font-semibold tracking-tight text-balance">
@@ -25,9 +30,17 @@ export default function AdminLoginPage() {
         </div>
       </aside>
 
-      <main className="flex items-center justify-center px-6 py-16">
+      <main className="relative flex items-center justify-center px-6 py-16">
+        <div className="absolute top-4 right-4">
+          <ThemeToggle />
+        </div>
+
         <div className="flex w-full max-w-sm flex-col gap-8">
-          <BrandMark size="sm" className="text-content lg:hidden" />
+          <Link href="/" className="w-fit lg:hidden">
+            <BrandMark size="sm" className="text-content" />
+          </Link>
+
+          <BackToHome />
 
           <div className="flex flex-col gap-2">
             <p className="text-sm font-medium tracking-wide text-content-muted uppercase">

@@ -27,6 +27,16 @@ export function renderQrCode(url: string): Promise<string> {
   });
 }
 
+// Separators are how a person reads the code aloud, not part of it, so they
+// are dropped before anything is asked of the shape.
+export function normalizeMemberCode(value: string): string {
+  return value.replace(/[\s-]/g, '').toUpperCase();
+}
+
+export function isMemberCodeShape(value: string): boolean {
+  return /^[0-9A-Z]{7}$/.test(normalizeMemberCode(value));
+}
+
 export function displayCode(memberCode: string): string {
   return formatMemberCode(memberCode);
 }

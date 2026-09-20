@@ -79,7 +79,12 @@ describe('ResubmissionForm', () => {
     await user.clear(phone);
     await user.click(screen.getByRole('button', { name: 'Enviar de nuevo' }));
 
-    expect(await screen.findByText('Este dato es obligatorio.')).toBeTruthy();
+    // Reached through the control rather than from a line below it: a line
+    // appearing there pushes every field after it down the screen.
+    await waitFor(() => expect(phone.getAttribute('aria-invalid')).toBe('true'));
+    expect(document.getElementById('phone-error')?.textContent).toContain(
+      'Este dato es obligatorio.',
+    );
     expect(resubmit).not.toHaveBeenCalled();
   });
 
@@ -103,7 +108,7 @@ describe('ResubmissionForm', () => {
     await screen.findByLabelText('Nombre comercial');
     await user.click(screen.getByRole('button', { name: 'Enviar de nuevo' }));
 
-    expect((await screen.findByRole('alert')).textContent).toContain('No fue posible enviar');
+    expect(await screen.findByText(/No fue posible enviar/)).toBeTruthy();
     expect(screen.queryByText('Su solicitud quedó enviada de nuevo')).toBeNull();
   });
 });

@@ -7,9 +7,17 @@ type DropdownProps = {
   button: ReactNode;
   children: (close: () => void) => ReactNode;
   align?: 'left' | 'right';
+  // A list of notifications needs room to read; a column of two links does not.
+  width?: string;
 };
 
-export function Dropdown({ label, button, children, align = 'right' }: DropdownProps) {
+export function Dropdown({
+  label,
+  button,
+  children,
+  align = 'right',
+  width = 'w-72',
+}: DropdownProps) {
   const [open, setOpen] = useState(false);
   const container = useRef<HTMLDivElement>(null);
 
@@ -57,7 +65,7 @@ export function Dropdown({ label, button, children, align = 'right' }: DropdownP
       {open && (
         <div
           role="menu"
-          className={`animate-panel-in absolute top-[calc(100%+0.5rem)] z-30 w-72 overflow-hidden rounded-panel border border-border bg-surface-raised shadow-xl ${
+          className={`animate-panel-in absolute top-[calc(100%+0.5rem)] z-30 ${width} overflow-hidden rounded-panel border border-border bg-surface-raised shadow-xl ${
             align === 'right' ? 'right-0' : 'left-0'
           }`}
         >

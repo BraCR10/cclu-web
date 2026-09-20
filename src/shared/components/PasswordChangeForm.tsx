@@ -2,8 +2,8 @@
 
 import { useState, type FormEvent } from 'react';
 import { ApiError } from '@/shared/api/request';
-import { checkPassword, PASSWORD_HINT } from '@/shared/config/memberRules';
-import { messageForCode } from '@/shared/config/messages';
+import { checkPassword } from '@/shared/config/memberRules';
+import { messageForCode, PASSWORD_HINT } from '@/shared/config/messages';
 import { confirmPasswordChange, requestPasswordCode } from '@/shared/auth/passwordChange';
 import { Field, CONTROL_CLASS } from './Field';
 import { ToastStack } from './ToastStack';

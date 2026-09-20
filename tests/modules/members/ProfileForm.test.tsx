@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ProfileForm } from '@/modules/members/components/ProfileForm';
-import { MESSAGES } from '@/shared/config/messages';
+import { MESSAGES, messageForFieldCode } from '@/shared/config/messages';
 import type { MemberProfile } from '@/modules/members/api/profile';
 
 const CANTONS = [
@@ -101,19 +101,27 @@ describe('ProfileForm', () => {
     await user.clear(name);
     await save(user);
 
-    expect(await screen.findByText(MESSAGES.required)).toBeTruthy();
-    expect(name.getAttribute('aria-invalid')).toBe('true');
+    await waitFor(() => expect(name.getAttribute('aria-invalid')).toBe('true'));
+    expect(document.getElementById('businessName-error')?.textContent).toContain(MESSAGES.required);
     expect(saveProfile).not.toHaveBeenCalled();
   });
 
-  it('refuses a web address that is not one, without asking the server first', async () => {
+  // The refusal states the rule that was broken. "Check the format" sends the
+  // person back to the field knowing exactly as much as before.
+  it('refuses a web address that is not one and says what one looks like', async () => {
     const { saveProfile, user } = renderForm();
 
     const website = await screen.findByLabelText('Sitio web');
     await user.type(website, 'panaderia.cr');
     await save(user);
 
-    expect(await screen.findByText(MESSAGES.invalid_format)).toBeTruthy();
+    // The refusal is reached through the control, not from a line below it:
+    // a line appearing there would push every field after it down the screen.
+    await waitFor(() =>
+      expect(document.getElementById('website-error')?.textContent).toContain(
+        messageForFieldCode('website', 'invalid_format'),
+      ),
+    );
     expect(saveProfile).not.toHaveBeenCalled();
   });
 

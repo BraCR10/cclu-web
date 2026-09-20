@@ -114,7 +114,10 @@ export function MemberCard({
             </p>
           </div>
 
-          <div className="flex items-center gap-5">
+          {/* Below about three hundred and sixty pixels the row does not fit:
+              the panel leaves 240 of them, the code block takes 128 and the
+              gap 20, and the code itself needs more than the 92 that remain. */}
+          <div className="flex flex-col items-start gap-4 min-[23rem]:flex-row min-[23rem]:items-center min-[23rem]:gap-5">
             {/* The library builds this from an address this application made, so
                 no text a person typed reaches the markup. */}
             <div

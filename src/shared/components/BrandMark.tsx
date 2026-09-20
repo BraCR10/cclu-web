@@ -9,16 +9,22 @@ const SYMBOL = {
 };
 
 const SIZES = {
+  // For a bar that also has to hold navigation. The descriptor is forty six
+  // characters, so its width is what decides whether the row fits.
+  xs: { symbol: 'h-8 w-auto', line: 'text-[0.625rem]', name: 'text-sm' },
   sm: { symbol: 'h-9 w-auto', line: 'text-xs', name: 'text-base' },
   md: { symbol: 'h-14 w-auto', line: 'text-sm', name: 'text-2xl' },
   lg: { symbol: 'h-20 w-auto', line: 'text-sm', name: 'text-4xl' },
 };
 
+const DESCRIPTOR = 'Cámara de Comercio, Turismo, Industria y Afines';
+const NAME = 'Cantón de La Unión';
+
 type BrandMarkProps = {
   size?: keyof typeof SIZES;
   className?: string;
-  // Drops the full legal name, which needs a width a navigation rail does not
-  // have. The symbol and the cantón still identify the chamber.
+  // Drops the descriptor, which needs a width a navigation rail does not have.
+  // The chamber is still named: the cantón is what identifies it.
   compact?: boolean;
 };
 
@@ -36,17 +42,16 @@ export function BrandMark({ size = 'md', className = '', compact = false }: Bran
         className={scale.symbol}
       />
       <span className="flex flex-col leading-tight">
+        {/* Forty six characters do not fit beside a telephone's navigation, so
+            the descriptor steps aside there and the name carries the mark. */}
         {!compact && (
-          <span className={`${scale.line} font-medium tracking-wide uppercase opacity-80`}>
-            Cámara de Comercio, Turismo, Industria y Afines
+          <span
+            className={`${scale.line} hidden font-medium tracking-wide uppercase opacity-80 sm:block`}
+          >
+            {DESCRIPTOR}
           </span>
         )}
-        <span className={`${scale.name} font-semibold tracking-tight`}>
-          {compact ? 'CCLU' : 'Cantón de La Unión'}
-        </span>
-        {compact && (
-          <span className="text-xs font-medium text-content-muted">Cantón de La Unión</span>
-        )}
+        <span className={`${scale.name} font-semibold tracking-tight`}>{NAME}</span>
       </span>
     </div>
   );

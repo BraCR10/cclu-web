@@ -69,7 +69,7 @@ describe('CodeVerifier', () => {
 
     await check(user, 'MA7K2Q4');
 
-    expect((await screen.findByRole('alert')).textContent).toContain('Demasiados intentos');
+    expect(await screen.findByText(/Demasiados intentos/)).toBeTruthy();
   });
 
   it('separates a server that broke from a code that does not stand', async () => {
@@ -80,7 +80,7 @@ describe('CodeVerifier', () => {
 
     await check(user, 'MA7K2Q4');
 
-    expect((await screen.findByRole('alert')).textContent).toContain('No fue posible verificar');
+    expect(await screen.findByText(/No fue posible verificar/)).toBeTruthy();
     expect(screen.queryByText(/no corresponde a un afiliado/)).toBeNull();
   });
 

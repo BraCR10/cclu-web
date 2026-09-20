@@ -37,8 +37,9 @@ describe('AdminLoginForm', () => {
 
     await fillAndSubmit(user);
 
-    const alert = await screen.findByRole('alert');
-    expect(alert.textContent).toBe('Correo o contraseña incorrectos.');
+    // A refusal the API sent, not one a field could have caught, so it is
+    // reported in the corner rather than wedged into the form.
+    expect(await screen.findByText('Correo o contraseña incorrectos.')).toBeTruthy();
     expect(onSignedIn).not.toHaveBeenCalled();
   });
 
@@ -50,8 +51,7 @@ describe('AdminLoginForm', () => {
 
     await fillAndSubmit(user);
 
-    const alert = await screen.findByRole('alert');
-    expect(alert.textContent).toContain('Demasiados intentos');
+    expect(await screen.findByText(/Demasiados intentos/)).toBeTruthy();
   });
 
   it('separates a server that broke from credentials that were wrong', async () => {
@@ -62,8 +62,7 @@ describe('AdminLoginForm', () => {
 
     await fillAndSubmit(user);
 
-    const alert = await screen.findByRole('alert');
-    expect(alert.textContent).toContain('No fue posible iniciar sesión');
+    expect(await screen.findByText(/No fue posible iniciar sesión/)).toBeTruthy();
   });
 
   it('lets the person try again after a refusal', async () => {
@@ -73,29 +72,26 @@ describe('AdminLoginForm', () => {
     const { user } = renderForm(signIn);
 
     await fillAndSubmit(user);
-    await screen.findByRole('alert');
+    await screen.findByText('Correo o contraseña incorrectos.');
 
     const button = screen.getByRole('button', { name: 'Ingresar' }) as HTMLButtonElement;
 
     expect(button.disabled).toBe(false);
   });
 
-  it('clears the previous refusal when a new attempt starts', async () => {
-    let attempts = 0;
+  // The notice leaves on its own, but somebody who has read it should not have
+  // to wait for it.
+  it('lets the refusal be dismissed', async () => {
     const signIn = vi.fn(async () => {
-      attempts += 1;
-      if (attempts === 1) {
-        throw new ApiError(401, 'Unauthorized');
-      }
+      throw new ApiError(401, 'Unauthorized');
     });
-    const { onSignedIn, user } = renderForm(signIn);
+    const { user } = renderForm(signIn);
 
     await fillAndSubmit(user);
-    await screen.findByRole('alert');
+    await screen.findByText('Correo o contraseña incorrectos.');
 
-    await user.click(screen.getByRole('button', { name: 'Ingresar' }));
+    await user.click(screen.getByRole('button', { name: 'Cerrar aviso' }));
 
-    await waitFor(() => expect(onSignedIn).toHaveBeenCalledOnce());
-    expect(screen.queryByRole('alert')).toBeNull();
+    expect(screen.queryByText('Correo o contraseña incorrectos.')).toBeNull();
   });
 });

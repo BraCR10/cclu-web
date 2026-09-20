@@ -1,6 +1,6 @@
 import { MEMBER_TYPES, type MemberType, type Registration } from './api/registration';
 import { PASSWORD, checkField, checkPassword } from '@/shared/config/memberRules';
-import { messageForCode } from '@/shared/config/messages';
+import { messageForCode, messageForFieldCode } from '@/shared/config/messages';
 
 export const MINIMUM_PASSWORD_LENGTH = PASSWORD.minimumLength;
 
@@ -58,7 +58,7 @@ export function validateRegistration(draft: RegistrationDraft): RegistrationErro
     const code = checkField(field, draft[field] ?? '', { required: true });
 
     if (code !== null) {
-      errors[field] = messageForCode(code);
+      errors[field] = messageForFieldCode(field, code);
     }
   }
 
@@ -66,7 +66,7 @@ export function validateRegistration(draft: RegistrationDraft): RegistrationErro
     const code = checkField(field, draft[field] ?? '', { required: false });
 
     if (code !== null) {
-      errors[field] = messageForCode(code);
+      errors[field] = messageForFieldCode(field, code);
     }
   }
 

@@ -11,7 +11,9 @@ export type Toast = {
   detail?: string;
 };
 
-const DEFAULT_DURATION = 6000;
+// Short on purpose. These report something that already happened and none of
+// them is the only copy: a refused field keeps its own mark beside the label.
+const DEFAULT_DURATION = 4000;
 
 // A notice that reports what already happened should not have to be dismissed
 // to get on with the work, so it leaves on its own.

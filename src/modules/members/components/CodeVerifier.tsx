@@ -3,6 +3,8 @@
 import { useState, type FormEvent } from 'react';
 import { Field, CONTROL_CLASS } from '@/shared/components/Field';
 import { MESSAGES, messageForError } from '@/shared/config/messages';
+import { ToastStack } from '@/shared/components/ToastStack';
+import { useToasts } from '@/shared/components/useToasts';
 import { CheckCircleIcon, CrossCircleIcon } from '@/shared/components/icons';
 import { MEMBER_TYPE_LABELS } from '@/modules/admin/applicationRules';
 import { verifyMemberCode, type VerificationResult } from '../api/verification';
@@ -15,13 +17,12 @@ export function CodeVerifier({ verify = verifyMemberCode }: CodeVerifierProps) {
   const [code, setCode] = useState('');
   const [result, setResult] = useState<VerificationResult | null>(null);
   const [fieldError, setFieldError] = useState<string | undefined>(undefined);
-  const [problem, setProblem] = useState<string | null>(null);
   const [checking, setChecking] = useState(false);
+  const { toasts, show, dismiss } = useToasts();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setResult(null);
-    setProblem(null);
 
     // The button stays pressable so the form can say what is missing. A
     // disabled one leaves the person guessing which rule they broke.
@@ -36,7 +37,12 @@ export function CodeVerifier({ verify = verifyMemberCode }: CodeVerifierProps) {
     try {
       setResult(await verify(code.trim()));
     } catch (caught) {
-      setProblem(messageForError(caught, { fallback: MESSAGES.verification_unavailable }));
+      // The API refused. That is not something the form could have caught, so
+      // it is reported in the corner rather than wedged into the screen.
+      show({
+        tone: 'problem',
+        title: messageForError(caught, { fallback: MESSAGES.verification_unavailable }),
+      });
     } finally {
       setChecking(false);
     }
@@ -44,6 +50,8 @@ export function CodeVerifier({ verify = verifyMemberCode }: CodeVerifierProps) {
 
   return (
     <div className="flex flex-col gap-6">
+      <ToastStack toasts={toasts} onDismiss={dismiss} />
+
       <form
         onSubmit={handleSubmit}
         className="flex flex-col gap-4 rounded-panel border border-border bg-surface-raised p-6"
@@ -77,15 +85,6 @@ export function CodeVerifier({ verify = verifyMemberCode }: CodeVerifierProps) {
           )}
         </Field>
       </form>
-
-      {problem !== null && (
-        <p
-          role="alert"
-          className="rounded-control bg-highlight px-4 py-3 text-sm text-on-highlight"
-        >
-          {problem}
-        </p>
-      )}
 
       {result !== null && result.valid && (
         <div
