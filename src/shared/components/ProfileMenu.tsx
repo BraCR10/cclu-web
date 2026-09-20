@@ -19,6 +19,13 @@ function initial(name: string): string {
   return name.trim().charAt(0).toUpperCase() || '?';
 }
 
+// An administrator has no name stored anywhere, so the API answers with their
+// address for both. Printed twice it reads like a mistake, so the role takes
+// the line the name would have had.
+function heading(displayName: string, email: string, roleLabel: string): string {
+  return displayName === email ? roleLabel : displayName;
+}
+
 export function ProfileMenu({
   displayName,
   email,
@@ -35,7 +42,9 @@ export function ProfileMenu({
           <span className="flex size-8 items-center justify-center rounded-pill bg-linear-to-br from-brand to-support text-sm font-semibold text-on-brand">
             {initial(displayName)}
           </span>
-          <span className="hidden max-w-36 truncate font-medium sm:block">{displayName}</span>
+          <span className="hidden max-w-36 truncate font-medium sm:block">
+            {heading(displayName, email, roleLabel)}
+          </span>
           <ChevronDownIcon className="size-4 text-content-muted" />
         </>
       }
@@ -43,9 +52,9 @@ export function ProfileMenu({
       {(close) => (
         <>
           <div className="flex flex-col gap-1 border-b border-border p-4">
-            <p className="font-medium">{displayName}</p>
+            <p className="font-medium">{heading(displayName, email, roleLabel)}</p>
             <p className="truncate text-sm text-content-muted">{email}</p>
-            <p className="text-xs text-content-muted">{roleLabel}</p>
+            {displayName !== email && <p className="text-xs text-content-muted">{roleLabel}</p>}
           </div>
 
           {memberCode !== undefined && memberCode !== null && (

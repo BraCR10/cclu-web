@@ -15,5 +15,9 @@ export function focusFirstInvalid(order: readonly string[], errors: Record<strin
   }
 
   control.focus();
-  control.scrollIntoView({ block: 'center' });
+
+  // focus() already brings the control into view. This only centres it, and it
+  // is missing from enough environments that it cannot be relied on: letting it
+  // throw here would take the whole refusal down with it.
+  control.scrollIntoView?.({ block: 'center' });
 }
