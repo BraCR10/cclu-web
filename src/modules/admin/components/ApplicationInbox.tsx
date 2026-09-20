@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { formatMemberCode } from '@/shared/format/memberCode';
+import { formatMemberCode } from '@/shared/format';
 import { ToastStack } from '@/shared/components/ToastStack';
 import { useToasts } from '@/shared/components/useToasts';
 import {
@@ -13,7 +13,7 @@ import {
   type DecidedApplication,
   type PendingApplication,
 } from '../api/applications';
-import { DECISION_MESSAGES, decisionMessageFor } from '../decisionMessages';
+import { DECISION_MESSAGES, decisionMessageFor } from '../applicationRules';
 import { ApplicationCard } from './ApplicationCard';
 import { DecidedApplicationCard } from './DecidedApplicationCard';
 import { StatusTabs, type InboxView } from './StatusTabs';

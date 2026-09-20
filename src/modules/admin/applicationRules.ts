@@ -1,4 +1,18 @@
 import { ApiError } from '@/shared/api/request';
+import { elapsedMilliseconds } from '@/shared/format';
+import type { IdentificationType, MemberType } from './api/applications';
+
+export const MEMBER_TYPE_LABELS: Record<MemberType, string> = {
+  business: 'Empresa',
+  independent_professional: 'Profesional independiente',
+};
+
+export const IDENTIFICATION_TYPE_LABELS: Record<IdentificationType, string> = {
+  national_id: 'Cédula',
+  legal_entity_id: 'Cédula jurídica',
+  passport: 'Pasaporte',
+  dimex: 'DIMEX',
+};
 
 export const DECISION_MESSAGES = {
   alreadyDecided: 'Otra persona ya decidió esta solicitud. La lista se actualizó.',
@@ -40,3 +54,34 @@ export function decisionMessageFor(error: unknown): string {
 export function decisionLeftListStale(error: unknown): boolean {
   return error instanceof ApiError && (error.status === 409 || error.status === 404);
 }
+
+const MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
+
+// A registration left unanswered is the chamber's problem, not the applicant's,
+// so the wait is graded rather than merely stated.
+const URGENT_DAYS = 7;
+const NOTABLE_DAYS = 3;
+
+export type WaitingTone = 'calm' | 'notable' | 'urgent';
+
+export function daysWaiting(isoDate: string, now: Date = new Date()): number {
+  const elapsed = elapsedMilliseconds(isoDate, now);
+
+  return elapsed === null ? 0 : Math.floor(elapsed / MILLISECONDS_PER_DAY);
+}
+
+export function waitingTone(isoDate: string, now: Date = new Date()): WaitingTone {
+  const days = daysWaiting(isoDate, now);
+
+  if (days >= URGENT_DAYS) {
+    return 'urgent';
+  }
+
+  return days >= NOTABLE_DAYS ? 'notable' : 'calm';
+}
+
+export const WAITING_TONE_CLASS: Record<WaitingTone, string> = {
+  calm: 'border border-border text-content-muted',
+  notable: 'border border-highlight text-content',
+  urgent: 'bg-highlight text-on-highlight',
+};

@@ -14,14 +14,18 @@ const quantityFormatter = new Intl.RelativeTimeFormat('es', { numeric: 'always' 
 
 // How long someone has been waiting says more than the date they applied, and
 // it is the reason the oldest application is shown first.
-export function describeElapsedTime(isoDate: string, now: Date = new Date()): string {
+export function elapsedMilliseconds(isoDate: string, now: Date = new Date()): number | null {
   const moment = new Date(isoDate);
 
-  if (Number.isNaN(moment.getTime())) {
+  return Number.isNaN(moment.getTime()) ? null : Math.max(0, now.getTime() - moment.getTime());
+}
+
+export function describeElapsedTime(isoDate: string, now: Date = new Date()): string {
+  const elapsed = elapsedMilliseconds(isoDate, now);
+
+  if (elapsed === null) {
     return '';
   }
-
-  const elapsed = now.getTime() - moment.getTime();
 
   for (const { unit, milliseconds } of UNITS) {
     if (elapsed >= milliseconds) {
@@ -33,13 +37,11 @@ export function describeElapsedTime(isoDate: string, now: Date = new Date()): st
 }
 
 export function describeWaitLength(isoDate: string, now: Date = new Date()): string {
-  const moment = new Date(isoDate);
+  const elapsed = elapsedMilliseconds(isoDate, now);
 
-  if (Number.isNaN(moment.getTime())) {
+  if (elapsed === null) {
     return '';
   }
-
-  const elapsed = now.getTime() - moment.getTime();
 
   for (const { unit, milliseconds } of UNITS) {
     if (elapsed >= milliseconds) {
@@ -50,4 +52,14 @@ export function describeWaitLength(isoDate: string, now: Date = new Date()): str
   }
 
   return 'unos momentos';
+}
+
+// Grouped only for reading aloud. The stored value has no separators, so the
+// grouping is added here and never sent back.
+export function formatMemberCode(code: string): string {
+  if (!/^[0-9A-Z]{7}$/.test(code)) {
+    return code;
+  }
+
+  return `${code.slice(0, 1)}-${code.slice(1, 5)}-${code.slice(5)}`;
 }

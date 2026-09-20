@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { describeElapsedTime, describeWaitLength } from '@/shared/format/relativeTime';
+import { describeElapsedTime, describeWaitLength, formatMemberCode } from '@/shared/format';
 
 const NOW = new Date('2026-09-19T12:00:00.000Z');
 
@@ -10,6 +10,18 @@ function ago(milliseconds: number): string {
 function waited(milliseconds: number): string {
   return describeWaitLength(new Date(NOW.getTime() - milliseconds).toISOString(), NOW);
 }
+
+describe('formatMemberCode', () => {
+  it('groups a code so it can be read aloud', () => {
+    expect(formatMemberCode('MA7K2Q4')).toBe('M-A7K2-Q4');
+  });
+
+  it('leaves anything that is not a code untouched', () => {
+    expect(formatMemberCode('')).toBe('');
+    expect(formatMemberCode('M-A7K2-Q4')).toBe('M-A7K2-Q4');
+    expect(formatMemberCode('short')).toBe('short');
+  });
+});
 
 describe('describeElapsedTime', () => {
   it('reads the wait in the largest unit that fits', () => {

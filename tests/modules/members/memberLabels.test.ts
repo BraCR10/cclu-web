@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { ApiError } from '@/shared/api/request';
-import { MESSAGES, messageFor } from '@/modules/members/memberLoginMessages';
+import { MESSAGES, messageFor } from '@/modules/members/memberLabels';
 import { REFUSAL_REASONS } from '@/modules/members/api/memberSession';
 
 describe('messageFor', () => {

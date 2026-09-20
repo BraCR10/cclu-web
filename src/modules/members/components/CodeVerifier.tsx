@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from 'react';
 import { ApiError } from '@/shared/api/request';
 import { CheckCircleIcon, CrossCircleIcon } from '@/shared/components/icons';
-import { MEMBER_TYPE_LABELS } from '@/modules/admin/applicationLabels';
+import { MEMBER_TYPE_LABELS } from '@/modules/admin/applicationRules';
 import { verifyMemberCode, type VerificationResult } from '../api/verification';
 
 type CodeVerifierProps = {

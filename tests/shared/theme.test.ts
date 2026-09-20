@@ -1,9 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import {
-  THEME_BOOTSTRAP_SCRIPT,
-  applyThemeChoice,
-  isThemeChoice,
-} from '@/shared/theme/themeChoice';
+import { THEME_BOOTSTRAP_SCRIPT, applyThemeChoice, isThemeChoice } from '@/shared/theme';
 
 describe('isThemeChoice', () => {
   it('accepts only the three the stylesheet knows', () => {

@@ -10,7 +10,7 @@ import { PanelShell } from '@/shared/components/PanelShell';
 import { ProfileMenu } from '@/shared/components/ProfileMenu';
 import { NotificationsMenu } from '@/shared/components/NotificationsMenu';
 import { BadgeCheckIcon, UserIcon } from '@/shared/components/icons';
-import { formatMemberCode } from '@/shared/format/memberCode';
+import { formatMemberCode } from '@/shared/format';
 
 export const MEMBER_NAVIGATION = [
   { href: '/member', label: 'Mi perfil', Icon: UserIcon },
