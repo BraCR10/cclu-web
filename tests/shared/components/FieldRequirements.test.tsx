@@ -75,6 +75,37 @@ describe('field refusals', () => {
     }
   });
 
+  // The refusal for a broken rule IS that rule. Listing it again under a
+  // heading says the same sentence twice, which is what it did.
+  it('does not repeat a rule the refusal already stated', async () => {
+    const rule = messageForFieldCode('phone', 'invalid_format');
+
+    render(
+      <Field id="phone" label="Teléfono" error={rule}>
+        {(control) => <input id="phone" {...control} className={CONTROL_CLASS} />}
+      </Field>,
+    );
+
+    await userEvent
+      .setup()
+      .click(screen.getByRole('button', { name: 'Ver qué pasa con este dato' }));
+
+    const note = screen.getByRole('note');
+
+    expect(note.textContent?.split(rule).length - 1).toBe(1);
+    expect(note.textContent).not.toContain('Requisitos');
+  });
+
+  it('still lists what the refusal did not say', async () => {
+    const user = renderField(REFUSAL);
+    await user.click(trigger());
+
+    const note = screen.getByRole('note');
+
+    expect(note.textContent).toContain('Requisitos');
+    expect(note.textContent).toContain('https://');
+  });
+
   it('closes on Escape', async () => {
     const user = renderField(REFUSAL);
     await user.click(trigger());

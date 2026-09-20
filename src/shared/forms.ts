@@ -21,3 +21,10 @@ export function focusFirstInvalid(order: readonly string[], errors: Record<strin
   // throw here would take the whole refusal down with it.
   control.scrollIntoView?.({ block: 'center' });
 }
+
+// Where a field is refused for breaking a rule, the refusal IS that rule, and
+// listing it again under a heading says the same sentence twice. Only what the
+// message has not already said is worth repeating.
+export function unsaidRequirements(message: string, requirements: readonly string[]): string[] {
+  return requirements.filter((requirement) => !message.includes(requirement));
+}
