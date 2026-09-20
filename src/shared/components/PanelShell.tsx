@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { BrandMark } from './BrandMark';
 import { ThemeToggle } from './ThemeToggle';
@@ -13,23 +14,13 @@ export type NavigationItem = {
 
 type PanelShellProps = {
   sectionLabel: string;
-  title: string;
-  subtitle?: string;
   navigation: NavigationItem[];
-  currentPath: string;
   headerEnd: ReactNode;
   children: ReactNode;
 };
 
-export function PanelShell({
-  sectionLabel,
-  title,
-  subtitle,
-  navigation,
-  currentPath,
-  headerEnd,
-  children,
-}: PanelShellProps) {
+export function PanelShell({ sectionLabel, navigation, headerEnd, children }: PanelShellProps) {
+  const currentPath = usePathname();
   return (
     <div className="flex min-h-full flex-1">
       <aside className="hidden w-[17.5rem] shrink-0 flex-col border-r border-border bg-surface-raised lg:flex">
@@ -68,12 +59,9 @@ export function PanelShell({
         <header className="sticky top-0 z-20 flex items-center justify-between gap-4 border-b border-border bg-surface/85 px-4 py-3 backdrop-blur lg:px-8">
           <BrandMark size="sm" compact className="text-content lg:hidden" />
 
-          <div className="hidden min-w-0 flex-col lg:flex">
-            <p className="text-[0.6875rem] font-semibold tracking-widest text-content-muted uppercase">
-              {sectionLabel}
-            </p>
-            <p className="truncate text-lg font-semibold tracking-tight">{title}</p>
-          </div>
+          <p className="hidden text-[0.6875rem] font-semibold tracking-widest text-content-muted uppercase lg:block">
+            {sectionLabel}
+          </p>
 
           <div className="flex items-center gap-1 sm:gap-2">
             <ThemeToggle />
@@ -82,16 +70,7 @@ export function PanelShell({
         </header>
 
         <main className="flex-1 px-4 py-8 sm:px-6 lg:px-8">
-          <div className="mx-auto flex w-full max-w-5xl flex-col gap-8">
-            <div className="flex flex-col gap-2">
-              <h1 className="text-2xl font-semibold tracking-tight text-brand lg:text-3xl">
-                {title}
-              </h1>
-              {subtitle && <p className="text-content-muted">{subtitle}</p>}
-            </div>
-
-            {children}
-          </div>
+          <div className="mx-auto flex w-full max-w-5xl flex-col gap-8">{children}</div>
         </main>
       </div>
     </div>

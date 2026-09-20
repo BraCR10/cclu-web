@@ -20,18 +20,10 @@ export const MEMBER_NAVIGATION = [
 ];
 
 type MemberPanelShellProps = {
-  title: string;
-  subtitle?: string;
-  currentPath: string;
   children: ReactNode;
 };
 
-export function MemberPanelShell({
-  title,
-  subtitle,
-  currentPath,
-  children,
-}: MemberPanelShellProps) {
+export function MemberPanelShell({ children }: MemberPanelShellProps) {
   const session = useSession();
 
   useRequireSession(session, { signInPath: SIGN_IN_PATH });
@@ -39,10 +31,7 @@ export function MemberPanelShell({
   return (
     <PanelShell
       sectionLabel="Panel del agremiado"
-      title={title}
-      subtitle={subtitle}
       navigation={MEMBER_NAVIGATION}
-      currentPath={currentPath}
       headerEnd={
         <>
           <NotificationsMenu notices={[]} emptyMessage="No tiene avisos pendientes." />

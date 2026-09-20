@@ -3,7 +3,7 @@
 import { PanelHeading } from '@/shared/components/PanelHeading';
 import { PasswordChangeForm } from '@/shared/components/PasswordChangeForm';
 
-export default function MemberSecurityPage() {
+export default function AdminSecurityPage() {
   return (
     <>
       <PanelHeading

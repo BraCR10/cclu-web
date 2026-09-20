@@ -17,13 +17,10 @@ export const ADMIN_NAVIGATION = [
 ];
 
 type AdminPanelShellProps = {
-  title: string;
-  subtitle?: string;
-  currentPath: string;
   children: ReactNode;
 };
 
-export function AdminPanelShell({ title, subtitle, currentPath, children }: AdminPanelShellProps) {
+export function AdminPanelShell({ children }: AdminPanelShellProps) {
   const session = useSession();
 
   useRequireSession(session, { signInPath: ADMIN_SIGN_IN_PATH });
@@ -34,10 +31,7 @@ export function AdminPanelShell({ title, subtitle, currentPath, children }: Admi
   return (
     <PanelShell
       sectionLabel="Panel administrativo"
-      title={title}
-      subtitle={subtitle}
       navigation={ADMIN_NAVIGATION}
-      currentPath={currentPath}
       headerEnd={
         <>
           {isAdministrator && <AdminNotifications />}
