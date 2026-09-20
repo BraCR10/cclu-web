@@ -36,7 +36,9 @@ export function ToastStack({ toasts, onDismiss }: ToastStackProps) {
     // doing, they report what already finished.
     <div
       aria-live="polite"
-      className="pointer-events-none fixed top-4 right-4 z-50 flex w-[calc(100vw-2rem)] max-w-sm flex-col gap-3"
+      // Across the top on a telephone, where a corner is too narrow to read
+      // in; parked in the right corner once there is room beside the content.
+      className="pointer-events-none fixed inset-x-4 top-4 z-50 flex flex-col gap-3 sm:inset-x-auto sm:right-4 sm:w-96"
     >
       {toasts.map((toast) => (
         <div

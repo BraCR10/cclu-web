@@ -108,7 +108,7 @@ describe('ResubmissionForm', () => {
     await screen.findByLabelText('Nombre comercial');
     await user.click(screen.getByRole('button', { name: 'Enviar de nuevo' }));
 
-    expect((await screen.findByRole('alert')).textContent).toContain('No fue posible enviar');
+    expect(await screen.findByText(/No fue posible enviar/)).toBeTruthy();
     expect(screen.queryByText('Su solicitud quedó enviada de nuevo')).toBeNull();
   });
 });

@@ -4,6 +4,8 @@ import { useEffect, useState, type FormEvent } from 'react';
 import { CONTROL_CLASS, Field } from '@/shared/components/Field';
 import { WithContactIcon, contactPadding } from '@/shared/components/contactFields';
 import { MESSAGES, PASSWORD_HINT, messageForError } from '@/shared/config/messages';
+import { ToastStack } from '@/shared/components/ToastStack';
+import { useToasts } from '@/shared/components/useToasts';
 import {
   IDENTIFICATION_TYPES,
   MEMBER_TYPES,
@@ -69,8 +71,8 @@ export function MemberRegistrationForm({
     identificationType: IDENTIFICATION_TYPES.LEGAL_ENTITY_ID,
   });
   const [errors, setErrors] = useState<RegistrationErrors>({});
-  const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const { toasts, show, dismiss } = useToasts();
   const [registered, setRegistered] = useState(false);
 
   useEffect(() => {
@@ -85,7 +87,7 @@ export function MemberRegistrationForm({
       })
       .catch(() => {
         if (mounted) {
-          setSubmitError(MESSAGES.registration_unavailable);
+          reportProblem(MESSAGES.registration_unavailable);
         }
       });
 
@@ -96,13 +98,16 @@ export function MemberRegistrationForm({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  function reportProblem(title: string) {
+    show({ tone: 'problem', title });
+  }
+
   function set(field: keyof RegistrationDraft, value: string) {
     setDraft((current) => ({ ...current, [field]: value }));
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSubmitError(null);
 
     const found = validateRegistration(draft);
     setErrors(found);
@@ -117,7 +122,8 @@ export function MemberRegistrationForm({
       await submit(toRegistration(draft));
       setRegistered(true);
     } catch (caught) {
-      setSubmitError(messageFor(caught));
+      // The API refused, which no field could have caught on its own.
+      reportProblem(messageFor(caught));
       setSubmitting(false);
     }
   }
@@ -140,6 +146,8 @@ export function MemberRegistrationForm({
 
   return (
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-8">
+      <ToastStack toasts={toasts} onDismiss={dismiss} />
+
       <fieldset className="flex flex-col gap-3">
         <legend className="text-sm font-medium">Tipo de agremiado</legend>
 
@@ -351,15 +359,6 @@ export function MemberRegistrationForm({
           ))}
         </div>
       </details>
-
-      {submitError !== null && (
-        <p
-          role="alert"
-          className="rounded-control bg-highlight px-3 py-2 text-sm text-on-highlight"
-        >
-          {submitError}
-        </p>
-      )}
 
       <button
         type="submit"

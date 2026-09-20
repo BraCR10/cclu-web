@@ -57,10 +57,10 @@ export const MESSAGES: Record<string, string> = {
     'No fue posible enviar la solicitud. Intente de nuevo en unos momentos.',
   registration_unavailable: 'No fue posible enviar el registro. Intente de nuevo en unos momentos.',
 
-  // What a form says when it refuses to send because something is missing. The
-  // fields carry their own message; this one is so nobody wonders whether the
-  // button worked.
-  form_incomplete: 'Revise los datos marcados antes de continuar.',
+  // Only for a refusal that came back from the API after the form itself was
+  // satisfied. A form never says this about its own fields: each one carries a
+  // mark beside its label, and repeating it above says less than the marks do.
+  form_incomplete: 'La Cámara no aceptó algunos datos. Revíselos e intente de nuevo.',
 };
 
 // What each refusal means when the API named no code of its own.

@@ -182,8 +182,9 @@ export function ProfileForm({
     const found = findFieldErrors(draft);
     setErrors(found);
 
+    // No notice here. Each field carries its own mark beside its label, and
+    // announcing the same thing again says less than the marks already do.
     if (Object.keys(found).length > 0) {
-      show({ tone: 'problem', title: MESSAGES.form_incomplete });
       return;
     }
 

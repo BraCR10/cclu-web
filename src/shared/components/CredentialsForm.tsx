@@ -5,6 +5,8 @@ import { useState, type FormEvent, type ReactNode } from 'react';
 import { CONTROL_CLASS, Field } from './Field';
 import { MESSAGES, messageForError } from '@/shared/config/messages';
 import { checkField } from '@/shared/config/memberRules';
+import { ToastStack } from './ToastStack';
+import { useToasts } from './useToasts';
 
 type Credentials = { email: string; password: string };
 
@@ -40,8 +42,8 @@ export function CredentialsForm({
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
-  const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const { toasts, show, dismiss } = useToasts();
 
   // The form is submitted with noValidate, so the browser's own bubble never
   // appears and this is the only thing that tells the person what is missing.
@@ -62,13 +64,13 @@ export function CredentialsForm({
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setError(null);
 
     const found = findFieldErrors();
     setFieldErrors(found);
 
+    // No banner here. Each field carries its own mark, and repeating it above
+    // the form says less than the marks already do.
     if (Object.keys(found).length > 0) {
-      setError(MESSAGES.form_incomplete);
       return;
     }
 
@@ -78,13 +80,20 @@ export function CredentialsForm({
       await signIn({ email: email.trim(), password });
       onSignedIn();
     } catch (caught) {
-      setError(messageForError(caught, { byStatus: SIGN_IN_STATUS, fallback: fallbackMessage }));
+      // The API refused, which is not something a field could have caught.
+      // It belongs in the corner, not wedged into the form.
+      show({
+        tone: 'problem',
+        title: messageForError(caught, { byStatus: SIGN_IN_STATUS, fallback: fallbackMessage }),
+      });
       setSubmitting(false);
     }
   }
 
   return (
     <form onSubmit={handleSubmit} noValidate className="flex w-full flex-col gap-5">
+      <ToastStack toasts={toasts} onDismiss={dismiss} />
+
       <Field id="email" label="Correo electrónico" error={fieldErrors.email}>
         {(control) => (
           <input
@@ -112,15 +121,6 @@ export function CredentialsForm({
           />
         )}
       </Field>
-
-      {error !== null && (
-        <p
-          role="alert"
-          className="rounded-control bg-highlight px-3 py-2 text-sm text-on-highlight"
-        >
-          {error}
-        </p>
-      )}
 
       <button
         type="submit"

@@ -5,8 +5,9 @@ import { Field, CONTROL_CLASS } from '@/shared/components/Field';
 import { WithContactIcon, contactPadding } from '@/shared/components/contactFields';
 import { AlertIcon, CheckCircleIcon } from '@/shared/components/icons';
 import { checkField } from '@/shared/config/memberRules';
-import { messageForCode, messageForFieldCode } from '@/shared/config/messages';
-import { ApiError } from '@/shared/api/request';
+import { MESSAGES, messageForError, messageForFieldCode } from '@/shared/config/messages';
+import { ToastStack } from '@/shared/components/ToastStack';
+import { useToasts } from '@/shared/components/useToasts';
 import {
   fetchRejectedRegistration,
   resubmitRegistration,
@@ -57,6 +58,7 @@ export function ResubmissionForm({
   const [registration, setRegistration] = useState<RejectedRegistration | null>(null);
   const [draft, setDraft] = useState<Draft>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const { toasts, show, dismiss } = useToasts();
   const [expired, setExpired] = useState(false);
   const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -133,11 +135,10 @@ export function ResubmissionForm({
       await resubmit(token, corrections as unknown as Corrections);
       setSent(true);
     } catch (caught) {
-      setErrors({
-        form:
-          caught instanceof ApiError && caught.code !== undefined
-            ? messageForCode(caught.code)
-            : 'No fue posible enviar la solicitud. Intente de nuevo en unos momentos.',
+      // The API refused, which no field could have caught on its own.
+      show({
+        tone: 'problem',
+        title: messageForError(caught, { fallback: MESSAGES.resubmission_unavailable }),
       });
     } finally {
       setBusy(false);
@@ -178,6 +179,8 @@ export function ResubmissionForm({
 
   return (
     <div className="flex flex-col gap-8">
+      <ToastStack toasts={toasts} onDismiss={dismiss} />
+
       {registration.reason !== null && (
         <div className="flex flex-col gap-2 rounded-panel bg-highlight p-5 text-on-highlight">
           <p className="text-xs font-medium tracking-wide uppercase">Motivo del rechazo</p>
@@ -238,15 +241,6 @@ export function ResubmissionForm({
             />
           )}
         </Field>
-
-        {errors.form !== undefined && (
-          <p
-            role="alert"
-            className="rounded-control bg-highlight px-4 py-3 text-sm text-on-highlight"
-          >
-            {errors.form}
-          </p>
-        )}
 
         <div className="flex justify-end">
           <button
