@@ -62,10 +62,6 @@ export function PanelShell({
             );
           })}
         </nav>
-
-        <div className="border-t border-border p-4">
-          <ThemeToggle />
-        </div>
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
@@ -79,13 +75,11 @@ export function PanelShell({
             <p className="truncate text-lg font-semibold tracking-tight">{title}</p>
           </div>
 
-          <div className="flex items-center gap-1 sm:gap-2">{headerEnd}</div>
+          <div className="flex items-center gap-1 sm:gap-2">
+            <ThemeToggle />
+            {headerEnd}
+          </div>
         </header>
-
-        {/* On a narrow screen the rail is gone, so the theme control moves here. */}
-        <div className="flex justify-end border-b border-border px-4 py-2 lg:hidden">
-          <ThemeToggle />
-        </div>
 
         <main className="flex-1 px-4 py-8 sm:px-6 lg:px-8">
           <div className="mx-auto flex w-full max-w-5xl flex-col gap-8">

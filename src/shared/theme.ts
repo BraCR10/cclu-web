@@ -31,13 +31,21 @@ export const THEME_BOOTSTRAP_SCRIPT = `(function(){try{var c=localStorage.getIte
 // another tab arrive here without a reload.
 const listeners = new Set<() => void>();
 
+const SYSTEM_DARK = '(prefers-color-scheme: dark)';
+
 function subscribe(listener: () => void): () => void {
   listeners.add(listener);
   window.addEventListener('storage', listener);
 
+  // While nobody has chosen, the operating system decides, so a change there
+  // has to reach the control too.
+  const media = window.matchMedia(SYSTEM_DARK);
+  media.addEventListener('change', listener);
+
   return () => {
     listeners.delete(listener);
     window.removeEventListener('storage', listener);
+    media.removeEventListener('change', listener);
   };
 }
 
@@ -58,8 +66,31 @@ function readServerChoice(): ThemeChoice {
   return 'system';
 }
 
+export type ResolvedTheme = 'light' | 'dark';
+
+// What is actually on screen right now, which is not the same as what was
+// chosen: "system" resolves to whatever the operating system says.
+function readResolved(): ResolvedTheme {
+  const choice = readChoice();
+
+  if (choice !== 'system') {
+    return choice;
+  }
+
+  try {
+    return window.matchMedia(SYSTEM_DARK).matches ? 'dark' : 'light';
+  } catch {
+    return 'light';
+  }
+}
+
+function readServerResolved(): ResolvedTheme {
+  return 'light';
+}
+
 export function useTheme() {
   const choice = useSyncExternalStore(subscribe, readChoice, readServerChoice);
+  const resolved = useSyncExternalStore(subscribe, readResolved, readServerResolved);
 
   const choose = useCallback((next: ThemeChoice) => {
     applyThemeChoice(next, document.documentElement);
@@ -75,5 +106,12 @@ export function useTheme() {
     }
   }, []);
 
-  return { choice, choose };
+  // One button, so it moves to the opposite of what is on screen. Choosing is
+  // what ends the operating system's say; there is no way back to it here, and
+  // nobody has ever asked for one.
+  const toggle = useCallback(() => {
+    choose(readResolved() === 'dark' ? 'light' : 'dark');
+  }, [choose]);
+
+  return { choice, resolved, choose, toggle };
 }

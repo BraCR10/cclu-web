@@ -99,15 +99,6 @@ export function MoonIcon(props: IconProps) {
   );
 }
 
-export function SystemIcon(props: IconProps) {
-  return (
-    <Svg {...props}>
-      <rect x="3" y="5" width="18" height="12" rx="2" />
-      <path d="M9 21h6M12 17v4" />
-    </Svg>
-  );
-}
-
 export function BellIcon(props: IconProps) {
   return (
     <Svg {...props}>
