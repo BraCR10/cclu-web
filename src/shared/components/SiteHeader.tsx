@@ -77,7 +77,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-20 border-b border-border bg-surface/90 backdrop-blur">
       <div className="mx-auto flex w-full max-w-6xl items-center gap-4 px-6 py-3">
         <Link href="/" className="shrink-0">
-          <BrandMark size="sm" compact className="text-content" />
+          <BrandMark size="sm" className="text-content" />
         </Link>
 
         <nav aria-label="Secciones" className="hidden flex-1 items-center gap-1 lg:flex">
