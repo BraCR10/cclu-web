@@ -4,7 +4,12 @@ import { useSession } from '@/shared/auth/useSession';
 import { ROLES } from '@/shared/auth/roles';
 import { ApiError } from '@/shared/api/request';
 
-const IDENTITY = { id: 'abc', role: ROLES.MEMBER } as const;
+const IDENTITY = {
+  id: 'abc',
+  role: ROLES.MEMBER,
+  email: 'socio@cclu.cr',
+  displayName: 'Panadería La Unión',
+} as const;
 
 describe('useSession', () => {
   it('starts out not knowing, rather than guessing anonymous', () => {

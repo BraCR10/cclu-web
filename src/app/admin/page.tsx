@@ -5,19 +5,42 @@ import { useRequireSession } from '@/shared/auth/useRequireSession';
 import { ADMIN_SIGN_IN_PATH } from '@/shared/auth/sessionApi';
 import { RequireRole } from '@/shared/auth/RequireRole';
 import { ROLES } from '@/shared/auth/roles';
-import { AdminShell } from '@/modules/admin/components/AdminShell';
+import { PanelShell } from '@/shared/components/PanelShell';
+import { ProfileMenu } from '@/shared/components/ProfileMenu';
+import { InboxIcon } from '@/shared/components/icons';
+import { AdminNotifications } from '@/modules/admin/components/AdminNotifications';
 import { ApplicationInbox } from '@/modules/admin/components/ApplicationInbox';
+
+const NAVIGATION = [{ href: '/admin', label: 'Solicitudes', Icon: InboxIcon }];
 
 export default function AdminApplicationsPage() {
   const session = useSession();
 
   useRequireSession(session, { signInPath: ADMIN_SIGN_IN_PATH });
 
+  const isAdministrator =
+    session.status === 'authenticated' && session.identity.role === ROLES.ADMIN;
+
   return (
-    <AdminShell
+    <PanelShell
+      sectionLabel="Panel administrativo"
       title="Solicitudes de afiliación"
       subtitle="Revise cada solicitud y decida. La más antigua aparece primero."
-      onSignOut={session.signOut}
+      navigation={NAVIGATION}
+      currentPath="/admin"
+      headerEnd={
+        <>
+          {isAdministrator && <AdminNotifications />}
+          {session.status === 'authenticated' && (
+            <ProfileMenu
+              displayName={session.identity.displayName}
+              email={session.identity.email}
+              roleLabel="Administrador"
+              onSignOut={session.signOut}
+            />
+          )}
+        </>
+      }
     >
       <RequireRole
         session={session}
@@ -30,6 +53,6 @@ export default function AdminApplicationsPage() {
       >
         <ApplicationInbox />
       </RequireRole>
-    </AdminShell>
+    </PanelShell>
   );
 }

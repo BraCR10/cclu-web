@@ -37,7 +37,7 @@ export default function MemberLoginPage() {
             <h1 className="text-3xl font-semibold tracking-tight text-brand">Iniciar sesión</h1>
           </div>
 
-          <MemberLoginForm onSignedIn={() => router.replace('/')} />
+          <MemberLoginForm onSignedIn={() => router.replace('/member')} />
 
           <p className="text-sm text-content-muted">
             ¿Todavía no está afiliado?{' '}

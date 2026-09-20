@@ -124,40 +124,37 @@
   --color-on-wash: var(--on-wash);
 }
 
+/*
+  One definition per token. light-dark() picks the arm that matches the current
+  colour scheme, so a manual choice is a change of scheme rather than a second
+  copy of the palette that can drift from the first.
+*/
 :root {
-  --surface: var(--color-neutral-50);
-  --surface-raised: #ffffff;
-  --content: var(--color-neutral-900);
-  --content-muted: var(--color-neutral-700);
-  --border: var(--color-neutral-200);
-  --brand: var(--color-primary-700);
-  --on-brand: #ffffff;
-  --support: var(--color-secondary-700);
-  --on-support: #ffffff;
+  color-scheme: light dark;
+
+  --surface: light-dark(var(--color-neutral-50), var(--color-neutral-950));
+  --surface-raised: light-dark(#ffffff, var(--color-neutral-900));
+  --content: light-dark(var(--color-neutral-900), var(--color-neutral-100));
+  --content-muted: light-dark(var(--color-neutral-700), var(--color-neutral-400));
+  --border: light-dark(var(--color-neutral-200), var(--color-neutral-800));
+  --brand: light-dark(var(--color-primary-700), var(--color-primary-300));
+  --on-brand: light-dark(#ffffff, var(--color-primary-950));
+  --support: light-dark(var(--color-secondary-700), var(--color-secondary-300));
+  --on-support: light-dark(#ffffff, var(--color-secondary-950));
   --highlight: var(--color-accent-300);
   --on-highlight: var(--color-accent-900);
-  --wash-from: var(--color-primary-800);
-  --wash-to: var(--color-secondary-800);
-  --on-wash: var(--color-primary-50);
+  --wash-from: light-dark(var(--color-primary-800), var(--color-primary-950));
+  --wash-to: light-dark(var(--color-secondary-800), var(--color-secondary-950));
+  --on-wash: light-dark(var(--color-primary-50), var(--color-primary-100));
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --surface: var(--color-neutral-950);
-    --surface-raised: var(--color-neutral-900);
-    --content: var(--color-neutral-100);
-    --content-muted: var(--color-neutral-400);
-    --border: var(--color-neutral-800);
-    --brand: var(--color-primary-300);
-    --on-brand: var(--color-primary-950);
-    --support: var(--color-secondary-300);
-    --on-support: var(--color-secondary-950);
-    --highlight: var(--color-accent-300);
-    --on-highlight: var(--color-accent-900);
-    --wash-from: var(--color-primary-950);
-    --wash-to: var(--color-secondary-950);
-    --on-wash: var(--color-primary-100);
-  }
+/* A person who chose a scheme has overruled their operating system. */
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
 }
 
 body {

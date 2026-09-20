@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
+import { THEME_BOOTSTRAP_SCRIPT } from '@/shared/theme/themeChoice';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -21,6 +22,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="es" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+      <head>
+        {/* Before the first paint, so a chosen theme never flashes the other one. */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP_SCRIPT }} />
+      </head>
       <body className="flex min-h-full flex-col bg-surface text-content">{children}</body>
     </html>
   );

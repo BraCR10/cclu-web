@@ -6,12 +6,12 @@ import type { Session } from '@/shared/auth/useSession';
 
 const AS_MEMBER: Session = {
   status: 'authenticated',
-  identity: { id: 'abc', role: ROLES.MEMBER },
+  identity: { id: 'abc', role: ROLES.MEMBER, email: 'cuenta@cclu.cr', displayName: 'Cuenta' },
 };
 
 const AS_ADMIN: Session = {
   status: 'authenticated',
-  identity: { id: 'xyz', role: ROLES.ADMIN },
+  identity: { id: 'xyz', role: ROLES.ADMIN, email: 'cuenta@cclu.cr', displayName: 'Cuenta' },
 };
 
 describe('RequireRole', () => {
