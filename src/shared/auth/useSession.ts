@@ -1,12 +1,12 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import type { Identity } from './roles';
+import type { Account } from './roles';
 import { endSession, fetchIdentity } from './sessionApi';
 
 export type Session =
   | { status: 'loading'; identity: null }
-  | { status: 'authenticated'; identity: Identity }
+  | { status: 'authenticated'; identity: Account }
   | { status: 'anonymous'; identity: null };
 
 const LOADING: Session = { status: 'loading', identity: null };
@@ -17,7 +17,7 @@ export type SessionHandle = Session & { signOut: () => Promise<void> };
 // The client cannot read the session cookie, so it cannot tell who it is on its
 // own. It asks, and the answer comes from a token the API verified.
 export function useSession(
-  readIdentity: () => Promise<Identity> = fetchIdentity,
+  readIdentity: () => Promise<Account> = fetchIdentity,
   closeSession: () => Promise<void> = endSession,
 ): SessionHandle {
   const [session, setSession] = useState<Session>(LOADING);
