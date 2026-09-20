@@ -46,15 +46,28 @@ function NavigationLink({
   );
 }
 
-function EntryLink({ href, label, onClick }: { href: string; label: string; onClick: () => void }) {
+function EntryLink({
+  href,
+  label,
+  description,
+  onClick,
+}: {
+  href: string;
+  label: string;
+  description?: string;
+  onClick: () => void;
+}) {
   return (
     <Link
       href={href}
       role="menuitem"
       onClick={onClick}
-      className="px-4 py-2.5 text-sm font-medium transition-colors hover:bg-surface"
+      className="flex flex-col gap-0.5 px-4 py-2.5 transition-colors hover:bg-surface"
     >
-      {label}
+      <span className="text-sm font-medium">{label}</span>
+      {description !== undefined && (
+        <span className="text-xs text-content-muted">{description}</span>
+      )}
     </Link>
   );
 }

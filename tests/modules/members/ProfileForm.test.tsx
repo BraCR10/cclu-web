@@ -125,6 +125,21 @@ describe('ProfileForm', () => {
     expect(saveProfile).not.toHaveBeenCalled();
   });
 
+  // With no banner, a mark beside a label that is scrolled out of view is
+  // indistinguishable from a button that does nothing.
+  it('moves to the first field it refused rather than sitting still', async () => {
+    const { user } = renderForm();
+
+    const name = await screen.findByLabelText('Nombre comercial');
+    const website = screen.getByLabelText('Sitio web');
+
+    await user.clear(name);
+    await user.type(website, 'panaderia.cr');
+    await save(user);
+
+    await waitFor(() => expect(document.activeElement).toBe(name));
+  });
+
   it('confirms a save that went through', async () => {
     const { user } = renderForm();
 
