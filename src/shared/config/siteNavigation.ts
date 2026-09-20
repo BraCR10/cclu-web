@@ -64,7 +64,13 @@ export const SIGN_IN_ENTRIES = [
   { href: '/admin/login', label: 'Soy administrador' },
 ] as const;
 
-export const JOIN_ENTRY = { href: '/register', label: 'Solicitar afiliación' };
+// The only entry that needs explaining. The other two say what they are; this
+// one is the answer for somebody who has no account to sign in with at all.
+export const JOIN_ENTRY = {
+  href: '/register',
+  label: 'Solicitar afiliación',
+  description: 'Envíe la solicitud de su comercio o actividad profesional.',
+};
 
 export function findSection(href: string): SiteSection | undefined {
   return SITE_SECTIONS.find((section) => section.href === href);
