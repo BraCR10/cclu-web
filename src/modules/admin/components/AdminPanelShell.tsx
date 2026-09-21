@@ -8,11 +8,13 @@ import { RequireRole } from '@/shared/auth/RequireRole';
 import { ROLES } from '@/shared/auth/roles';
 import { PanelShell } from '@/shared/components/PanelShell';
 import { ProfileMenu } from '@/shared/components/ProfileMenu';
-import { InboxIcon, UserIcon } from '@/shared/components/icons';
+import { BadgeCheckIcon, IdCardIcon, InboxIcon, UserIcon } from '@/shared/components/icons';
 import { AdminNotifications } from './AdminNotifications';
 
 export const ADMIN_NAVIGATION = [
   { href: '/admin', label: 'Solicitudes', Icon: InboxIcon },
+  { href: '/admin/members', label: 'Agremiados', Icon: BadgeCheckIcon },
+  { href: '/admin/administrators', label: 'Administradores', Icon: IdCardIcon },
   { href: '/admin/profile', label: 'Mi perfil', Icon: UserIcon },
 ];
 
