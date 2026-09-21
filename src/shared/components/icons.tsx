@@ -168,6 +168,44 @@ export function IdCardIcon(props: IconProps) {
   );
 }
 
+export function WalletIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <rect x="3" y="6" width="18" height="13" rx="2" />
+      <path d="M3 10h18M16 15h1.5" />
+    </Svg>
+  );
+}
+
+export function TagIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M4 4h7l9 9-7 7-9-9z" />
+      <circle cx="8.5" cy="8.5" r="1.2" fill="currentColor" stroke="none" />
+    </Svg>
+  );
+}
+
+export function PercentIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="m6 18 12-12" />
+      <circle cx="7.5" cy="7.5" r="2.2" />
+      <circle cx="16.5" cy="16.5" r="2.2" />
+    </Svg>
+  );
+}
+
+export function GiftIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <rect x="4" y="9" width="16" height="4" />
+      <path d="M6 13v7h12v-7M12 9v11" />
+      <path d="M12 9c-4 0-4.8-4-2.4-4.6C11.5 3.9 12 7 12 9c0-2 .5-5.1 2.4-4.6C16.8 5 16 9 12 9" />
+    </Svg>
+  );
+}
+
 function FilledSvg({ className, children }: IconProps & { children: React.ReactNode }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className ?? BASE}>

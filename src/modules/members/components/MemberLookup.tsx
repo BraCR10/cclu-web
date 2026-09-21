@@ -10,9 +10,9 @@ type MemberLookupProps = {
   navigate?: (path: string) => void;
 };
 
-// The full listing does not exist yet, but a single affiliate's card already
-// does: it is what the QR on a member card points at. Offering the lookup means
-// this screen is not only a promise.
+// A shortcut alongside the full listing above: the code is what the QR on a
+// member card points at, and typing it in is faster than filtering for one
+// business by hand.
 export function MemberLookup({ navigate }: MemberLookupProps) {
   const router = useRouter();
   const goTo = navigate ?? ((path: string) => router.push(path));

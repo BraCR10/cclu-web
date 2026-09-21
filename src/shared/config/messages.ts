@@ -42,6 +42,12 @@ export const MESSAGES: Record<string, string> = {
   gone: 'Esto ya no existe. La lista se actualizó.',
   not_allowed_role: 'Su sesión no tiene permiso para hacer esto.',
 
+  // Publishing under a membership.
+  paid_membership_required:
+    'Esta función requiere membresía paga al día. Registre su pago en "Mi membresía".',
+  blocked_publication: 'Esta publicación fue bloqueada por la Cámara y no puede modificarse.',
+  expired_needs_new_validity: 'Para reactivarla, indique una nueva fecha de vigencia.',
+
   // Anything else.
   too_many_attempts: 'Demasiados intentos. Espere unos minutos e intente de nuevo.',
   unavailable: 'No fue posible completar la acción. Intente de nuevo en unos momentos.',

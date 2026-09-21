@@ -9,12 +9,28 @@ import { ROLES } from '@/shared/auth/roles';
 import { PanelShell } from '@/shared/components/PanelShell';
 import { ProfileMenu } from '@/shared/components/ProfileMenu';
 import { NotificationsMenu } from '@/shared/components/NotificationsMenu';
-import { BadgeCheckIcon, IdCardIcon, UserIcon } from '@/shared/components/icons';
+import {
+  BadgeCheckIcon,
+  GiftIcon,
+  GlobeIcon,
+  IdCardIcon,
+  InboxIcon,
+  PercentIcon,
+  TagIcon,
+  UserIcon,
+  WalletIcon,
+} from '@/shared/components/icons';
 import { formatMemberCode } from '@/shared/format';
 
 export const MEMBER_NAVIGATION = [
   { href: '/member', label: 'Mi perfil', Icon: UserIcon },
+  { href: '/member/membership', label: 'Mi membresía', Icon: WalletIcon },
   { href: '/member/card', label: 'Mi carné', Icon: IdCardIcon },
+  { href: '/member/marketplace', label: 'Mi marketplace', Icon: GlobeIcon },
+  { href: '/member/promotions', label: 'Mis promociones', Icon: TagIcon },
+  { href: '/member/discounts', label: 'Mis descuentos', Icon: PercentIcon },
+  { href: '/member/jobs', label: 'Mis vacantes', Icon: InboxIcon },
+  { href: '/member/benefits', label: 'Descuentos de afiliados', Icon: GiftIcon },
   { href: '/member/verify', label: 'Verificar código', Icon: BadgeCheckIcon },
 ];
 

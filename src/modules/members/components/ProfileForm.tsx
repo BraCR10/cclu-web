@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState, type FormEvent } from 'react';
 import { Field, CONTROL_CLASS } from '@/shared/components/Field';
 import { CharacterCount } from '@/shared/components/CharacterCount';
+import { ImageUploader } from '@/shared/components/ImageUploader';
 import { ToastStack } from '@/shared/components/ToastStack';
 import { useToasts } from '@/shared/components/useToasts';
 import { formatMemberCode } from '@/shared/format';
@@ -15,6 +16,8 @@ import { fetchCantons, fetchSectors, type Canton, type Sector } from '../api/reg
 import {
   fetchOwnProfile,
   updateOwnProfile,
+  uploadOwnLogo,
+  deleteOwnLogo,
   type MemberProfile,
   type ProfileChanges,
 } from '../api/profile';
@@ -26,6 +29,8 @@ type ProfileFormProps = {
   loadCantons?: () => Promise<Canton[]>;
   loadSectors?: () => Promise<Sector[]>;
   saveProfile?: (changes: ProfileChanges) => Promise<MemberProfile>;
+  uploadLogo?: (contentType: string, base64: string) => Promise<string>;
+  removeLogo?: () => Promise<void>;
 };
 
 type Draft = Record<string, string>;
@@ -117,6 +122,8 @@ export function ProfileForm({
   loadCantons = fetchCantons,
   loadSectors = fetchSectors,
   saveProfile = updateOwnProfile,
+  uploadLogo = uploadOwnLogo,
+  removeLogo = deleteOwnLogo,
 }: ProfileFormProps) {
   const [profile, setProfile] = useState<MemberProfile | null>(null);
   const [draft, setDraft] = useState<Draft>({});
@@ -171,6 +178,20 @@ export function ProfileForm({
 
   function set(name: string, value: string) {
     setDraft((current) => ({ ...current, [name]: value }));
+  }
+
+  async function handleLogoUpload(contentType: string, base64: string) {
+    const logoUrl = await uploadLogo(contentType, base64);
+    setProfile((current) => (current ? { ...current, logoUrl } : current));
+    show({ tone: 'success', title: 'Su logo quedó actualizado' });
+
+    return logoUrl;
+  }
+
+  async function handleLogoRemove() {
+    await removeLogo();
+    setProfile((current) => (current ? { ...current, logoUrl: undefined } : current));
+    show({ tone: 'success', title: 'Su logo fue eliminado' });
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -272,6 +293,14 @@ export function ProfileForm({
         className="flex flex-col gap-6 rounded-panel border border-border bg-surface-raised p-6"
       >
         <h2 className="text-lg font-semibold tracking-tight">Datos que puede actualizar</h2>
+
+        <ImageUploader
+          label="Logo del negocio"
+          hint="Esto es lo que verá quien lo encuentre en el directorio."
+          value={profile.logoUrl ?? null}
+          onUpload={handleLogoUpload}
+          onRemove={handleLogoRemove}
+        />
 
         <div className="grid gap-5 sm:grid-cols-2">
           {TEXT_FIELDS.map(({ name, label, hint }) => (

@@ -24,34 +24,19 @@ export const SITE_SECTIONS: readonly SiteSection[] = [
     href: '/directory',
     label: 'Directorio',
     summary: 'Los comercios y profesionales afiliados a la Cámara.',
-    status: SECTION_STATUS.PARTIAL,
-    coming: [
-      'Búsqueda por nombre, cantón y sector.',
-      'Listado completo de comercios y profesionales afiliados.',
-      'Filtros por tipo de afiliación.',
-    ],
+    status: SECTION_STATUS.AVAILABLE,
   },
   {
     href: '/marketplace',
     label: 'Marketplace',
     summary: 'Productos, servicios, promociones y descuentos entre afiliados.',
-    status: SECTION_STATUS.PLANNED,
-    coming: [
-      'Publicación de productos y servicios por parte de los afiliados.',
-      'Promociones y descuentos entre comercios de la Cámara.',
-      'Contacto directo con el comercio que publica.',
-    ],
+    status: SECTION_STATUS.AVAILABLE,
   },
   {
     href: '/jobs',
     label: 'Bolsa de empleo',
     summary: 'Vacantes publicadas por los comercios del cantón.',
-    status: SECTION_STATUS.PLANNED,
-    coming: [
-      'Publicación de vacantes por parte de los comercios afiliados.',
-      'Búsqueda de vacantes por sector y jornada.',
-      'Postulación desde la misma plataforma.',
-    ],
+    status: SECTION_STATUS.AVAILABLE,
   },
 ];
 

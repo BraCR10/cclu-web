@@ -32,6 +32,21 @@ export const FIELDS: Record<string, { maxLength: number; pattern?: PatternName }
   linkedin: { maxLength: 60, pattern: 'handle' },
   website: { maxLength: 300, pattern: 'link' },
   logoUrl: { maxLength: 300, pattern: 'link' },
+  jobTitle: { maxLength: 120 },
+  jobDescription: { maxLength: 2000 },
+  jobRequirements: { maxLength: 2000 },
+  jobHowToApply: { maxLength: 1000 },
+  contactEmail: { maxLength: 254, pattern: 'email' },
+  contactPhone: { maxLength: 20, pattern: 'phone' },
+  listingTitle: { maxLength: 120 },
+  listingDescription: { maxLength: 2000 },
+  listingCategory: { maxLength: 60 },
+  promotionTitle: { maxLength: 120 },
+  promotionDescription: { maxLength: 2000 },
+  promotionConditions: { maxLength: 1000 },
+  discountDescription: { maxLength: 2000 },
+  discountConditions: { maxLength: 1000 },
+  paymentDetail: { maxLength: 500 },
 };
 
 export const PASSWORD = {
