@@ -1,0 +1,106 @@
+'use client';
+
+import { useCallback, useEffect, useState } from 'react';
+import { listListings, type ListingPage, type ListingSearch } from '../api/listings';
+import { SearchFilters, type SearchFilterValues } from './SearchFilters';
+import { ListingCard } from './ListingCard';
+
+type ListingListProps = {
+  search?: (params: ListingSearch) => Promise<ListingPage>;
+};
+
+export function ListingList({ search = listListings }: ListingListProps) {
+  const [filters, setFilters] = useState<SearchFilterValues>({});
+  const [page, setPage] = useState(1);
+  const [answer, setAnswer] = useState<ListingPage | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [failed, setFailed] = useState(false);
+
+  const run = useCallback(
+    (params: ListingSearch) => {
+      // Deferred to a microtask so an effect that triggers this never sets
+      // state during its own synchronous body.
+      Promise.resolve()
+        .then(() => {
+          setLoading(true);
+          setFailed(false);
+
+          return search(params);
+        })
+        .then((found) => setAnswer(found))
+        .catch(() => setFailed(true))
+        .finally(() => setLoading(false));
+    },
+    [search],
+  );
+
+  useEffect(() => {
+    run({ ...filters, page });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
+
+  function handleSearch(next: SearchFilterValues) {
+    setFilters(next);
+    setPage(1);
+    run({ ...next, page: 1 });
+  }
+
+  return (
+    <div className="flex flex-col gap-6">
+      <SearchFilters
+        idPrefix="listings"
+        namePlaceholder="Nombre del producto o servicio"
+        onSearch={handleSearch}
+      />
+
+      {failed && (
+        <p role="alert" className="text-sm text-danger">
+          No fue posible cargar el marketplace. Intente de nuevo.
+        </p>
+      )}
+
+      {!failed && loading && <p className="text-sm text-content-muted">Buscando…</p>}
+
+      {!failed && !loading && answer !== null && answer.items.length === 0 && (
+        <p className="text-sm text-content-muted">
+          No hay productos ni servicios con esos criterios.
+        </p>
+      )}
+
+      {!failed && answer !== null && answer.items.length > 0 && (
+        <>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {answer.items.map((listing) => (
+              <ListingCard key={listing.id} listing={listing} />
+            ))}
+          </div>
+
+          <div className="flex items-center justify-between text-sm text-content-muted">
+            <span>
+              {answer.total} {answer.total === 1 ? 'publicación' : 'publicaciones'}
+            </span>
+
+            <div className="flex gap-2">
+              <button
+                type="button"
+                disabled={page <= 1}
+                onClick={() => setPage((current) => current - 1)}
+                className="rounded-control border border-border px-4 py-2 disabled:opacity-50"
+              >
+                Anterior
+              </button>
+              <button
+                type="button"
+                disabled={!answer.hasMore}
+                onClick={() => setPage((current) => current + 1)}
+                className="rounded-control border border-border px-4 py-2 disabled:opacity-50"
+              >
+                Siguiente
+              </button>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}

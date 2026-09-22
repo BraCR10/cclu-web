@@ -63,3 +63,16 @@ export function updateOwnProfile(changes: ProfileChanges): Promise<MemberProfile
     body: JSON.stringify(changes),
   });
 }
+
+export async function uploadOwnLogo(contentType: string, content: string): Promise<string> {
+  const { logoUrl } = await requestApi<{ logoUrl: string }>('/api/members/me/logo', {
+    method: 'POST',
+    body: JSON.stringify({ contentType, content }),
+  });
+
+  return logoUrl;
+}
+
+export function deleteOwnLogo(): Promise<void> {
+  return requestApi<void>('/api/members/me/logo', { method: 'DELETE' });
+}
