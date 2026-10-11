@@ -48,19 +48,13 @@ no failed request to the API.
 
 ## Checks before pushing
 
-Run the same sequence continuous integration runs, in the same order:
+Run the same checks CI runs, in this order:
 
-```bash
-npm run lint
-npm run format:check
-npm test
-npm run build
-npm run typecheck
-```
-
-The type check comes after the build on purpose. `next build` generates the
-route types that `layout.tsx` and `page.tsx` rely on, and they do not exist in
-a clean clone, so `npm run typecheck` fails until a build has run.
+1. `npm run lint`
+2. `npm run format:check`
+3. `npm test`
+4. `npm run build`
+5. `npm run typecheck` (needs the build first, because Next.js generates the route types it checks)
 
 ## Never commit
 
