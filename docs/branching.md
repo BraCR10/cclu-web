@@ -42,8 +42,10 @@ git switch -c feat/CCLU-11-member-registration
 git push -u origin feat/CCLU-11-member-registration
 ```
 
-Then open a pull request against `develop`. The checks run on the pull request
-itself; a red check blocks the merge.
+Before the push, run the checks listed in
+[setup.md](setup.md#checks-before-pushing). Then open a pull request against
+`develop`. The same checks run on the pull request itself; a red check blocks
+the merge.
 
 Once merged, delete the branch. A branch that outlives its pull request only
 makes `git branch` harder to read.

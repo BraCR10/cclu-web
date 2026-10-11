@@ -48,11 +48,19 @@ no failed request to the API.
 
 ## Checks before pushing
 
+Run the same sequence continuous integration runs, in the same order:
+
 ```bash
 npm run lint
-npm run typecheck
 npm run format:check
+npm test
+npm run build
+npm run typecheck
 ```
+
+The type check comes after the build on purpose. `next build` generates the
+route types that `layout.tsx` and `page.tsx` rely on, and they do not exist in
+a clean clone, so `npm run typecheck` fails until a build has run.
 
 ## Never commit
 
