@@ -35,9 +35,9 @@ The requirement and architecture documents (ERS and SAD) are the source of
 truth for what this system does. They are not published here; ask the project
 lead for a copy.
 
-## Source of truth
+## Prototype
 
-The accepted Figma prototype defines the product: screens, flows, UI copy and the business rules they imply. Where it differs from the earlier ERS, the prototype wins.
+The accepted Figma prototype defines the product: screens, flows, UI copy and the business rules they imply.
 
 - [Desktop prototype](https://www.figma.com/proto/YPsVPnxVtPDJZxj2Q2NtS5/CCLU-%E2%80%94-Prototipo-de-plataforma?node-id=30-2&starting-point-node-id=30%3A2)
 - [Mobile prototype](https://www.figma.com/proto/YPsVPnxVtPDJZxj2Q2NtS5/CCLU-%E2%80%94-Prototipo-de-plataforma?node-id=81-557&starting-point-node-id=81%3A557)
