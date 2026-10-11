@@ -63,8 +63,7 @@ Commits made up to 15 September 2026 are written in Spanish. They stay that
 way: the history is public and rewriting it costs more than the inconsistency.
 Everything from that point on is English.
 
-Branch naming, the pull request cycle and the templates are in
-[branching.md](branching.md).
+Branching and pull request rules are in [branching.md](branching.md).
 
 ## Self-explaining code
 
