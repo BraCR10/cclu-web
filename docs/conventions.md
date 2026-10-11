@@ -8,13 +8,31 @@ here needs to change, change it deliberately and tell the team.
 | Item                          | Language |
 | ----------------------------- | -------- |
 | Code, identifiers, file names | English  |
+| Comments                      | English  |
+| Configuration examples        | English  |
 | Documentation                 | English  |
 | Commit messages               | English  |
 | Content shown to end users    | Spanish  |
 
-The source requirement documents (ERS, SAD) are in Spanish. Translating a
-domain term is the exception, not the rule: an `agremiado` is an `agremiado`,
-not a `member`.
+The source requirement documents (ERS, SAD) are in Spanish, and the interface is
+Spanish because the people using it are. Everything else is English, including
+the parts that are easy to forget: route segments, type names, prop names, the
+values sent to and received from the API, comments, and the explanations in
+`.env.example`.
+
+A comment is written for whoever maintains the code, and the code is English,
+so the comment is too. Nothing in this repository checks comment language
+automatically, so the review has to.
+
+The domain term in code is `member`, not `agremiado`: `MemberCard`,
+`memberCode`, `fetchMembers`. Spanish appears only in text a user reads, such as
+"Agremiado" on a label. Module folder names under `src/modules/` are the
+exception; [architecture.md](architecture.md) explains why they mirror the ERS.
+
+A stored value is an identifier, not a sentence. Keeping `approved` in the
+database rather than `aprobada` is what lets the interface say "Aprobada",
+"Aprobado" or "En regla" without a data migration each time. This client
+compares against and sends the identifier, never the Spanish label.
 
 ## Versioning
 
@@ -39,14 +57,13 @@ Rules:
   the code they describe, not in a follow-up commit.
 - Never commit generated credentials, `.env` files, co-author trailers, or AI
   attribution lines.
-- Subject line in the imperative mood: `add agremiado lookup`, not `added`.
+- Subject line in the imperative mood: `add member lookup`, not `added`.
 
 Commits made up to 15 September 2026 are written in Spanish. They stay that
 way: the history is public and rewriting it costs more than the inconsistency.
 Everything from that point on is English.
 
-Branching and pull request rules are defined by CCLU-116 and will be added here
-once that ticket lands.
+Branching and pull request rules are in [branching.md](branching.md).
 
 ## Self-explaining code
 
@@ -69,9 +86,24 @@ Write a comment only when the code cannot express the reason behind it.
 - Atomic: one idea per comment, two lines at most.
 - Never leave commented-out code. Git remembers it; the file should not.
 - Never restate a signature, a type, or an obvious assignment.
+- Never cite a requirement identifier. Write the reason itself.
 
 A comment that explains a business constraint or a non-obvious external
 limitation earns its place. Everything else is noise.
+
+`// CA-ADM-003-03 requires this` tells a reader nothing they can act on. They
+still do not know why, only that someone decided it, and checking costs them a
+trip into a versioned PDF whose identifiers may since have moved. Write what the
+rule is and the code explains itself:
+
+```tsx
+// An administrator can inactivate an account, so having been approved once
+// is not enough to show the member area today.
+```
+
+Traceability belongs to the ticket, the pull request and `docs/`, which are
+versioned alongside the requirements and read by people looking for exactly
+that. Source files are read by people trying to change the code.
 
 ## Separation of responsibilities
 

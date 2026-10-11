@@ -48,11 +48,13 @@ no failed request to the API.
 
 ## Checks before pushing
 
-```bash
-npm run lint
-npm run typecheck
-npm run format:check
-```
+Run the same checks CI runs, in this order:
+
+1. `npm run lint`
+2. `npm run format:check`
+3. `npm test`
+4. `npm run build`
+5. `npm run typecheck` (needs the build first, because Next.js generates the route types it checks)
 
 ## Never commit
 

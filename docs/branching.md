@@ -14,7 +14,7 @@ require the continuous integration check to pass before a merge.
 ## Naming a branch
 
 ```
-feat/CCLU-11-agremiado-registration
+feat/CCLU-11-member-registration
 fix/CCLU-58-atlas-connection
 docs/CCLU-52-testing-conventions
 ```
@@ -23,8 +23,8 @@ The prefix uses **the same types as commit messages**, listed in
 [conventions.md](conventions.md): `feat`, `fix`, `docs`, `refactor`, `test`,
 `chore`. One vocabulary for both, not two to remember.
 
-The description is written in English, like commit messages. Domain terms keep
-their Spanish form: a branch about agremiados says `agremiado`.
+The description is written in English, like commit messages and like everything
+else that is an identifier rather than something a person reads.
 
 The ticket key belongs in the name so Jira links the work automatically, and so
 anyone reading `git branch` knows what a branch is for without asking.
@@ -34,11 +34,11 @@ anyone reading `git branch` knows what a branch is for without asking.
 ```bash
 git switch develop
 git pull
-git switch -c feat/CCLU-11-registro-de-agremiados
+git switch -c feat/CCLU-11-member-registration
 
 # work, committing in units
 
-git push -u origin feat/CCLU-11-registro-de-agremiados
+git push -u origin feat/CCLU-11-member-registration
 ```
 
 Then open a pull request against `develop`. The checks run on the pull request
@@ -46,6 +46,22 @@ itself; a red check blocks the merge.
 
 Once merged, delete the branch. A branch that outlives its pull request only
 makes `git branch` harder to read.
+
+## Pull request and issue templates
+
+GitHub fills every pull request from `.github/pull_request_template.md` and every
+issue from `.github/issue_template.md`. Keep the sections the change needs and
+delete the rest.
+
+Two rules keep them short.
+
+**The description addresses the reviewer; Jira holds the record.** A decision
+belongs in the pull request when it changes how the diff should be read, and in
+the ticket when someone will need it in six months.
+
+**Never restate what a check already proves.** The QA workflow reports lint,
+formatting and unit tests on the pull request itself. In this repository it also
+builds the client and checks types.
 
 ## Why `main` stays behind
 
