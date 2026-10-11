@@ -48,6 +48,24 @@ itself; a red check blocks the merge.
 Once merged, delete the branch. A branch that outlives its pull request only
 makes `git branch` harder to read.
 
+## Pull request and issue templates
+
+GitHub fills every pull request from `.github/pull_request_template.md` and every
+issue from `.github/issue_template.md`. Keep the sections the change needs and
+delete the rest.
+
+Two rules keep them short.
+
+**The description addresses the reviewer; Jira holds the record.** A decision
+belongs in the pull request when it changes how the diff should be read, and in
+the ticket when someone will need it in six months.
+
+**Never restate what a check already proves.** The QA workflow reports lint,
+formatting, unit tests, the build and the type check on the pull request itself.
+
+When a change builds or alters a screen, name its prototype screen codes, such as
+`M-04` and `MM-04`. [prototype.md](prototype.md) explains the codes.
+
 ## Why `main` stays behind
 
 `main` answers one question: what is released. If it also received day-to-day
