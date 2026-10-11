@@ -1,7 +1,6 @@
 # Architecture
 
-How code is grouped in the web client, per SAD v1.0, section 4.3.2. Where this
-document and the SAD disagree, the SAD wins.
+How code is grouped in the web client.
 
 ## Grouping
 
@@ -15,15 +14,14 @@ src/
   shared/     Used by two or more modules
 ```
 
-| Module folder          | Module in the ERS     |
-| ---------------------- | --------------------- |
-| `modules/agremiados`   | Gestión de Agremiados |
-| `modules/marketplace`  | Marketplace           |
-| `modules/bolsa-empleo` | Bolsa de Empleo       |
-| `modules/panel`        | Panel Administrativo  |
+| Module folder         | Product area                                  |
+| --------------------- | --------------------------------------------- |
+| `modules/members`     | Member registration, profile, card, payments  |
+| `modules/marketplace` | Directory, products, promotions and discounts |
+| `modules/jobs`        | Job board                                     |
+| `modules/admin`       | Administration panel                          |
 
-Module folder names keep their domain term in Spanish. An `agremiado` is an
-`agremiado`; translating it loses the meaning the ERS gave it.
+Module folder names are English, like every other identifier.
 
 ## What goes where
 
