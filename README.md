@@ -35,17 +35,15 @@ The requirement and architecture documents (ERS and SAD) are the source of
 truth for what this system does. They are not published here; ask the project
 lead for a copy.
 
-## Design source of truth
+## Source of truth
 
-The accepted Figma prototype is the source of truth for screens, flows and UI
-copy. Where it differs from the ERS, the prototype wins.
+The accepted Figma prototype defines the product: screens, flows, UI copy and the business rules they imply. Where it differs from the earlier ERS, the prototype wins.
 
-- [Desktop demo](https://www.figma.com/proto/YPsVPnxVtPDJZxj2Q2NtS5/CCLU-%E2%80%94-Prototipo-de-plataforma?node-id=30-2&starting-point-node-id=30%3A2)
-- [Mobile demo](https://www.figma.com/proto/YPsVPnxVtPDJZxj2Q2NtS5/CCLU-%E2%80%94-Prototipo-de-plataforma?node-id=81-557&starting-point-node-id=81%3A557)
-- [Canvas](https://www.figma.com/design/YPsVPnxVtPDJZxj2Q2NtS5/CCLU-%E2%80%94-Prototipo-de-plataforma?node-id=5-2)
+- [Desktop prototype](https://www.figma.com/proto/YPsVPnxVtPDJZxj2Q2NtS5/CCLU-%E2%80%94-Prototipo-de-plataforma?node-id=30-2&starting-point-node-id=30%3A2)
+- [Mobile prototype](https://www.figma.com/proto/YPsVPnxVtPDJZxj2Q2NtS5/CCLU-%E2%80%94-Prototipo-de-plataforma?node-id=81-557&starting-point-node-id=81%3A557)
+- [Design canvas](https://www.figma.com/design/YPsVPnxVtPDJZxj2Q2NtS5/CCLU-%E2%80%94-Prototipo-de-plataforma?node-id=5-2)
 
-[prototype.md](docs/prototype.md) explains how the file is organised and lists
-the product decisions the code must follow.
+See [docs/prototype.md](docs/prototype.md) for how the file is organized and how to build a screen from it.
 
 ## Repositories
 

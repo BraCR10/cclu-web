@@ -1,14 +1,10 @@
 # Prototype
 
-The accepted Figma prototype is the source of truth for screens, flows and UI
-copy. Where it differs from the ERS, the prototype wins: it is the later, agreed
-version of the same decisions.
+The accepted Figma prototype defines the product: screens, flows, UI copy and the business rules they imply. Where it differs from the earlier ERS, the prototype wins.
 
-| View         | Link                                                                                                                                             |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Desktop demo | [Open](https://www.figma.com/proto/YPsVPnxVtPDJZxj2Q2NtS5/CCLU-%E2%80%94-Prototipo-de-plataforma?node-id=30-2&starting-point-node-id=30%3A2)     |
-| Mobile demo  | [Open](https://www.figma.com/proto/YPsVPnxVtPDJZxj2Q2NtS5/CCLU-%E2%80%94-Prototipo-de-plataforma?node-id=81-557&starting-point-node-id=81%3A557) |
-| Canvas       | [Open](https://www.figma.com/design/YPsVPnxVtPDJZxj2Q2NtS5/CCLU-%E2%80%94-Prototipo-de-plataforma?node-id=5-2)                                   |
+- [Desktop prototype](https://www.figma.com/proto/YPsVPnxVtPDJZxj2Q2NtS5/CCLU-%E2%80%94-Prototipo-de-plataforma?node-id=30-2&starting-point-node-id=30%3A2)
+- [Mobile prototype](https://www.figma.com/proto/YPsVPnxVtPDJZxj2Q2NtS5/CCLU-%E2%80%94-Prototipo-de-plataforma?node-id=81-557&starting-point-node-id=81%3A557)
+- [Design canvas](https://www.figma.com/design/YPsVPnxVtPDJZxj2Q2NtS5/CCLU-%E2%80%94-Prototipo-de-plataforma?node-id=5-2)
 
 ## Pages
 
@@ -39,23 +35,17 @@ the prototype pages, not inside the screen that opens them.
 
 Before building a screen, open its frame and match the tokens and components it
 uses. Desktop and mobile are both normative: a screen is done when it matches
-both frames, not when the desktop one looks right.
+both frames, not when the desktop one looks right. The code follows the
+decisions below, even where the ERS says otherwise.
 
-## Product decisions
+### Product decisions settled by the prototype
 
-The prototype settled these. The code follows them, even where the ERS says
-otherwise.
-
-- There is no "Sector" field.
-- There are three member types: Empresa, Asociación and Profesional
-  independiente.
-- A password changes only through a link sent by email.
-- Only the account owner can change an email address, and the change is
-  confirmed by a link sent to it.
-- A membership cannot be withdrawn. When a paid plan expires, the member drops
-  to Gratuita.
-- Moderation only inactivates, and always records a reason.
-- An administrator is Activo, Invitación pendiente, Invitación expirada or
-  Inactivo.
-- Action feedback appears as toasts. Editing happens in popups or sheets.
-- Titles carry no caption underneath.
+- Member types: Empresa, Asociación, Profesional independiente. Asociación provides the same data as Empresa.
+- There is no "Sector"; members are classified by economic activity only.
+- A password changes only through an emailed link, never with the current password in session.
+- Only the account owner changes their email, and the change is confirmed by a link sent to the new address.
+- There is no membership withdrawal. An expired paid plan drops to Gratuita.
+- Moderation only inactivates a publication, and a reason is required. There is no permanent block.
+- Administrator states: Activo, Invitación pendiente, Invitación expirada, Inactivo.
+- Feedback appears in toasts; editing happens in popups or bottom sheets.
+- No captions or sentence-style legends under titles.
