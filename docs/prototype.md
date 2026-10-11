@@ -1,6 +1,6 @@
 # Prototype
 
-The accepted Figma prototype defines the product: screens, flows, UI copy and the business rules they imply. Where it differs from the earlier ERS, the prototype wins.
+The accepted Figma prototype defines the product: screens, flows, UI copy and the business rules they imply.
 
 - [Desktop prototype](https://www.figma.com/proto/YPsVPnxVtPDJZxj2Q2NtS5/CCLU-%E2%80%94-Prototipo-de-plataforma?node-id=30-2&starting-point-node-id=30%3A2)
 - [Mobile prototype](https://www.figma.com/proto/YPsVPnxVtPDJZxj2Q2NtS5/CCLU-%E2%80%94-Prototipo-de-plataforma?node-id=81-557&starting-point-node-id=81%3A557)
@@ -36,7 +36,7 @@ the prototype pages, not inside the screen that opens them.
 Before building a screen, open its frame and match the tokens and components it
 uses. Desktop and mobile are both normative: a screen is done when it matches
 both frames, not when the desktop one looks right. The code follows the
-decisions below, even where the ERS says otherwise.
+decisions below.
 
 ### Product decisions settled by the prototype
 

@@ -14,8 +14,7 @@ here needs to change, change it deliberately and tell the team.
 | Commit messages               | English  |
 | Content shown to end users    | Spanish  |
 
-The source requirement documents (ERS, SAD) are in Spanish, and the interface is
-Spanish because the people using it are. Everything else is English, including
+The interface is Spanish because the people using it are. Everything else is English, including
 the parts that are easy to forget: route segments, type names, prop names, the
 values sent to and received from the API, comments, and the explanations in
 `.env.example`.
@@ -26,8 +25,7 @@ automatically, so the review has to.
 
 The domain term in code is `member`, not `agremiado`: `MemberCard`,
 `memberCode`, `fetchMembers`. Spanish appears only in text a user reads, such as
-"Agremiado" on a label. Module folder names under `src/modules/` are the
-exception; [architecture.md](architecture.md) explains why they mirror the ERS.
+"Agremiado" on a label. Module folder names follow the same rule.
 
 A stored value is an identifier, not a sentence. Keeping `approved` in the
 database rather than `aprobada` is what lets the interface say "Aprobada",

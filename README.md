@@ -31,10 +31,6 @@ from `cclu-api` over HTTP.
 | [Testing](docs/testing.md)           | What carries unit tests, and how they are written |
 | [Prototype](docs/prototype.md)       | Figma pages, screen codes, settled decisions      |
 
-The requirement and architecture documents (ERS and SAD) are the source of
-truth for what this system does. They are not published here; ask the project
-lead for a copy.
-
 ## Prototype
 
 The accepted Figma prototype defines the product: screens, flows, UI copy and the business rules they imply.
