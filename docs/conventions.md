@@ -29,9 +29,10 @@ The domain term in code is `member`, not `agremiado`: `MemberCard`,
 "Agremiado" on a label. Module folder names under `src/modules/` are the
 exception; [architecture.md](architecture.md) explains why they mirror the ERS.
 
-A stored value is an identifier, not a sentence. The API sends `approved`, not
-`aprobada`, and this client turns it into "Aprobada", "Aprobado" or "En regla"
-where it is shown. Never compare against or send the Spanish label.
+A stored value is an identifier, not a sentence. Keeping `approved` in the
+database rather than `aprobada` is what lets the interface say "Aprobada",
+"Aprobado" or "En regla" without a data migration each time. This client
+compares against and sends the identifier, never the Spanish label.
 
 ## Versioning
 

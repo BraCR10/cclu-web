@@ -24,8 +24,7 @@ The prefix uses **the same types as commit messages**, listed in
 `chore`. One vocabulary for both, not two to remember.
 
 The description is written in English, like commit messages and like everything
-else that is an identifier rather than something a person reads. A branch about
-agremiados says `member`.
+else that is an identifier rather than something a person reads.
 
 The ticket key belongs in the name so Jira links the work automatically, and so
 anyone reading `git branch` knows what a branch is for without asking.
@@ -42,10 +41,8 @@ git switch -c feat/CCLU-11-member-registration
 git push -u origin feat/CCLU-11-member-registration
 ```
 
-Before the push, run the checks listed in
-[setup.md](setup.md#checks-before-pushing). Then open a pull request against
-`develop`. The same checks run on the pull request itself; a red check blocks
-the merge.
+Then open a pull request against `develop`. The checks run on the pull request
+itself; a red check blocks the merge.
 
 Once merged, delete the branch. A branch that outlives its pull request only
 makes `git branch` harder to read.
@@ -63,10 +60,8 @@ belongs in the pull request when it changes how the diff should be read, and in
 the ticket when someone will need it in six months.
 
 **Never restate what a check already proves.** The QA workflow reports lint,
-formatting, unit tests, the build and the type check on the pull request itself.
-
-When a change builds or alters a screen, name its prototype screen codes, such as
-`M-04` and `MM-04`. [prototype.md](prototype.md) explains the codes.
+formatting and unit tests on the pull request itself. In this repository it also
+builds the client and checks types.
 
 ## Why `main` stays behind
 
