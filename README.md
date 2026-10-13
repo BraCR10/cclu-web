@@ -26,7 +26,7 @@ from `cclu-api` over HTTP.
 | ------------------------------------ | ------------------------------------------------- |
 | [Setup](docs/setup.md)               | Run the client from a clean clone                 |
 | [Architecture](docs/architecture.md) | Module grouping, shared components, boundaries    |
-| [Conventions](docs/conventions.md)   | Versioning, code style, comments, components      |
+| [Conventions](docs/conventions.md)   | Code style, tokens, text, errors, components      |
 | [Branching](docs/branching.md)       | Branch roles, naming, and the pull request cycle  |
 | [Testing](docs/testing.md)           | What carries unit tests, and how they are written |
 | [Prototype](docs/prototype.md)       | Figma pages, screen codes, settled decisions      |
