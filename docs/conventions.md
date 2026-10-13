@@ -267,6 +267,21 @@ prefixed classes add the desktop one.
 Page content is capped at `max-w-page`, the 1280 px column of the desktop frame.
 On mobile, anything a person taps is at least 44 px high and wide.
 
+Each area has one shell, in `src/shared/layouts/`, and a page never draws its
+own navigation:
+
+| Shell         | Routes      | Desktop (`lg` up)             | Mobile                          |
+| ------------- | ----------- | ----------------------------- | ------------------------------- |
+| `PublicShell` | `(public)/` | Header with the sections      | Header, bottom nav and "Más"    |
+| `MemberShell` | `member/`   | Sidebar and panel header      | Panel header, bottom nav, "Más" |
+| `AdminShell`  | `admin/`    | Grouped sidebar, panel header | Panel header, bottom nav, "Más" |
+
+"Más" opens a bottom sheet with the sections the bottom nav has no room for.
+The avatar in a panel header opens the short profile menu. A route that is not
+built yet renders `UnderConstruction`, so every link in a shell leads
+somewhere. The navigation lists live beside the shells, in
+`memberNavigation.ts`, `adminNavigation.ts` and `publicNavigation.ts`.
+
 ## Text and translations
 
 Every sentence a person reads comes from `next-intl`, never from the markup.

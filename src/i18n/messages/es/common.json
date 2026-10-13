@@ -1,8 +1,7 @@
 {
   "appName": "Cámara de Comercio de La Unión",
   "underConstruction": {
-    "title": "En construcción",
-    "body": "Esta sección todavía no está disponible."
+    "title": "En construcción"
   },
   "actions": {
     "close": "Cerrar",
@@ -16,5 +15,15 @@
   },
   "toast": {
     "region": "Notificaciones"
+  },
+  "shell": {
+    "logo": "Cámara de Comercio de La Unión, inicio",
+    "skipToContent": "Ir al contenido",
+    "more": "Más",
+    "moreOptions": "Más opciones",
+    "openProfileMenu": "Abrir el menú de tu cuenta",
+    "myProfile": "Mi perfil",
+    "signOut": "Cerrar sesión",
+    "quickNavigation": "Navegación rápida"
   }
 }
