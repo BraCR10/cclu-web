@@ -3,5 +3,18 @@
   "underConstruction": {
     "title": "En construcción",
     "body": "Esta sección todavía no está disponible."
+  },
+  "actions": {
+    "close": "Cerrar",
+    "loading": "Cargando"
+  },
+  "pagination": {
+    "label": "Paginación",
+    "previous": "Página anterior",
+    "next": "Página siguiente",
+    "page": "Página {page}"
+  },
+  "toast": {
+    "region": "Notificaciones"
   }
 }
