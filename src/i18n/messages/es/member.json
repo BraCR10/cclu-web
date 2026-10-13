@@ -1,1 +1,16 @@
-{}
+{
+  "context": "Panel del agremiado",
+  "nav": {
+    "home": "Inicio",
+    "profile": "Mi perfil",
+    "card": "Mi carné",
+    "membership": "Mi membresía",
+    "payments": "Pagos",
+    "publications": "Mis publicaciones",
+    "vacancies": "Mis vacantes"
+  },
+  "bottomNav": {
+    "card": "Carné",
+    "publications": "Publicaciones"
+  }
+}

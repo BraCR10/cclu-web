@@ -1,1 +1,15 @@
-{}
+{
+  "navigationLabel": "Navegación principal",
+  "nav": {
+    "home": "Inicio",
+    "directory": "Directorio",
+    "marketplace": "Marketplace",
+    "jobs": "Empleos",
+    "jobBoard": "Bolsa de empleo",
+    "plans": "Planes"
+  },
+  "session": {
+    "signIn": "Iniciar sesión",
+    "join": "Afiliarse"
+  }
+}

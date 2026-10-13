@@ -1,1 +1,27 @@
-{}
+{
+  "context": "Administración",
+  "groups": {
+    "general": "General",
+    "management": "Gestión",
+    "tools": "Herramientas",
+    "settings": "Configuración",
+    "account": "Cuenta"
+  },
+  "nav": {
+    "overview": "Resumen",
+    "applications": "Solicitudes de registro",
+    "payments": "Pagos",
+    "members": "Agremiados",
+    "memberships": "Membresías",
+    "moderation": "Moderación",
+    "reports": "Reportes",
+    "subscribers": "Suscriptores",
+    "plans": "Planes y cuotas",
+    "administrators": "Administradores",
+    "activities": "Catálogo de actividades",
+    "profile": "Mi perfil"
+  },
+  "bottomNav": {
+    "applications": "Solicitudes"
+  }
+}
