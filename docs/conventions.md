@@ -180,6 +180,40 @@ The full rules, including when a component is promoted to `shared/`, are in
 A component that fetches, decides and renders is three components wearing one
 name. Split it.
 
+## Shared components
+
+Every screen is built from `src/shared/components`, which mirrors the
+Components page of the prototype. Reach for these before writing markup; a
+screen that needs a variant they lack adds it here, not in the module.
+
+| Need                                      | Component                                                                                                                                    |
+| ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| An action                                 | `Button`: `primary` once per view, `secondary` beside it, `ghost` for low emphasis, `danger` for what cannot be undone, `success` to approve |
+| Text, a long text, one choice from a list | `Input`, `Textarea`, `Select`                                                                                                                |
+| A yes or no in a form                     | `Checkbox`                                                                                                                                   |
+| A setting that applies at once            | `Switch`                                                                                                                                     |
+| One option among a few, all visible       | `Radio` inside a `RadioGroup`                                                                                                                |
+| The state of a record                     | `StatusBadge`, with the state always written                                                                                                 |
+| A message that stays on the page          | `Alert`                                                                                                                                      |
+| Feedback after an action                  | A toast, through `useToast`                                                                                                                  |
+| A grouped block of content                | `Card`                                                                                                                                       |
+| A person or business                      | `Avatar`, image or initials                                                                                                                  |
+| Sections of one page                      | `Tabs`, the underline style                                                                                                                  |
+| A long list                               | `Pagination`                                                                                                                                 |
+| A confirmation, a reason, a short form    | `Modal`                                                                                                                                      |
+
+`Modal` is a popup from `lg` up and a bottom sheet below it, which is what the
+two prototype frames draw. Use `Dialog` or `BottomSheet` directly only when a
+screen is drawn one way on both.
+
+Every component carries its own accessibility, and a screen must not undo it:
+
+- A field is named by its `label`; its help or error is its description.
+- Focus is always visible, through `shadow-focus`.
+- Everything works from the keyboard: tabs move with the arrow keys, modals
+  trap focus and close with Escape, focus returns to what opened them.
+- On mobile, anything a person taps is at least 44 px.
+
 ## Styling
 
 Tailwind utility classes, applied in the component that owns the markup. No
