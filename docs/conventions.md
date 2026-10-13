@@ -160,3 +160,49 @@ Tailwind utility classes, applied in the component that owns the markup. No
 parallel stylesheet describing the same element twice.
 
 `globals.css` holds design tokens and resets only, never component styling.
+
+### Design tokens
+
+`src/app/globals.css` maps the Foundations page of the prototype into Tailwind's
+`@theme`. Tailwind's own palette, type scale, radii, shadows and breakpoints are
+cleared, so only prototype values exist. A value missing from the theme is a
+question for the prototype, not an arbitrary value such as `bg-[#123456]`.
+
+| Figma group        | Token                     | Example utility                |
+| ------------------ | ------------------------- | ------------------------------ |
+| `action/*`         | `primary`, `on-primary`   | `bg-primary text-on-primary`   |
+| `bg/*`             | `canvas`, `surface-*`     | `bg-surface`                   |
+| `border/*`         | `line`, `line-subtle`     | `border-line`                  |
+| `text/*`           | `fg`, `fg-muted`          | `text-fg-muted`                |
+| `status/*`         | `success`, `danger-soft`  | `bg-danger-soft text-danger`   |
+| `brand/*`          | `brand-union`             | `bg-brand-union`               |
+| Plan badge colours | `plan-pro`, `plan-pro-fg` | `bg-plan-pro text-plan-pro-fg` |
+| Text styles        | `text-heading-m`          | `font-display text-heading-m`  |
+| Radius             | `rounded-md`              | `rounded-lg`                   |
+| Effects            | `shadow-raised`           | `focus-visible:shadow-focus`   |
+
+The Figma group prefix is dropped where it would repeat the utility, so
+`text/muted` is `text-fg-muted` rather than `text-text-muted`.
+
+Display, Heading and Metric styles are set in Red Hat Display, so they pair with
+`font-display`; Body, Label and Caption use the default `font-sans`, Red Hat
+Text. Both load through `next/font` in the root layout.
+
+Spacing keeps Tailwind's 4 px step, which is the prototype's scale: `space/4`
+is `p-4`, `space/0-5` is `p-0.5`.
+
+### Responsive
+
+The prototype draws every screen at 390 px (mobile) and 1440 px (desktop).
+Styles are written mobile first: the unprefixed class is the 390 px design, and
+prefixed classes add the desktop one.
+
+| Breakpoint | From    | Use                                        |
+| ---------- | ------- | ------------------------------------------ |
+| none       | 0       | The mobile frame                           |
+| `md`       | 768 px  | Two columns where the mobile frame has one |
+| `lg`       | 1024 px | The desktop frame: sidebar, header, popups |
+| `xl`       | 1440 px | The desktop frame's full width             |
+
+Page content is capped at `max-w-page`, the 1280 px column of the desktop frame.
+On mobile, anything a person taps is at least 44 px high and wide.
