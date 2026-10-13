@@ -31,6 +31,8 @@ Module folder names are English, like every other identifier.
 | `app/`                         | Route segments, layouts, pages. Composition only |
 | `modules/<module>/components/` | Components belonging to that module              |
 | `shared/components/`           | Components used by two or more modules           |
+| `shared/api/`                  | The API client and the error it throws           |
+| `shared/errors/`               | Deciding how an API error is shown               |
 | `i18n/`                        | `next-intl` configuration and the message files  |
 
 A module folder starts with `components/` only. Add `services/`, `hooks/` or

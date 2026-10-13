@@ -67,6 +67,8 @@ a refactor with no behaviour change is a test that costs more than it protects.
   out of the test tree.
 - `tests/support/` holds helpers shared by tests, such as `renderWithIntl`,
   which renders a component with the Spanish messages loaded.
+- `tests/fixtures/` holds data a test reads, such as `apiErrorCodes.json`, the
+  copy of the API's error registry the catalog is checked against.
 - The test name is a sentence describing **the behaviour**:
 
 ```ts

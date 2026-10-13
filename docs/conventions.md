@@ -62,6 +62,32 @@ the generic message "Algo salió mal. Intentá de nuevo."
 Emails are the one exception: the API writes them in Spanish, because they reach
 a person without passing through the web.
 
+### Error contract
+
+`cclu-api/src/config/errorCodes.json` is the registry: the only codes the API
+answers with. A test in the API fails when the source writes a code that is not
+in it.
+
+| Status | `code`                                                                                                                      |
+| ------ | --------------------------------------------------------------------------------------------------------------------------- |
+| 4xx    | A registered code, or `invalid_request` when the failure came from outside the application, such as a body that is not JSON |
+| 5xx    | Always `internal_error`, with a generic `message` and no `field`                                                            |
+
+- The API raises a client error with `ApplicationError`, from
+  `cclu-api/src/config/errorCodes.js`: a code, a message and, when needed, a
+  status (400 by default), a `field` and a `reason`. Every client error is one,
+  and none is built by setting `statusCode` by hand. A server failure needs no
+  code, since the answer is `internal_error` whatever caused it.
+- `reason` refines a code when a screen needs the detail, such as the state an
+  already decided application is in.
+- `cclu-web` keeps a copy of the registry in `tests/fixtures/apiErrorCodes.json`.
+  Its contract test fails when a code in that copy has no sentence in the
+  `errors` messages.
+
+Adding a code takes three edits: the registry, the copy in `cclu-web` (run
+`npm run sync:error-codes` there with both repositories cloned side by side),
+and the sentence in the `errors` messages.
+
 ## Versioning
 
 Commits follow [Conventional Commits](https://www.conventionalcommits.org).
@@ -227,3 +253,22 @@ Keys are English `camelCase`, grouped by the screen or component that shows
 them: `member.profile.saveButton`, `common.underConstruction.title`. The
 exception is `errors`, whose keys are the API codes themselves, in snake_case.
 The copy follows the prototype, including its voseo.
+
+## Showing an error
+
+`requestApi` in `src/shared/api/apiClient.ts` is the only way to call the API.
+A failed call throws an `ApiError` carrying the status and the API's `code`,
+`field` and `reason`. A body that is not the API shape becomes
+`internal_error`, and an API that cannot be reached becomes `network_error`.
+
+`useErrorPresenter` in `src/shared/errors/` turns any thrown value into what to
+show, following the error contract above:
+
+| Error                               | Shown                               |
+| ----------------------------------- | ----------------------------------- |
+| Carries a `field`                   | Under that input                    |
+| No `field`                          | In a toast                          |
+| Code not in `errors`, or status 5xx | "Algo salió mal. Intentá de nuevo." |
+
+A screen never chooses the sentence or the placement itself. The rule lives in
+`decideErrorDisplay`, which is tested on its own.
