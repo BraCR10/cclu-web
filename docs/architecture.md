@@ -34,12 +34,18 @@ Module folder names are English, like every other identifier.
 | `shared/api/`                  | The API client and the error it throws           |
 | `shared/errors/`               | Deciding how an API error is shown               |
 | `shared/hooks/`                | Hooks two or more components share               |
+| `shared/layouts/`              | The public, member and admin shells              |
 | `shared/utils/`                | Small pure helpers with no React or API concern  |
 | `i18n/`                        | `next-intl` configuration and the message files  |
 
 A module folder starts with `components/` only. Add `services/`, `hooks/` or
 `types/` to a module when that module actually needs them. Creating empty
 folders in advance documents nothing and ages badly.
+
+`app/` has one folder per area, each with its layout: `(public)/`, which adds
+no segment to the URL, `member/` and `admin/`. Each area also has a catch-all
+route that shows "En construcción" for pages not built yet; a real page added
+beside it takes precedence.
 
 `app/` composes; it does not implement. A page imports from its module and
 arranges the result. Business-shaped logic does not live in a route file.
