@@ -11,5 +11,43 @@
   "session": {
     "signIn": "Iniciar sesión",
     "join": "Afiliarse"
+  },
+  "footer": {
+    "description": "Cámara de Comercio, Turismo, Industria y Afines del Cantón de La Unión. Unimos a comercios y profesionales del cantón para que crezcan juntos.",
+    "explore": {
+      "title": "Explorar",
+      "directory": "Directorio de comercios",
+      "marketplace": "Marketplace",
+      "promotions": "Promociones",
+      "jobs": "Bolsa de empleo",
+      "plans": "Planes de membresía"
+    },
+    "members": {
+      "title": "Agremiados",
+      "join": "Afiliarse",
+      "signIn": "Iniciar sesión",
+      "discounts": "Descuentos para agremiados",
+      "verifyCard": "Verificar un carné"
+    },
+    "contact": {
+      "title": "Contacto",
+      "whatsApp": "WhatsApp 6128 2812",
+      "email": "info@camaralaunion.com",
+      "website": "www.camaralaunion.com",
+      "address": "Tres Ríos, La Unión, Cartago"
+    },
+    "social": {
+      "label": "Redes sociales",
+      "facebook": "Facebook de la Cámara",
+      "instagram": "Instagram de la Cámara",
+      "linkedin": "LinkedIn de la Cámara"
+    },
+    "legal": {
+      "label": "Enlaces legales",
+      "bylaws": "Estatutos",
+      "terms": "Términos del Marketplace",
+      "privacy": "Política de privacidad"
+    },
+    "copyright": "© {year} Cámara de Comercio, Turismo, Industria y Afines del Cantón de La Unión"
   }
 }

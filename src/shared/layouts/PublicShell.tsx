@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import { classNames } from '@/shared/utils/classNames';
 import { BottomNav } from './BottomNav';
 import { Logo } from './Logo';
+import { PublicFooter } from './PublicFooter';
 import { SkipLink } from './SkipLink';
 import { findActiveItem } from './navigation';
 import {
@@ -75,9 +76,10 @@ export function PublicShell({ children }: { children: ReactNode }) {
           </div>
         </div>
       </header>
-      <main id="content" className="flex flex-1 flex-col pb-24 lg:pb-0">
+      <main id="content" className="flex flex-1 flex-col">
         {children}
       </main>
+      <PublicFooter />
       <BottomNav
         label={translateShell('quickNavigation')}
         items={publicBottomNavItems}

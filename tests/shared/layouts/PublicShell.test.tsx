@@ -38,6 +38,12 @@ describe('PublicShell', () => {
     ).toHaveAttribute('href', '/');
   });
 
+  it('closes every public page with the footer', () => {
+    renderWithIntl(<PublicShell>Contenido</PublicShell>);
+
+    expect(screen.getByRole('contentinfo')).toBeInTheDocument();
+  });
+
   it('renders the page inside the main landmark', () => {
     renderWithIntl(<PublicShell>Contenido</PublicShell>);
 
