@@ -5,6 +5,13 @@ import nextTs from 'eslint-config-next/typescript';
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
+  {
+    // Text a person reads comes from the message files, never from the markup.
+    files: ['src/**/*.tsx'],
+    rules: {
+      'react/jsx-no-literals': ['error', { noStrings: false, ignoreProps: true }],
+    },
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:

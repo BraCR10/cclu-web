@@ -65,6 +65,8 @@ a refactor with no behaviour change is a test that costs more than it protects.
   separate trees, so reading `src/` shows the application and nothing else.
 - Tests import through the `@/` alias, never through a relative path that walks
   out of the test tree.
+- `tests/support/` holds helpers shared by tests, such as `renderWithIntl`,
+  which renders a component with the Spanish messages loaded.
 - The test name is a sentence describing **the behaviour**:
 
 ```ts

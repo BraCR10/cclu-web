@@ -10,6 +10,7 @@ top-level `components/` folder holding every component in the system.
 ```
 src/
   app/        Routing only. Next.js App Router
+  i18n/       Locale configuration and message files
   modules/    One folder per functional module
   shared/     Used by two or more modules
 ```
@@ -30,6 +31,7 @@ Module folder names are English, like every other identifier.
 | `app/`                         | Route segments, layouts, pages. Composition only |
 | `modules/<module>/components/` | Components belonging to that module              |
 | `shared/components/`           | Components used by two or more modules           |
+| `i18n/`                        | `next-intl` configuration and the message files  |
 
 A module folder starts with `components/` only. Add `services/`, `hooks/` or
 `types/` to a module when that module actually needs them. Creating empty

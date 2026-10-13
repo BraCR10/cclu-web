@@ -206,3 +206,24 @@ prefixed classes add the desktop one.
 
 Page content is capped at `max-w-page`, the 1280 px column of the desktop frame.
 On mobile, anything a person taps is at least 44 px high and wide.
+
+## Text and translations
+
+Every sentence a person reads comes from `next-intl`, never from the markup.
+The `react/jsx-no-literals` lint rule fails on text written inside JSX.
+
+Spanish is the only language, so the locale is fixed and never appears in the
+URL. Messages live in `src/i18n/messages/es/`, one file per namespace:
+
+| Namespace | Holds                                          |
+| --------- | ---------------------------------------------- |
+| `common`  | Text more than one area shares                 |
+| `errors`  | One sentence per API error code, and `generic` |
+| `public`  | Public site                                    |
+| `member`  | Member panel                                   |
+| `admin`   | Administration panel                           |
+
+Keys are English `camelCase`, grouped by the screen or component that shows
+them: `member.profile.saveButton`, `common.underConstruction.title`. The
+exception is `errors`, whose keys are the API codes themselves, in snake_case.
+The copy follows the prototype, including its voseo.
