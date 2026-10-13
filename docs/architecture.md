@@ -33,6 +33,8 @@ Module folder names are English, like every other identifier.
 | `shared/components/`           | Components used by two or more modules           |
 | `shared/api/`                  | The API client and the error it throws           |
 | `shared/errors/`               | Deciding how an API error is shown               |
+| `shared/hooks/`                | Hooks two or more components share               |
+| `shared/utils/`                | Small pure helpers with no React or API concern  |
 | `i18n/`                        | `next-intl` configuration and the message files  |
 
 A module folder starts with `components/` only. Add `services/`, `hooks/` or
@@ -48,7 +50,11 @@ A component moves to `shared/` when a **second** module imports it. Not when it
 looks reusable, not when someone expects reuse later.
 
 Premature promotion produces a shared component shaped around one caller, and
-the second caller then bends it out of shape. Waiting for the second use is
+the second caller then bends it out of shape.
+
+The components on the prototype's Components page are the exception. They are
+the design system every module draws from, so they start in
+`shared/components/`. Waiting for the second use is
 what tells you which parts are genuinely common.
 
 ## Module boundaries
