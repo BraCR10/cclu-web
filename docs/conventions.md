@@ -62,6 +62,32 @@ the generic message "Algo salió mal. Intentá de nuevo."
 Emails are the one exception: the API writes them in Spanish, because they reach
 a person without passing through the web.
 
+### Error contract
+
+`cclu-api/src/config/errorCodes.json` is the registry: the only codes the API
+answers with. A test in the API fails when the source writes a code that is not
+in it.
+
+| Status | `code`                                                                                                                      |
+| ------ | --------------------------------------------------------------------------------------------------------------------------- |
+| 4xx    | A registered code, or `invalid_request` when the failure came from outside the application, such as a body that is not JSON |
+| 5xx    | Always `internal_error`, with a generic `message` and no `field`                                                            |
+
+- The API raises a client error with `ApplicationError`, from
+  `cclu-api/src/config/errorCodes.js`: a code, a message and, when needed, a
+  status (400 by default), a `field` and a `reason`. Every client error is one,
+  and none is built by setting `statusCode` by hand. A server failure needs no
+  code, since the answer is `internal_error` whatever caused it.
+- `reason` refines a code when a screen needs the detail, such as the state an
+  already decided application is in.
+- `cclu-web` keeps a copy of the registry in `tests/fixtures/apiErrorCodes.json`.
+  Its contract test fails when a code in that copy has no sentence in the
+  `errors` messages.
+
+Adding a code takes three edits: the registry, the copy in `cclu-web` (run
+`npm run sync:error-codes` there with both repositories cloned side by side),
+and the sentence in the `errors` messages.
+
 ## Versioning
 
 Commits follow [Conventional Commits](https://www.conventionalcommits.org).
@@ -160,3 +186,89 @@ Tailwind utility classes, applied in the component that owns the markup. No
 parallel stylesheet describing the same element twice.
 
 `globals.css` holds design tokens and resets only, never component styling.
+
+### Design tokens
+
+`src/app/globals.css` maps the Foundations page of the prototype into Tailwind's
+`@theme`. Tailwind's own palette, type scale, radii, shadows and breakpoints are
+cleared, so only prototype values exist. A value missing from the theme is a
+question for the prototype, not an arbitrary value such as `bg-[#123456]`.
+
+| Figma group        | Token                     | Example utility                |
+| ------------------ | ------------------------- | ------------------------------ |
+| `action/*`         | `primary`, `on-primary`   | `bg-primary text-on-primary`   |
+| `bg/*`             | `canvas`, `surface-*`     | `bg-surface`                   |
+| `border/*`         | `line`, `line-subtle`     | `border-line`                  |
+| `text/*`           | `fg`, `fg-muted`          | `text-fg-muted`                |
+| `status/*`         | `success`, `danger-soft`  | `bg-danger-soft text-danger`   |
+| `brand/*`          | `brand-union`             | `bg-brand-union`               |
+| Plan badge colours | `plan-pro`, `plan-pro-fg` | `bg-plan-pro text-plan-pro-fg` |
+| Text styles        | `text-heading-m`          | `font-display text-heading-m`  |
+| Radius             | `rounded-md`              | `rounded-lg`                   |
+| Effects            | `shadow-raised`           | `focus-visible:shadow-focus`   |
+
+The Figma group prefix is dropped where it would repeat the utility, so
+`text/muted` is `text-fg-muted` rather than `text-text-muted`.
+
+Display, Heading and Metric styles are set in Red Hat Display, so they pair with
+`font-display`; Body, Label and Caption use the default `font-sans`, Red Hat
+Text. Both load through `next/font` in the root layout.
+
+Spacing keeps Tailwind's 4 px step, which is the prototype's scale: `space/4`
+is `p-4`, `space/0-5` is `p-0.5`.
+
+### Responsive
+
+The prototype draws every screen at 390 px (mobile) and 1440 px (desktop).
+Styles are written mobile first: the unprefixed class is the 390 px design, and
+prefixed classes add the desktop one.
+
+| Breakpoint | From    | Use                                        |
+| ---------- | ------- | ------------------------------------------ |
+| none       | 0       | The mobile frame                           |
+| `md`       | 768 px  | Two columns where the mobile frame has one |
+| `lg`       | 1024 px | The desktop frame: sidebar, header, popups |
+| `xl`       | 1440 px | The desktop frame's full width             |
+
+Page content is capped at `max-w-page`, the 1280 px column of the desktop frame.
+On mobile, anything a person taps is at least 44 px high and wide.
+
+## Text and translations
+
+Every sentence a person reads comes from `next-intl`, never from the markup.
+The `react/jsx-no-literals` lint rule fails on text written inside JSX.
+
+Spanish is the only language, so the locale is fixed and never appears in the
+URL. Messages live in `src/i18n/messages/es/`, one file per namespace:
+
+| Namespace | Holds                                          |
+| --------- | ---------------------------------------------- |
+| `common`  | Text more than one area shares                 |
+| `errors`  | One sentence per API error code, and `generic` |
+| `public`  | Public site                                    |
+| `member`  | Member panel                                   |
+| `admin`   | Administration panel                           |
+
+Keys are English `camelCase`, grouped by the screen or component that shows
+them: `member.profile.saveButton`, `common.underConstruction.title`. The
+exception is `errors`, whose keys are the API codes themselves, in snake_case.
+The copy follows the prototype, including its voseo.
+
+## Showing an error
+
+`requestApi` in `src/shared/api/apiClient.ts` is the only way to call the API.
+A failed call throws an `ApiError` carrying the status and the API's `code`,
+`field` and `reason`. A body that is not the API shape becomes
+`internal_error`, and an API that cannot be reached becomes `network_error`.
+
+`useErrorPresenter` in `src/shared/errors/` turns any thrown value into what to
+show, following the error contract above:
+
+| Error                               | Shown                               |
+| ----------------------------------- | ----------------------------------- |
+| Carries a `field`                   | Under that input                    |
+| No `field`                          | In a toast                          |
+| Code not in `errors`, or status 5xx | "Algo salió mal. Intentá de nuevo." |
+
+A screen never chooses the sentence or the placement itself. The rule lives in
+`decideErrorDisplay`, which is tested on its own.

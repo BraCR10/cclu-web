@@ -14,10 +14,12 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "sync:error-codes": "cp ../cclu-api/src/config/errorCodes.json tests/fixtures/apiErrorCodes.json"
   },
   "dependencies": {
     "next": "16.3.4",
+    "next-intl": "^4.14.9",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },
