@@ -18,6 +18,7 @@ src/
 | Module folder         | Product area                                  |
 | --------------------- | --------------------------------------------- |
 | `modules/members`     | Member registration, profile, card, payments  |
+| `modules/auth`        | Signing in and out, and recovering a password |
 | `modules/marketplace` | Directory, products, promotions and discounts |
 | `modules/jobs`        | Job board                                     |
 | `modules/admin`       | Administration panel                          |
@@ -70,6 +71,31 @@ same thing, it belongs in `shared/`.
 
 This mirrors the rule the API applies to its services: a dependency between two
 modules is a design decision, not an import statement.
+
+## One form, two ways in
+
+A registration and a correction are two screens over the same data. The applicant
+sends their application, and a request for changes brings them back to a form that
+opens with everything they wrote still in it. The way in differs — one is a
+session, the other a token in a link — and so does what the screen shows: the
+prototype draws the correction as its own card, with the groups `Cuenta`, `Tipo e
+identificación`, `Tu negocio` and `Contacto` and nothing else.
+
+So the screen is its own component, and what is shared is what must not drift:
+
+- `validation/fieldRules.ts` holds the field name union and the rule primitives.
+  Every form in the module checks its fields with those, so one form's rules
+  cannot quietly differ from another's.
+- `validation/correctionRules.ts` states which of those rules the correction
+  screen answers to, and says nothing about the fields it does not show. The
+  address, the password and the consents are changed by their own flows.
+- `api/correction.ts` keeps the list of fields the screen may show, which is the
+  same list the API refuses anything outside of. A field the form cannot show
+  would be erased rather than corrected, so the two lists have to agree.
+
+The registration keeps its own steps because the prototype draws them as three
+pages with a stepper, and those steps read a contract rather than a whole wizard,
+so a change to the wizard does not reach them.
 
 ## Data access
 

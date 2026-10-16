@@ -104,6 +104,20 @@ describe('requestApi', () => {
     expect(error).toMatchObject({ status: 502, code: 'internal_error' });
   });
 
+  // A form carries its own content type, boundary included, so setting one here
+  // would send the API a body it could not read.
+  it('sends a form as it is, without a content type of its own', async () => {
+    const { calls, fetcher } = fakeFetch(new Response(null, { status: 204 }));
+    const form = new FormData();
+
+    form.append('purpose', 'member-logos');
+
+    await requestApi('/api/files', { ...options, fetcher, method: 'POST', body: form });
+
+    expect(calls[0].init.body).toBe(form);
+    expect(new Headers(calls[0].init.headers).get('Content-Type')).toBeNull();
+  });
+
   it('answers network_error when the API cannot be reached', async () => {
     const fetcher = async () => {
       throw new TypeError('Failed to fetch');

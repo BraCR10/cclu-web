@@ -50,7 +50,11 @@ export async function requestApi<Result = unknown>(
 ): Promise<Result> {
   const headers = new Headers({ Accept: 'application/json' });
 
-  if (body !== undefined) {
+  // A form is sent as it is: the browser sets its own content type, and one set
+  // here would leave out the boundary between the parts.
+  const isForm = body instanceof FormData;
+
+  if (body !== undefined && !isForm) {
     headers.set('Content-Type', 'application/json');
   }
 
@@ -62,7 +66,7 @@ export async function requestApi<Result = unknown>(
       method,
       headers,
       credentials: 'include',
-      body: body === undefined ? undefined : JSON.stringify(body),
+      body: body === undefined ? undefined : isForm ? (body as FormData) : JSON.stringify(body),
     },
     fetcher,
   );
