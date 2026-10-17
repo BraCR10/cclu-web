@@ -1,19 +1,12 @@
 import { ChevronDown } from 'lucide-react';
-import { useFormatter, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
+import { useDates } from '@/shared/hooks/useDates';
 import type { Paginated } from '@/shared/api/pagination';
 import { Card } from '@/shared/components/Card';
 import { Pagination } from '@/shared/components/Pagination';
 import { formatColones } from '@/shared/utils/formatColones';
 import type { FeeChange } from '../api/fees';
 import { PlanBadge } from './PlanBadge';
-
-const DATE_FORMAT = {
-  day: 'numeric',
-  month: 'short',
-  year: 'numeric',
-  hour: '2-digit',
-  minute: '2-digit',
-} as const;
 
 // A table where there is room for five columns, and one card per change on a
 // telephone, folded so the fees stay the first thing on screen.
@@ -24,8 +17,8 @@ type FeeHistoryProps = {
 
 export function FeeHistory({ history, onPageChange }: FeeHistoryProps) {
   const translate = useTranslations('admin.plans.history');
-  const format = useFormatter();
-  const dateOf = (change: FeeChange) => format.dateTime(new Date(change.occurredAt), DATE_FORMAT);
+  const dates = useDates();
+  const dateOf = (change: FeeChange) => dates.instant(change.occurredAt, 'moment');
 
   if (history.total === 0) {
     return (

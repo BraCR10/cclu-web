@@ -50,7 +50,8 @@ function PaymentDetail({ label, value, prominent = false, copyable = false }: Pa
 
 const STEPS = ['choose', 'pay', 'upload'] as const;
 
-export function HowToPay() {
+// With the member's own code, the reference is the one they actually type.
+export function HowToPay({ memberCode }: { memberCode?: string }) {
   const translate = useTranslations('plans.howToPay');
   const { sinpe, transfer } = PAYMENT_METHODS;
 
@@ -110,7 +111,11 @@ export function HowToPay() {
         <Info aria-hidden className="mt-0.5 size-4 shrink-0 text-fg" />
         <div>
           <p className="text-label-m text-fg">{translate('reference.title')}</p>
-          <p className="text-body-s text-fg-secondary">{translate('reference.example')}</p>
+          <p className="text-body-s text-fg-secondary">
+            {memberCode === undefined
+              ? translate('reference.example')
+              : translate('reference.yours', { code: memberCode })}
+          </p>
         </div>
       </div>
     </Card>

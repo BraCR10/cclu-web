@@ -29,7 +29,9 @@
     },
     "perMonth": "/mes",
     "onApproval": "al aprobar tu afiliación",
-    "benefitsOf": "Beneficios de {plan}"
+    "benefitsOf": "Beneficios de {plan}",
+    "yourPlan": "Tu plan",
+    "currentPlan": "Tu plan actual"
   },
   "cardBenefits": {
     "directory": "Ficha en el directorio",
@@ -91,7 +93,8 @@
     "copyFailed": "No se pudo copiar. Seleccioná el texto y copialo a mano.",
     "reference": {
       "title": "En el detalle del pago escribí tu código + Membresía",
-      "example": "Ejemplo: CLU001 Membresía"
+      "example": "Ejemplo: CLU001 Membresía",
+      "yours": "Ejemplo: {code} Membresía"
     }
   },
   "faq": {

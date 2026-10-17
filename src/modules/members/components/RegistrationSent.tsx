@@ -5,23 +5,17 @@ import { Card } from '@/shared/components/Card';
 import { DescriptionList } from '@/shared/components/DescriptionList';
 import { StatusBadge } from '@/shared/components/StatusBadge';
 import { Timeline, type TimelineStep } from '@/shared/components/Timeline';
+import { useDates } from '@/shared/hooks/useDates';
 import type { SentRegistration } from '../hooks/useRegistrationWizard';
 
 const REVIEW_DAYS = 5;
-
-const MOMENT = new Intl.DateTimeFormat('es-CR', {
-  day: 'numeric',
-  month: 'short',
-  year: 'numeric',
-  hour: 'numeric',
-  minute: '2-digit',
-});
 
 // The screen the applicant keeps. It says what was received, what happens next
 // and when, and it repeats the address the chamber will write to, because that
 // is the one thing they cannot check anywhere else yet.
 export function RegistrationSent({ sent }: { sent: SentRegistration }) {
   const translate = useTranslations('registration.sent');
+  const dates = useDates();
 
   const steps: TimelineStep[] = [
     {
@@ -29,7 +23,7 @@ export function RegistrationSent({ sent }: { sent: SentRegistration }) {
       detail: translate('steps.received.detail'),
       statusLabel: translate('steps.received.note'),
       state: 'done',
-      moment: MOMENT.format(sent.sentAt),
+      moment: dates.instant(sent.sentAt, 'moment'),
     },
     {
       title: translate('steps.review.title'),
@@ -79,7 +73,7 @@ export function RegistrationSent({ sent }: { sent: SentRegistration }) {
                 detail: <StatusBadge tone="info" label={translate('stateValue')} />,
               },
               { term: translate('business'), detail: sent.businessName },
-              { term: translate('sentAt'), detail: MOMENT.format(sent.sentAt) },
+              { term: translate('sentAt'), detail: dates.instant(sent.sentAt, 'moment') },
             ]}
           />
         </div>

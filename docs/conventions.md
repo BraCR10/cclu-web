@@ -290,18 +290,75 @@ The `react/jsx-no-literals` lint rule fails on text written inside JSX.
 Spanish is the only language, so the locale is fixed and never appears in the
 URL. Messages live in `src/i18n/messages/es/`, one file per namespace:
 
-| Namespace | Holds                                          |
-| --------- | ---------------------------------------------- |
-| `common`  | Text more than one area shares                 |
-| `errors`  | One sentence per API error code, and `generic` |
-| `public`  | Public site                                    |
-| `member`  | Member panel                                   |
-| `admin`   | Administration panel                           |
+| Namespace      | Holds                                          |
+| -------------- | ---------------------------------------------- |
+| `common`       | Text more than one area shares                 |
+| `errors`       | One sentence per API error code, and `generic` |
+| `public`       | Public site                                    |
+| `member`       | Member panel                                   |
+| `admin`        | Administration panel                           |
+| `auth`         | Signing in and out, and recovering a password  |
+| `registration` | The registration steps and the sent screen     |
+| `correction`   | The correction screen a link opens             |
+| `plans`        | Plan cards, comparison and how to pay          |
+
+A new namespace is a new file there and a line in `src/i18n/messages.ts`.
 
 Keys are English `camelCase`, grouped by the screen or component that shows
 them: `member.profile.saveButton`, `common.underConstruction.title`. The
 exception is `errors`, whose keys are the API codes themselves, in snake_case.
 The copy follows the prototype, including its voseo.
+
+## Dates
+
+The API works in one time, UTC. The screen shows every date on the clock of
+whoever is looking, so a member in China reads Chinese time.
+
+**Where the zone comes from.** On its first load the browser names its zone and
+`TimeZoneSync` keeps it in the `cclu_time_zone` cookie, then renders the page
+again. From then on `src/i18n/request.ts` hands that zone to `next-intl`, so the
+server and the browser format every date the same way. Until the cookie exists,
+and for any value the runtime does not know as a zone, the chamber's
+`America/Costa_Rica` is used. Because a browser writes the cookie, its value
+must look like a zone name and the runtime must be able to format in it before
+it reaches a formatter. Older names a browser may report, such as
+`Asia/Calcutta` or `Etc/UTC`, are accepted.
+
+**How a component shows a date.** Always through the `useDates` hook in
+`src/shared/hooks/`, with the formats named once in `src/i18n/formats.ts`:
+
+| The API sends           | Looks like                 | Shown with                    |
+| ----------------------- | -------------------------- | ----------------------------- |
+| An instant              | `2026-10-17T21:40:00Z`     | `dates.instant(value, style)` |
+| The instant a term ends | `2026-11-18T06:00:00Z`     | `dates.termEnd(value)`        |
+| A day a person typed    | `2026-10-05T00:00:00.000Z` | `dates.calendarDay(day)`      |
+
+| Style    | Reads                   |
+| -------- | ----------------------- |
+| `date`   | 17 de octubre de 2026   |
+| `short`  | 17 oct 2026             |
+| `moment` | 17 oct 2026, 3:40 p. m. |
+
+**When a term ends.** A plan valid through 17 November ends at midnight opening
+the 18th in Costa Rica, one instant everywhere. `termEnd` shows the last day
+covered where that instant is the viewer's own midnight, and the local date and
+time anywhere else, because a day alone would be wrong there:
+
+| Viewer      | Reads                                     |
+| ----------- | ----------------------------------------- |
+| Costa Rica  | Vigente hasta el 17 de noviembre de 2026  |
+| Los Angeles | Vigente hasta el 17 nov 2026, 10:00 p. m. |
+| Beijing     | Vigente hasta el 18 nov 2026, 2:00 p. m.  |
+
+**A day a person typed has no time.** The certification's issue date is stored
+as midnight UTC of that day. Show its first ten characters with
+`dates.calendarDay(value.slice(0, 10))`; converted between zones as an instant,
+it would read as the day before in the Americas.
+
+A lint rule refuses `new Intl.DateTimeFormat` and `toLocaleDateString` with
+arguments in `src/`, because either one bypasses the configured zone and
+formats. Access is never decided by a date in the browser: the API works it out
+against its own clock, whatever the screen shows.
 
 ## Showing an error
 

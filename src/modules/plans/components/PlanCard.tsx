@@ -1,15 +1,30 @@
 import Link from 'next/link';
 import { CircleCheck, Lock } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { StatusBadge } from '@/shared/components/StatusBadge';
 import { JOIN_HREF } from '@/shared/layouts/publicNavigation';
 import { classNames } from '@/shared/utils/classNames';
 import { formatColones } from '@/shared/utils/formatColones';
 import type { Plan } from '../api/plans';
 import { cardBenefitsFor } from '../planBenefits';
 
-export function PlanCard({ plan }: { plan: Plan }) {
+export type PlanCardAction = { href: string; label: string };
+
+type PlanCardProps = {
+  plan: Plan;
+  current?: boolean;
+  // Joining by default, as the public page offers. Null leaves the card without
+  // one, for a plan nobody moves to by choice.
+  action?: PlanCardAction | null;
+};
+
+export function PlanCard({ plan, current = false, action }: PlanCardProps) {
   const translate = useTranslations('plans');
   const isFree = plan.key === 'free';
+  const shownAction =
+    action === undefined
+      ? { href: JOIN_HREF, label: translate(`cards.${plan.key}.action`) }
+      : action;
   const isFeatured = plan.key === 'premium';
   const headingId = `plan-${plan.key}`;
 
@@ -21,9 +36,12 @@ export function PlanCard({ plan }: { plan: Plan }) {
         isFeatured && 'border-t-4 border-t-brand-sol',
       )}
     >
-      <h2 id={headingId} className="font-display text-heading-m text-fg">
-        {plan.name}
-      </h2>
+      <div className="flex items-start justify-between gap-2">
+        <h2 id={headingId} className="font-display text-heading-m text-fg">
+          {plan.name}
+        </h2>
+        {current && <StatusBadge tone="success" label={translate('cards.yourPlan')} />}
+      </div>
       <p className="mt-1 text-label-s text-fg-brand">{translate(`cards.${plan.key}.tagline`)}</p>
       <p className="mt-2 text-body-s text-fg-secondary">
         {translate(`cards.${plan.key}.description`)}
@@ -67,12 +85,20 @@ export function PlanCard({ plan }: { plan: Plan }) {
         })}
       </ul>
 
-      <Link
-        href={JOIN_HREF}
-        className="mt-6 inline-flex min-h-11 items-center justify-center rounded-sm border border-secondary-border bg-surface px-4 text-label-m text-fg hover:bg-surface-hover focus-visible:shadow-focus focus-visible:outline-none lg:min-h-10"
-      >
-        {translate(`cards.${plan.key}.action`)}
-      </Link>
+      {current ? (
+        <p className="mt-6 inline-flex min-h-11 items-center justify-center rounded-sm border border-line-subtle bg-surface-subtle px-4 text-label-m text-fg-muted lg:min-h-10">
+          {translate('cards.currentPlan')}
+        </p>
+      ) : (
+        shownAction !== null && (
+          <Link
+            href={shownAction.href}
+            className="mt-6 inline-flex min-h-11 items-center justify-center rounded-sm border border-secondary-border bg-surface px-4 text-label-m text-fg hover:bg-surface-hover focus-visible:shadow-focus focus-visible:outline-none lg:min-h-10"
+          >
+            {shownAction.label}
+          </Link>
+        )
+      )}
     </article>
   );
 }
