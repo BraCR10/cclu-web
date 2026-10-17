@@ -1,8 +1,11 @@
 import admin from './messages/es/admin.json';
+import auth from './messages/es/auth.json';
 import common from './messages/es/common.json';
+import correction from './messages/es/correction.json';
 import errors from './messages/es/errors.json';
 import member from './messages/es/member.json';
 import publicArea from './messages/es/public.json';
+import registration from './messages/es/registration.json';
 
 export const locale = 'es';
 
@@ -12,6 +15,9 @@ export const messages = {
   public: publicArea,
   member,
   admin,
+  auth,
+  registration,
+  correction,
 };
 
 export type Messages = typeof messages;

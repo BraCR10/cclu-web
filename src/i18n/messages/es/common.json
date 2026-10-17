@@ -5,7 +5,28 @@
   },
   "actions": {
     "close": "Cerrar",
-    "loading": "Cargando"
+    "loading": "Cargando",
+    "continue": "Continuar",
+    "back": "Atrás",
+    "cancel": "Cancelar",
+    "send": "Enviar",
+    "retry": "Intentá de nuevo"
+  },
+  "stepper": {
+    "stepOf": "Paso {step} de {total}",
+    "next": "Siguiente: {step}"
+  },
+  "file": {
+    "uploading": "Subiendo…",
+    "stored": "Subido, {size}",
+    "view": "Ver",
+    "removeNamed": "Eliminar {name}"
+  },
+  "passwordRules": {
+    "length": "Al menos 10 caracteres",
+    "letter": "Al menos una letra",
+    "number": "Al menos un número",
+    "symbol": "Al menos un símbolo"
   },
   "pagination": {
     "label": "Paginación",
@@ -23,6 +44,8 @@
     "moreOptions": "Más opciones",
     "openProfileMenu": "Abrir el menú de tu cuenta",
     "myProfile": "Mi perfil",
+    "myAccount": "Mi cuenta",
+    "memberCode": "Código {code}",
     "signOut": "Cerrar sesión",
     "quickNavigation": "Navegación rápida"
   }

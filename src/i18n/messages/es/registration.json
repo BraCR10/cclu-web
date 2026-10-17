@@ -1,0 +1,209 @@
+{
+  "page": {
+    "title": "Afiliar mi negocio",
+    "legend": "Completá los tres pasos. Podés volver atrás sin perder lo que escribiste.",
+    "back": "Volver al inicio",
+    "steps": {
+      "type": "Tipo e identificación",
+      "business": "Tu negocio",
+      "contact": "Contacto y cuenta"
+    }
+  },
+  "stepOne": {
+    "title": "Tipo e identificación",
+    "legend": "Paso 1 de 3. Contanos quién se afilia.",
+    "allRequired": "Todos los campos son obligatorios.",
+    "typeQuestion": "¿Cómo te afiliás?",
+    "types": {
+      "business": {
+        "title": "Empresa",
+        "description": "Sociedad o negocio inscrito con cédula jurídica."
+      },
+      "association": {
+        "title": "Asociación",
+        "description": "Asociación sin fines de lucro con cédula jurídica."
+      },
+      "independent": {
+        "title": "Profesional independiente",
+        "description": "Persona que ofrece sus servicios con su cédula, DIMEX o pasaporte."
+      }
+    },
+    "identification": "Identificación",
+    "identificationType": "Tipo de identificación",
+    "identificationTypes": {
+      "legalEntityId": "Cédula jurídica",
+      "nationalId": "Cédula física",
+      "dimex": "DIMEX",
+      "passport": "Pasaporte"
+    },
+    "identificationNumberLegal": "Número de cédula jurídica",
+    "identificationNumberLegalHelp": "Diez dígitos, con o sin guiones.",
+    "identificationNumberPersonal": "Número de identificación",
+    "identificationNumberPersonalHelp": "Sin guiones ni espacios. Elegí DIMEX o pasaporte si no tenés cédula.",
+    "fullName": "Nombre completo",
+    "fullNameHelp": "Como aparece en tu documento de identidad.",
+    "companyData": "Datos de la empresa",
+    "privateNote": "Solo los ve la Cámara. No aparecen en tu ficha pública.",
+    "legalName": "Razón social",
+    "legalNameHelp": "Tal como aparece en el Registro Nacional.",
+    "representative": "Representante legal",
+    "representativeIdentification": "Identificación del representante",
+    "certification": "Certificación de personería jurídica (archivo o foto)",
+    "certificationHint": "Arrastrá el archivo o elegilo desde tu equipo",
+    "certificationHintMobile": "Elegí un archivo o tomá una foto",
+    "certificationFormats": "PDF, JPG o PNG, máximo 10 MB",
+    "certificationHelp": "PDF, JPG o PNG. Si no tenés el archivo, subí una foto clara.",
+    "certificationIssuedAt": "Fecha de emisión de la certificación",
+    "withoutCertification": {
+      "title": "No necesitás certificación de personería jurídica",
+      "message": "Como profesional independiente solo verificamos tu identificación personal."
+    }
+  },
+  "stepTwo": {
+    "title": "Tu negocio",
+    "legend": "Paso 2 de 3. Así te van a encontrar los clientes.",
+    "optionalNote": "Los campos marcados como opcionales se pueden dejar vacíos.",
+    "businessData": "Datos del negocio",
+    "businessName": "Nombre comercial",
+    "businessNameHelp": "Así aparecerá en el directorio de comercios.",
+    "manager": "Encargado o encargada",
+    "managerHelp": "Persona que atiende la cuenta ante la Cámara.",
+    "activity": "Actividad",
+    "activityPlaceholder": "Buscá tu actividad",
+    "activityEmpty": "No encontramos esa actividad.",
+    "activityOtherOption": "Otra actividad",
+    "activityOtherField": "Escribí tu actividad",
+    "activityHelp": "Elegila de la lista de patentes de la Municipalidad. Si no está, elegí Otra actividad.",
+    "description": "Descripción del negocio",
+    "descriptionPlaceholder": "Contá qué ofrecés y qué te hace diferente.",
+    "descriptionHelp": "Aparece en tu ficha pública.",
+    "logo": "Logo del negocio",
+    "logoOptional": "Logo del negocio (opcional)",
+    "logoHint": "Arrastrá el archivo o elegilo desde tu equipo",
+    "logoHintMobile": "Elegí un archivo o tomá una foto",
+    "logoFormats": "JPG o PNG, máximo 2 MB",
+    "logoHelp": "Imagen cuadrada de al menos 400 × 400 px. Es opcional.",
+    "branch": {
+      "title": "Sucursal principal",
+      "note": "Es la sucursal que aparece primero en tu ficha pública.",
+      "modality": "Modalidad",
+      "modalities": {
+        "physical": {
+          "title": "Física",
+          "description": "Tenés un local donde te visitan los clientes."
+        },
+        "virtual": {
+          "title": "Virtual",
+          "description": "Vendés o atendés en línea o a domicilio."
+        }
+      },
+      "name": "Nombre de la sucursal",
+      "nameHelp": "Así la verán los clientes en tu ficha.",
+      "province": "Provincia",
+      "canton": "Cantón",
+      "district": "Distrito",
+      "address": "Dirección física o ubicación del servicio",
+      "addressHelp": "Opcional si tu negocio es virtual.",
+      "phone": "Teléfono institucional",
+      "phoneHelp": "Número fijo o de oficina del negocio.",
+      "moreTitle": "Podés agregar más sucursales desde tu perfil cuando tu solicitud sea aprobada."
+    }
+  },
+  "stepThree": {
+    "title": "Contacto y cuenta",
+    "legend": "Paso 3 de 3. Así te contactan los clientes y la Cámara.",
+    "contact": "Contacto",
+    "email": "Correo electrónico",
+    "emailHelp": "Con este correo iniciás sesión. No se muestra en tu ficha.",
+    "emailExample": "nombre@dominio.com",
+    "emailInvalid": "El correo no es válido, por ejemplo nombre@dominio.com.",
+    "phone": "Teléfono",
+    "whatsapp": "WhatsApp",
+    "whatsappHelp": "Los clientes te escriben a este número.",
+    "website": "Sitio web",
+    "websiteHelp": "Opcional.",
+    "networks": "Redes sociales",
+    "networksNote": "Opcionales. Aparecen en tu ficha pública.",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "billing": "Facturación",
+    "billingEmail": "Correo de facturación",
+    "billingHelp": "Te enviamos aquí los comprobantes de pago por afiliación.",
+    "account": "Tu cuenta",
+    "password": "Contraseña",
+    "confirmation": "Confirmar contraseña",
+    "mismatch": "Las contraseñas no coinciden. Escribila de nuevo.",
+    "consents": "Consentimientos",
+    "consentStatutes": "Acepto los Estatutos de la Cámara",
+    "consentMarketplace": "Acepto los términos del Marketplace",
+    "consentPrivacy": "Autorizo el tratamiento de mis datos según la Política de privacidad (Ley 8968)",
+    "readDocument": "Leer documento",
+    "read": "Leer",
+    "summaryTitle": "Revisá {count} datos antes de enviar",
+    "summaryMessage": "Corregí lo marcado y volvé a enviar.",
+    "passwordRules": "Revisá lo que le falta a la contraseña.",
+    "submit": "Enviar solicitud"
+  },
+  "help": {
+    "beforeTitle": "Antes de empezar, tené a mano",
+    "beforeItems": {
+      "identification": "Tu cédula física o la cédula jurídica de la empresa o asociación.",
+      "certification": "La certificación de personalidad jurídica, si te afiliás como empresa o asociación.",
+      "logo": "El logo de tu negocio (opcional).",
+      "email": "Un correo al que tengas acceso."
+    },
+    "branchTitle": "Consejos para tu ficha",
+    "branchItems": {
+      "name": "Usá el nombre con el que te conocen tus clientes.",
+      "activity": "Si no encontrás tu actividad, elegí «Otra actividad» y escribila. Se agrega al catálogo cuando la Cámara apruebe tu solicitud.",
+      "description": "Usá una descripción clara: qué vendés, dónde y en qué horario."
+    },
+    "submitTitle": "Al enviar tu solicitud",
+    "submitItems": {
+      "review": "La Cámara la revisa en un máximo de 5 días hábiles.",
+      "answer": "Te avisamos por correo si fue aprobada o si hay que corregir algo.",
+      "approved": "Si la aprobamos, recibís tu código de agremiado y aparecés en el directorio."
+    },
+    "whatsapp": "¿Dudas? Escribinos por WhatsApp al 6128 2812."
+  },
+  "sent": {
+    "title": "Recibimos tu solicitud",
+    "thanks": "Gracias, {name}. La Cámara revisará los datos de {businessName} y te escribirá a {email} en un máximo de {days} días hábiles.",
+    "thanksWithoutName": "Recibimos la solicitud de {businessName}. La Cámara la revisará y te escribirá a {email} en un máximo de {days} días hábiles.",
+    "state": "Estado",
+    "stateValue": "Pendiente de revisión",
+    "business": "Negocio",
+    "sentAt": "Enviada",
+    "next": "Qué sigue",
+    "steps": {
+      "received": {
+        "title": "Solicitud enviada",
+        "detail": "Recibimos la solicitud y el correo de confirmación.",
+        "note": "Listo"
+      },
+      "review": {
+        "title": "Revisión de la Cámara",
+        "detail": "Revisamos tu solicitud en un máximo de 5 días hábiles.",
+        "status": "En curso"
+      },
+      "approval": {
+        "title": "Aprobación y código de agremiado",
+        "detail": "Te enviamos por correo tu código CCLU y el acceso al panel.",
+        "status": "Pendiente"
+      },
+      "plan": {
+        "title": "Empezá con el plan Gratuita",
+        "detail": "Podés mejorar tu plan cuando quieras desde tu panel.",
+        "status": "Pendiente"
+      }
+    },
+    "goHome": "Volver al inicio",
+    "viewPlans": "Ver planes de membresía",
+    "signIn": "Iniciar sesión",
+    "wrong": {
+      "title": "¿Te equivocaste en un dato?",
+      "message": "Escribinos por WhatsApp al 6128 2812 con el nombre del negocio. Si la Cámara debe cambiarlo, te llega un enlace para corregir la solicitud.",
+      "action": "Escribir a la Cámara"
+    }
+  }
+}

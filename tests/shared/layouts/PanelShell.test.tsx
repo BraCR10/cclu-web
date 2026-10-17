@@ -1,12 +1,22 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { screen, within } from '@testing-library/react';
 import { PanelShell } from '@/shared/layouts/PanelShell';
 import { memberNavigation } from '@/shared/layouts/memberNavigation';
 import { adminNavigation } from '@/shared/layouts/adminNavigation';
 import { renderWithIntl } from '../../support/renderWithIntl';
+import { viewportIsDesktop } from '../../support/viewport';
 
 let pathname = '/member/payments';
 vi.mock('next/navigation', () => ({ usePathname: () => pathname }));
+
+// The shell draws the profile menu, and the menu asks which screen it is on.
+beforeEach(() => {
+  viewportIsDesktop(true);
+});
+
+afterEach(() => {
+  vi.unstubAllGlobals();
+});
 
 describe('PanelShell', () => {
   it('gives the member panel its sidebar, with the current page marked', () => {

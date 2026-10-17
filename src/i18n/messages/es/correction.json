@@ -1,0 +1,87 @@
+{
+  "page": {
+    "title": "Corregir solicitud",
+    "back": "Volver al inicio"
+  },
+  "loading": "Abriendo tu solicitud…",
+  "notice": {
+    "title": "La Cámara pidió cambios",
+    "rejectedTitle": "La Cámara rechazó tu solicitud",
+    "status": "Cambios solicitados",
+    "rejectedStatus": "Rechazada",
+    "instruction": "Corregí el dato y volvé a enviar la solicitud.",
+    "reviewed": "Revisada el {date} por {reviewer}"
+  },
+  "form": {
+    "title": "Datos de tu solicitud",
+    "legend": "Corregí lo que pidió la Cámara. Los demás datos se conservan tal como los enviaste.",
+    "account": "Cuenta",
+    "email": "Correo electrónico",
+    "emailFixed": "No podés cambiar el correo en una corrección.",
+    "type": "Tipo e identificación",
+    "typeQuestion": "¿Cómo te afiliás?",
+    "types": {
+      "business": {
+        "title": "Empresa",
+        "description": "Sociedad o negocio inscrito con cédula jurídica."
+      },
+      "association": {
+        "title": "Asociación",
+        "description": "Asociación sin fines de lucro con cédula jurídica."
+      },
+      "independent": {
+        "title": "Profesional independiente",
+        "description": "Persona que ofrece sus servicios con su cédula, DIMEX o pasaporte."
+      }
+    },
+    "identificationType": "Tipo de identificación",
+    "identificationTypes": {
+      "legalEntityId": "Cédula jurídica",
+      "nationalId": "Cédula física",
+      "dimex": "DIMEX",
+      "passport": "Pasaporte"
+    },
+    "identificationNumberCompany": "Número de cédula jurídica",
+    "identificationNumberPerson": "Número de identificación",
+    "legalName": "Razón social",
+    "fullName": "Nombre completo",
+    "business": "Tu negocio",
+    "businessName": "Nombre comercial",
+    "manager": "Encargado o encargada",
+    "activity": "Actividad",
+    "activityPlaceholder": "Buscá tu actividad",
+    "activityEmpty": "No encontramos esa actividad.",
+    "activityOtherOption": "Otra actividad",
+    "activityOtherField": "Escribí tu actividad",
+    "province": "Provincia",
+    "canton": "Cantón",
+    "district": "Distrito",
+    "contact": "Contacto",
+    "phone": "Teléfono",
+    "whatsapp": "WhatsApp",
+    "cancel": "Cancelar",
+    "submit": "Reenviar solicitud"
+  },
+  "help": {
+    "title": "Al reenviar",
+    "again": "Tu solicitud vuelve a Pendiente de revisión.",
+    "kept": "Conserva su lugar y su historial.",
+    "notified": "Te avisamos por correo cuando la Cámara la revise."
+  },
+  "invalid": {
+    "title": "Este enlace ya no sirve",
+    "generic": "Algo salió mal. Intentá de nuevo.",
+    "message": "El enlace es personal y vence a los 30 días, o deja de servir cuando ya lo usaste. Pedile a la Cámara que te envíe uno nuevo si todavía necesitás corregir tu solicitud.",
+    "action": "Volver al inicio"
+  },
+  "sent": {
+    "title": "Recibimos tus correcciones",
+    "thanks": "Gracias. Tu solicitud de {businessName} volvió a revisión y te escribimos a {email} con la respuesta.",
+    "state": "Estado",
+    "stateValue": "Pendiente de revisión",
+    "business": "Negocio",
+    "next": "La Cámara revisa de nuevo tu solicitud. Si todo está en orden la aprobamos y te llega tu código de agremiado; si falta algo, también te escribimos.",
+    "goHome": "Ir al inicio",
+    "signIn": "Iniciar sesión"
+  }
+}

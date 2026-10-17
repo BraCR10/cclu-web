@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, LogOut } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { BottomSheet } from '@/shared/components/BottomSheet';
 import type { NavigationGroup } from './navigation';
 import { useNavigationLabel } from './useNavigationLabel';
@@ -10,11 +11,19 @@ type MoreSheetProps = {
   open: boolean;
   title: string;
   groups: readonly NavigationGroup[];
+  signOutHref?: string;
   onClose: () => void;
 };
 
-export function MoreSheet({ open, title, groups, onClose }: MoreSheetProps) {
+export function MoreSheet({
+  open,
+  title,
+  groups,
+  signOutHref = '/logout',
+  onClose,
+}: MoreSheetProps) {
   const labelOf = useNavigationLabel();
+  const translate = useTranslations('common.shell');
 
   return (
     <BottomSheet open={open} title={title} onClose={onClose}>
@@ -38,6 +47,19 @@ export function MoreSheet({ open, title, groups, onClose }: MoreSheetProps) {
             ))}
           </div>
         ))}
+
+        {/* The way out belongs here as well: this sheet is where the parts of
+            the panel that do not fit in the bottom bar are looked for. */}
+        <div className="mt-2 border-t border-line-subtle pt-2">
+          <Link
+            href={signOutHref}
+            onClick={onClose}
+            className="flex min-h-12 items-center gap-3 rounded-md px-3 text-body-l text-danger hover:bg-surface-hover focus-visible:shadow-focus focus-visible:outline-none"
+          >
+            <LogOut aria-hidden className="size-5" />
+            <span className="flex-1">{translate('signOut')}</span>
+          </Link>
+        </div>
       </div>
     </BottomSheet>
   );
