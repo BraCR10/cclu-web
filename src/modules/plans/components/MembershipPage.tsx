@@ -82,7 +82,7 @@ export function MembershipPage() {
           </section>
 
           <PlanComparison plans={state.plans} />
-          <HowToPay memberCode={state.membership.memberCode} />
+          <HowToPay reference={state.eligibility.reference} />
         </>
       )}
     </div>

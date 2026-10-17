@@ -38,5 +38,110 @@
       "unlimited": "Tu plan incluye banner promocional ilimitado",
       "change": "Cambiar banner"
     }
+  },
+  "payments": {
+    "title": "Mis pagos",
+    "filterLabel": "Filtrar pagos",
+    "filters": {
+      "all": "Todos",
+      "approved": "Aprobados",
+      "pending_review": "Pendientes",
+      "rejected": "Rechazados"
+    },
+    "register": "Registrar pago",
+    "columns": {
+      "date": "Fecha",
+      "plan": "Plan",
+      "frequency": "Frecuencia",
+      "amount": "Monto",
+      "status": "Estado",
+      "detail": "Detalle",
+      "receipt": "Comprobante"
+    },
+    "frequencies": {
+      "monthly": "Mensual",
+      "quarterly": "Trimestral",
+      "semiannual": "Semestral",
+      "annual": "Anual"
+    },
+    "status": {
+      "pending_review": "Pendiente de revisión",
+      "approved": "Aprobado",
+      "rejected": "Rechazado"
+    },
+    "approvedBy": "Aprobado por {name} el {date}.",
+    "rejectedBecause": "Motivo: {reason}",
+    "inReview": "En revisión por la Cámara.",
+    "viewReceipt": "Ver comprobante",
+    "submitAgain": "Registrar de nuevo",
+    "cardLine": "{date} · {amount}",
+    "empty": "Todavía no registraste pagos.",
+    "summary": "{total} pagos registrados",
+    "reference": "Detalle del pago",
+    "validUntil": "Vigente hasta",
+    "reason": "Motivo",
+    "receipt": {
+      "title": "Comprobante de pago",
+      "close": "Cerrar",
+      "open": "Abrir en otra pestaña"
+    },
+    "form": {
+      "steps": {
+        "plan": "Tu plan",
+        "pay": "Pagá por SINPE Móvil o transferencia",
+        "receipt": "Subí el comprobante"
+      },
+      "plan": "Plan",
+      "planOption": "{name}, {fee} por mes",
+      "total": "Total a pagar",
+      "frequency": "Frecuencia mensual",
+      "termRunning": "Tu plan sigue vigente: el período nuevo empieza cuando termina el actual, así no perdés días.",
+      "termNew": "Tu membresía queda activa por un mes, contado desde que la Cámara aprueba el pago.",
+      "receiptLabel": "Comprobante de pago",
+      "receiptHint": "Arrastrá el archivo o elegilo",
+      "receiptFormats": "JPG, PNG o PDF, máximo 5 MB.",
+      "comment": "Comentario para la Cámara",
+      "commentHelp": "Opcional. Si creés que el rechazo anterior fue un error, contanos por qué.",
+      "resubmitting": "Estás registrando de nuevo un pago rechazado",
+      "resubmittingMessage": "Podés subir el mismo comprobante u otro, y dejarle un comentario a la Cámara.",
+      "cancel": "Cancelar",
+      "submit": "Enviar comprobante",
+      "summaryTitle": "Resumen del pago",
+      "business": "Comercio",
+      "reviewNote": "La Cámara revisa los pagos en 1 a 2 días hábiles y te avisa por correo.",
+      "pending": {
+        "title": "Ya tenés un pago en revisión",
+        "message": "Cuando la Cámara lo revise vas a poder registrar otro.",
+        "link": "Ver mis pagos"
+      },
+      "notOpen": {
+        "title": "Tu plan todavía está vigente",
+        "message": "Podés renovar o cambiar de plan a partir del {date}.",
+        "link": "Ver mi membresía"
+      }
+    },
+    "sent": {
+      "title": "Comprobante enviado",
+      "steps": {
+        "received": {
+          "title": "Enviado",
+          "detail": "Recibimos tu comprobante de {amount} con el detalle {reference}."
+        },
+        "review": {
+          "title": "En revisión",
+          "detail": "La Cámara revisa los pagos en 1 a 2 días hábiles."
+        },
+        "decision": {
+          "title": "Aprobación",
+          "detail": "Te avisamos por correo cuando se apruebe o si hay que corregir algo."
+        }
+      },
+      "statusLabels": {
+        "done": "Listo",
+        "current": "Ahora",
+        "pending": "Pendiente"
+      },
+      "toPayments": "Ver mis pagos"
+    }
   }
 }

@@ -50,8 +50,9 @@ function PaymentDetail({ label, value, prominent = false, copyable = false }: Pa
 
 const STEPS = ['choose', 'pay', 'upload'] as const;
 
-// With the member's own code, the reference is the one they actually type.
-export function HowToPay({ memberCode }: { memberCode?: string }) {
+// With the member's own reference, exactly as the API will match it, instead of
+// an example.
+export function HowToPay({ reference }: { reference?: string }) {
   const translate = useTranslations('plans.howToPay');
   const { sinpe, transfer } = PAYMENT_METHODS;
 
@@ -112,9 +113,9 @@ export function HowToPay({ memberCode }: { memberCode?: string }) {
         <div>
           <p className="text-label-m text-fg">{translate('reference.title')}</p>
           <p className="text-body-s text-fg-secondary">
-            {memberCode === undefined
+            {reference === undefined
               ? translate('reference.example')
-              : translate('reference.yours', { code: memberCode })}
+              : translate('reference.yours', { reference })}
           </p>
         </div>
       </div>
