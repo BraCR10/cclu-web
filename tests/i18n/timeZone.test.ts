@@ -7,6 +7,12 @@ describe('viewerTimeZone', () => {
     expect(viewerTimeZone('UTC')).toBe('UTC');
   });
 
+  it('accepts the older names a browser may report for its own zone', () => {
+    for (const zone of ['Asia/Calcutta', 'Europe/Kiev', 'Etc/UTC', 'Etc/GMT+5']) {
+      expect(viewerTimeZone(zone)).toBe(zone);
+    }
+  });
+
   it('falls back to the chamber zone before the browser has named one', () => {
     expect(viewerTimeZone(undefined)).toBe(CHAMBER_TIME_ZONE);
   });

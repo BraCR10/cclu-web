@@ -21,7 +21,9 @@ export function TimeZoneSync() {
       return;
     }
 
-    document.cookie = `${TIME_ZONE_COOKIE}=${encodeURIComponent(browserZone)}; path=/; max-age=${ONE_YEAR_IN_SECONDS}; samesite=lax`;
+    const secure = window.location.protocol === 'https:' ? '; secure' : '';
+
+    document.cookie = `${TIME_ZONE_COOKIE}=${encodeURIComponent(browserZone)}; path=/; max-age=${ONE_YEAR_IN_SECONDS}; samesite=lax${secure}`;
     router.refresh();
   }, [renderedIn, router]);
 

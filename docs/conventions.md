@@ -319,8 +319,10 @@ whoever is looking, so a member in China reads Chinese time.
 again. From then on `src/i18n/request.ts` hands that zone to `next-intl`, so the
 server and the browser format every date the same way. Until the cookie exists,
 and for any value the runtime does not know as a zone, the chamber's
-`America/Costa_Rica` is used. The cookie is checked against the known zones
-before it reaches a formatter, because a browser writes it.
+`America/Costa_Rica` is used. Because a browser writes the cookie, its value
+must look like a zone name and the runtime must be able to format in it before
+it reaches a formatter. Older names a browser may report, such as
+`Asia/Calcutta` or `Etc/UTC`, are accepted.
 
 **How a component shows a date.** Always through the `useDates` hook in
 `src/shared/hooks/`, with the formats named once in `src/i18n/formats.ts`:

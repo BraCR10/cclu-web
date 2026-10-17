@@ -13,9 +13,9 @@ const eslintConfig = defineConfig([
     },
   },
   {
-    // A date is shown through next-intl, which knows the chamber's time zone.
-    // Formatting one by hand reads it in whatever zone the browser is in, and
-    // can name the wrong day.
+    // A date is shown through next-intl, configured with the viewer's zone and
+    // the named formats. Formatting one by hand bypasses both, and can show a
+    // different day or clock than the rest of the page.
     files: ['src/**/*.{ts,tsx}'],
     rules: {
       'no-restricted-syntax': [
