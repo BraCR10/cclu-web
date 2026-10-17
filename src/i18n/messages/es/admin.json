@@ -48,7 +48,7 @@
     "notice": {
       "title": "Aviso de vencimiento",
       "days": "Días de anticipación",
-      "help": "Cuántos días antes del vencimiento se le avisa al agremiado y la membresía cuenta como por vencer. Entre {minimum} y {maximum} días.",
+      "help": "Cuántos días antes del vencimiento se le avisa al agremiado y la membresía cuenta como próxima a vencer. Entre {minimum} y {maximum} días.",
       "outOfRange": "Escribí un número de días entre {minimum} y {maximum}.",
       "save": "Guardar aviso",
       "saved": "Aviso de vencimiento guardado"
@@ -57,7 +57,7 @@
   "memberships": {
     "counts": {
       "active": "Activas",
-      "expiring": "Por vencer ({days} días)"
+      "expiring": "Próximas a vencer ({days} días)"
     },
     "filters": {
       "searchLabel": "Buscar membresías",
@@ -87,7 +87,7 @@
     "summary": "Mostrando {from} a {to} de {total} membresías, ordenadas por vencimiento",
     "empty": {
       "active": "No hay membresías activas que coincidan.",
-      "expiring": "No hay membresías por vencer que coincidan."
+      "expiring": "No hay membresías próximas a vencer que coincidan."
     }
   }
 }
