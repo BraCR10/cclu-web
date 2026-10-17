@@ -23,5 +23,27 @@
   },
   "bottomNav": {
     "applications": "Solicitudes"
+  },
+  "plans": {
+    "appliesFrom": {
+      "title": "Se aplica desde el momento en que guardás",
+      "message": "Los pagos que se registren después usan la cuota nueva. Los pagos ya aprobados mantienen su monto y su vigencia."
+    },
+    "monthlyFee": "Cuota mensual",
+    "alwaysFree": "Siempre gratuita",
+    "discard": "Descartar cambios",
+    "save": "Guardar cambios",
+    "saved": "Cuotas guardadas",
+    "history": {
+      "title": "Historial de cambios",
+      "date": "Fecha",
+      "plan": "Plan",
+      "previousFee": "Cuota anterior",
+      "newFee": "Cuota nueva",
+      "changedBy": "Cambiado por",
+      "empty": "Todavía no hay cambios de cuota.",
+      "change": "{previous} → {next}",
+      "byline": "{date} · {name}"
+    }
   }
 }

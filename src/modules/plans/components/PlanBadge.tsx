@@ -18,7 +18,7 @@ export function PlanBadge({ planKey, name }: PlanBadgeProps) {
   return (
     <span
       className={classNames(
-        'inline-flex h-6 items-center gap-1 rounded-xs px-2 text-label-s whitespace-nowrap',
+        'inline-flex h-6 items-center gap-1 self-start rounded-xs px-2 text-label-s whitespace-nowrap',
         PLAN_CLASSES[planKey],
       )}
     >
