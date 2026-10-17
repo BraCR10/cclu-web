@@ -89,5 +89,70 @@
       "active": "No hay membresías activas que coincidan.",
       "expiring": "No hay membresías próximas a vencer que coincidan."
     }
+  },
+  "payments": {
+    "title": "Pagos",
+    "tabsLabel": "Estado de los pagos",
+    "tabs": {
+      "pending_review": "Por revisar ({count})",
+      "approved": "Aprobados ({count})",
+      "rejected": "Rechazados ({count})"
+    },
+    "referenceNote": {
+      "title": "El detalle del pago es el código del agremiado seguido de Membresia",
+      "message": "Si el comprobante no muestra ese detalle o el monto no coincide con el plan, rechazalo e indicá el motivo."
+    },
+    "searchLabel": "Buscar pagos",
+    "searchPlaceholder": "Buscar por comercio o código",
+    "columns": {
+      "member": "Agremiado",
+      "plan": "Plan",
+      "amount": "Monto",
+      "waiting": "Esperando",
+      "decided": "Decidido",
+      "receipt": "Comprobante",
+      "actions": "Acciones"
+    },
+    "waiting": "{days, plural, =0 {Hoy} one {# día} other {# días}}",
+    "pdf": "PDF",
+    "image": "Imagen",
+    "reviewAction": "Revisar",
+    "review": {
+      "title": "Revisión de pago",
+      "receipt": "Comprobante",
+      "business": "Comercio",
+      "code": "Código",
+      "plan": "Plan",
+      "amount": "Monto",
+      "reference": "Detalle esperado",
+      "submitted": "Registrado",
+      "comment": "Comentario del agremiado",
+      "reason": "Motivo del rechazo",
+      "decidedBy": "Decidido por",
+      "decidedLine": "{name}, {date}",
+      "repeatedReceipt": "Este comprobante ya se envió antes",
+      "repeatedLine": "{status} el {date}.",
+      "earlierAttempts": "Intentos anteriores rechazados",
+      "attemptLine": "{date}: {reason}",
+      "reasonLabel": "Motivo del rechazo",
+      "reasonHelp": "El agremiado lo recibe por correo. Entre 10 y 300 caracteres.",
+      "reasonLength": "Escribí un motivo de entre {minimum} y {maximum} caracteres.",
+      "approve": "Aprobar pago",
+      "reject": "Rechazar pago",
+      "cancel": "Cancelar",
+      "close": "Cerrar",
+      "approved": "Pago aprobado",
+      "approvedMessage": "La membresía de {name} queda vigente hasta el {date}.",
+      "rejected": "Pago rechazado",
+      "rejectedMessage": "Le enviamos el motivo al agremiado por correo."
+    },
+    "view": "Ver",
+    "cardLine": "{code} · {amount} · {when}",
+    "summary": "{total} pagos",
+    "empty": {
+      "pending_review": "No hay pagos por revisar.",
+      "approved": "Todavía no hay pagos aprobados.",
+      "rejected": "No hay pagos rechazados."
+    }
   }
 }

@@ -92,9 +92,9 @@
     "copied": "{label} copiado",
     "copyFailed": "No se pudo copiar. Seleccioná el texto y copialo a mano.",
     "reference": {
-      "title": "En el detalle del pago escribí tu código + Membresía",
-      "example": "Ejemplo: CLU001 Membresía",
-      "yours": "Ejemplo: {code} Membresía"
+      "title": "En el detalle del pago escribí tu código seguido de Membresia",
+      "example": "Ejemplo: MA7K2Q4 Membresia",
+      "yours": "Tu detalle: {reference}"
     }
   },
   "faq": {
