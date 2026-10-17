@@ -10,6 +10,7 @@ describe('the message namespaces', () => {
       'correction',
       'errors',
       'member',
+      'plans',
       'public',
       'registration',
     ]);
