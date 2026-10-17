@@ -1,0 +1,131 @@
+{
+  "page": {
+    "title": "Planes de membresía"
+  },
+  "startsFree": {
+    "title": "Todos empiezan con el plan Gratuita",
+    "message": "Cuando la Cámara aprueba tu solicitud, podés mejorar tu plan desde tu panel"
+  },
+  "cards": {
+    "free": {
+      "tagline": "Para todo comercio afiliado",
+      "description": "Tu comercio verificado en el directorio de la Cámara.",
+      "action": "Afiliarme"
+    },
+    "lite": {
+      "tagline": "Para pequeños negocios",
+      "description": "Para empezar a vender en el Marketplace.",
+      "action": "Elegir plan"
+    },
+    "pro": {
+      "tagline": "Para empresa mediana",
+      "description": "Más visibilidad con un banner durante un mes.",
+      "action": "Elegir plan"
+    },
+    "premium": {
+      "tagline": "Plan corporativo",
+      "description": "Presencia destacada con banner promocional ilimitado.",
+      "action": "Elegir plan"
+    },
+    "perMonth": "/mes",
+    "onApproval": "al aprobar tu afiliación",
+    "benefitsOf": "Beneficios de {plan}"
+  },
+  "cardBenefits": {
+    "directory": "Ficha en el directorio",
+    "card": "Carné digital con QR",
+    "marketplaceIncluded": "Publicar productos, promociones y descuentos",
+    "marketplaceLocked": "Publicar en el Marketplace",
+    "jobs": "Publicar vacantes",
+    "bannerLocked": "Banner promocional",
+    "bannerOneMonth": "1 banner promocional por 1 mes",
+    "bannerUnlimited": "Banner promocional ilimitado",
+    "workshops": "Acceso a talleres en línea",
+    "massMailing": "Acceso a envíos masivos por correo y WhatsApp"
+  },
+  "comparison": {
+    "title": "Compará los planes",
+    "benefit": "Beneficio",
+    "monthlyFee": "Cuota mensual",
+    "scrollHint": "Deslizá para ver todos los planes",
+    "rows": {
+      "directory": "Ficha verificada en el directorio",
+      "card": "Código de agremiado y carné digital",
+      "discounts": "Usar descuentos de otros afiliados",
+      "products": "Publicar productos y servicios",
+      "promotions": "Publicar promociones y descuentos",
+      "jobs": "Publicar vacantes en la bolsa de empleo",
+      "marketplace": "Aparecer en el marketplace",
+      "banner": "Banner promocional",
+      "workshops": "Acceso a talleres en línea",
+      "massMailing": "Acceso a envíos masivos por correo y WhatsApp"
+    },
+    "values": {
+      "included": "Incluido",
+      "locked": "No incluido",
+      "oneMonth": "1 mes",
+      "unlimited": "Ilimitado"
+    }
+  },
+  "howToPay": {
+    "title": "Cómo pagar",
+    "steps": {
+      "choose": "Elegí tu plan",
+      "pay": "Pagá por SINPE Móvil o transferencia",
+      "upload": "Subí el comprobante en tu panel"
+    },
+    "sinpe": {
+      "title": "SINPE Móvil",
+      "number": "Número",
+      "holder": "A nombre de"
+    },
+    "transfer": {
+      "title": "Transferencia bancaria",
+      "bank": "Banco",
+      "account": "Cuenta",
+      "iban": "IBAN"
+    },
+    "copy": "Copiar",
+    "copyNamed": "Copiar {label}",
+    "copied": "{label} copiado",
+    "copyFailed": "No se pudo copiar. Seleccioná el texto y copialo a mano.",
+    "reference": {
+      "title": "En el detalle del pago escribí tu código + Membresía",
+      "example": "Ejemplo: CLU001 Membresía"
+    }
+  },
+  "faq": {
+    "title": "Preguntas frecuentes",
+    "items": {
+      "cost": {
+        "question": "¿Afiliarme tiene costo?",
+        "answer": "No. Al aprobar tu solicitud quedás en el plan Gratuita, con tu ficha en el directorio y tu carné digital."
+      },
+      "late": {
+        "question": "¿Qué pasa si no pago a tiempo?",
+        "answer": "Tu comercio vuelve al plan Gratuita. Tus publicaciones se guardan y se muestran de nuevo cuando pagues. Te avisamos 5 días antes del vencimiento."
+      },
+      "change": {
+        "question": "¿Puedo cambiar de plan?",
+        "answer": "Sí, cuando quieras desde Mi membresía: elegís el plan, pagás y subís el comprobante."
+      },
+      "approval": {
+        "question": "¿Cuánto tarda la aprobación del pago?",
+        "answer": "La Cámara revisa tu comprobante en un máximo de 2 días hábiles."
+      },
+      "invoice": {
+        "question": "¿Emiten factura electrónica?",
+        "answer": "Sí. La Cámara la emite con los datos de facturación de tu perfil."
+      },
+      "discounts": {
+        "question": "¿Quién puede usar los descuentos?",
+        "answer": "Los afiliados con plan pago. Mostrá tu carné digital en el comercio para aplicarlo."
+      }
+    }
+  },
+  "contact": {
+    "title": "¿Tenés otra duda?",
+    "message": "WhatsApp 6128 2812, de lunes a viernes de 8:00 a. m. a 5:00 p. m.",
+    "action": "Escribir a la Cámara"
+  }
+}

@@ -30,6 +30,7 @@
   "too_many_attempts": "Hiciste demasiados intentos. Esperá unos minutos e intentá de nuevo.",
   "route_not_found": "No encontramos lo que buscás.",
   "already_decided": "Esta solicitud ya fue resuelta.",
+  "changed_meanwhile": "Otra persona cambió este valor mientras editabas. Recargá la página para ver el valor actual.",
   "file_type_not_allowed": "Ese tipo de archivo no está permitido.",
   "file_too_large": "El archivo es demasiado grande.",
   "invalid_request": "No pudimos procesar la solicitud. Intentá de nuevo.",
