@@ -103,9 +103,13 @@ export function useRegisterPayment(
       }
 
       // The window or a pending payment may have changed since the page
-      // loaded; what the screen says is read again.
-      const [eligibility, membership, plans] = await load();
-      setLoaded({ eligibility, membership, plans });
+      // loaded; what the screen says is read again, if it can be.
+      try {
+        const [eligibility, membership, plans] = await load();
+        setLoaded({ eligibility, membership, plans });
+      } catch {
+        setFailed(true);
+      }
     } finally {
       setSubmitting(false);
     }
