@@ -28,3 +28,27 @@ export function changedFees(
       .map((plan) => [plan.key, drafts[plan.key] ?? null]),
   );
 }
+
+// The same ceiling the API applies, so a mistyped extra zero is caught before
+// the request instead of after it.
+export const MAXIMUM_MONTHLY_FEE = 1_000_000;
+
+export type FeeErrorCode = 'required' | 'invalid_format';
+
+// Checked before sending, with the codes the API answers, so the message under
+// a field is the same whichever side refused it.
+export function feeErrors(
+  fees: Partial<Record<PlanKey, number | null>>,
+): Partial<Record<PlanKey, FeeErrorCode>> {
+  const errors: Partial<Record<PlanKey, FeeErrorCode>> = {};
+
+  for (const [key, fee] of Object.entries(fees) as [PlanKey, number | null][]) {
+    if (fee === null) {
+      errors[key] = 'required';
+    } else if (!Number.isInteger(fee) || fee <= 0 || fee > MAXIMUM_MONTHLY_FEE) {
+      errors[key] = 'invalid_format';
+    }
+  }
+
+  return errors;
+}

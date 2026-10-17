@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import type { Plan } from '@/modules/plans/api/plans';
-import { changedFees, draftsFrom, parseFeeInput } from '@/modules/plans/feeForm';
+import {
+  MAXIMUM_MONTHLY_FEE,
+  changedFees,
+  draftsFrom,
+  feeErrors,
+  parseFeeInput,
+} from '@/modules/plans/feeForm';
 
 const ENTITLEMENTS = {
   publishInMarketplace: true,
@@ -43,5 +49,22 @@ describe('changedFees', () => {
 
   it('sends an emptied fee so the API can name the field', () => {
     expect(changedFees(PLANS, { ...draftsFrom(PLANS), lite: null })).toEqual({ lite: null });
+  });
+});
+
+describe('feeErrors', () => {
+  it('asks for an amount in an emptied field', () => {
+    expect(feeErrors({ lite: null })).toEqual({ lite: 'required' });
+  });
+
+  it('refuses zero and anything above the ceiling, as the API does', () => {
+    expect(feeErrors({ lite: 0, pro: MAXIMUM_MONTHLY_FEE + 1 })).toEqual({
+      lite: 'invalid_format',
+      pro: 'invalid_format',
+    });
+  });
+
+  it('accepts whole amounts within range', () => {
+    expect(feeErrors({ lite: 1, premium: MAXIMUM_MONTHLY_FEE })).toEqual({});
   });
 });
