@@ -12,5 +12,30 @@
   "bottomNav": {
     "card": "Carné",
     "publications": "Publicaciones"
+  },
+  "membership": {
+    "currentPlan": "Plan actual",
+    "active": "Activa",
+    "noCost": "Sin costo",
+    "monthly": "{fee} al mes",
+    "noExpiry": "Sin vencimiento",
+    "expiresOn": "Vence el {date}",
+    "activeSinceApproval": "Activa desde que aprobamos tu solicitud",
+    "activeSince": "Activa desde el {date}",
+    "changePlan": "Cambiar de plan",
+    "renew": "Renovar",
+    "plansTitle": "Cambiar de plan",
+    "lapsed": {
+      "title": "Tu plan {plan} venció el {date}",
+      "message": "Tu membresía pasó a Gratuita y tu ficha sigue en el directorio. Elegí un plan para volver a publicar."
+    },
+    "banner": {
+      "title": "Banner comercial",
+      "none": "Sin banner activo",
+      "noneHint": "El banner comercial se incluye desde el plan Pro Pymex y se muestra en el inicio y en el marketplace.",
+      "one_month": "Tu plan incluye un banner durante un mes",
+      "unlimited": "Tu plan incluye banner promocional ilimitado",
+      "change": "Cambiar banner"
+    }
   }
 }
