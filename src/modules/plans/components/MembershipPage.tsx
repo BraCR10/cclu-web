@@ -2,11 +2,11 @@
 
 import { useTranslations } from 'next-intl';
 import { Alert } from '@/shared/components/Alert';
-import { formatDate } from '@/shared/utils/formatDate';
-import { HowToPay } from '@/modules/plans/components/HowToPay';
-import { PlanCard } from '@/modules/plans/components/PlanCard';
-import { PlanComparison } from '@/modules/plans/components/PlanComparison';
-import type { Plan } from '@/modules/plans/api/plans';
+import { useDates } from '@/shared/hooks/useDates';
+import { HowToPay } from './HowToPay';
+import { PlanCard } from './PlanCard';
+import { PlanComparison } from './PlanComparison';
+import type { Plan } from '../api/plans';
 import { useMembership } from '../hooks/useMembership';
 import { paymentHref } from '../paymentHref';
 import { BannerAllowance } from './BannerAllowance';
@@ -17,6 +17,7 @@ export function MembershipPage() {
   const translatePlans = useTranslations('plans.cards');
   const translateErrors = useTranslations('errors');
   const state = useMembership();
+  const dates = useDates();
 
   // Gratuita is where a plan ends up, never one a member pays to move to.
   function actionFor(plan: Plan) {
@@ -43,10 +44,14 @@ export function MembershipPage() {
           {state.membership.lapsed !== null && (
             <Alert
               tone="warning"
-              title={translate('lapsed.title', {
-                plan: state.membership.lapsed.plan.name,
-                date: formatDate(state.membership.lapsed.expiredAt),
-              })}
+              title={
+                state.membership.lapsed.validUntil === null
+                  ? translate('lapsed.titleUndated', { plan: state.membership.lapsed.plan.name })
+                  : translate('lapsed.title', {
+                      plan: state.membership.lapsed.plan.name,
+                      date: dates.calendarDay(state.membership.lapsed.validUntil),
+                    })
+              }
               message={translate('lapsed.message')}
             />
           )}

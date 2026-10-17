@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { ImageIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Card } from '@/shared/components/Card';
-import type { BannerAllowance as Allowance } from '@/modules/plans/api/plans';
+import type { BannerAllowance as Allowance } from '../api/plans';
 
 // The banner itself is set up from the store settings. Here the member only
 // learns what their plan allows.

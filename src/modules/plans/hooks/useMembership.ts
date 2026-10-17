@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { readPlans, type Plan } from '@/modules/plans/api/plans';
+import { readPlans, type Plan } from '../api/plans';
 import { readOwnMembership, type Membership } from '../api/membership';
 
 export type MembershipState =

@@ -19,14 +19,15 @@
     "noCost": "Sin costo",
     "monthly": "{fee} al mes",
     "noExpiry": "Sin vencimiento",
-    "expiresOn": "Vence el {date}",
+    "validUntil": "Vigente hasta el {date}",
     "activeSinceApproval": "Activa desde que aprobamos tu solicitud",
     "activeSince": "Activa desde el {date}",
     "changePlan": "Cambiar de plan",
     "renew": "Renovar",
     "plansTitle": "Cambiar de plan",
     "lapsed": {
-      "title": "Tu plan {plan} venció el {date}",
+      "title": "Tu plan {plan} estuvo vigente hasta el {date}",
+      "titleUndated": "Tu plan {plan} venció",
       "message": "Tu membresía pasó a Gratuita y tu ficha sigue en el directorio. Elegí un plan para volver a publicar."
     },
     "banner": {

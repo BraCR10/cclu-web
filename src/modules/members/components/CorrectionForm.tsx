@@ -15,15 +15,10 @@ import { OptionGroup } from '@/shared/components/OptionGroup';
 import { PageHeader } from '@/shared/components/PageHeader';
 import { Select } from '@/shared/components/Select';
 import { StatusBadge } from '@/shared/components/StatusBadge';
+import { useDates } from '@/shared/hooks/useDates';
 import { useCorrectionForm } from '../hooks/useCorrectionForm';
 import { IDENTIFICATION_TYPES_BY_MEMBER_TYPE } from '../validation/registrationRules';
 import { CorrectionSent } from './CorrectionSent';
-
-const MOMENT = new Intl.DateTimeFormat('es-CR', {
-  day: 'numeric',
-  month: 'short',
-  year: 'numeric',
-});
 
 // Written out rather than looked up by a built key, so a label that stops
 // existing stops compiling instead of rendering its own name.
@@ -42,6 +37,7 @@ const ALL_IDENTIFICATION_TYPES = Object.keys(IDENTIFICATION_LABELS) as Identific
 
 export function CorrectionForm({ token }: { token: string }) {
   const translate = useTranslations('correction');
+  const dates = useDates();
   const router = useRouter();
   const form = useCorrectionForm(token);
   const { draft, change, errorFor, otherActivity, cantons, activities } = form;
@@ -120,7 +116,7 @@ export function CorrectionForm({ token }: { token: string }) {
             {form.reviewedAt !== null && form.reviewedBy !== null && (
               <p className="text-body-s text-fg-secondary">
                 {translate('notice.reviewed', {
-                  date: MOMENT.format(new Date(form.reviewedAt)),
+                  date: dates.instant(form.reviewedAt, 'short'),
                   reviewer: form.reviewedBy,
                 })}
               </p>

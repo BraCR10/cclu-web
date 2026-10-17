@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { Card } from '@/shared/components/Card';
 import { StatusBadge } from '@/shared/components/StatusBadge';
 import { formatColones } from '@/shared/utils/formatColones';
-import { formatDate } from '@/shared/utils/formatDate';
+import { useDates } from '@/shared/hooks/useDates';
 import type { Membership } from '../api/membership';
 import { paymentHref } from '../paymentHref';
 
@@ -13,8 +13,12 @@ const ACTION_CLASSES =
 
 export function CurrentPlan({ membership }: { membership: Membership }) {
   const translate = useTranslations('member.membership');
-  const { plan, expiresAt, startedAt } = membership;
+  const dates = useDates();
+  const { plan, validUntil, startedAt, lapsed } = membership;
   const isFree = plan.key === 'free';
+  // Gratuita after a lapse began on a known day; Gratuita from approval did not
+  // need one.
+  const showsStart = !isFree || lapsed !== null;
 
   return (
     <Card as="section" aria-labelledby="current-plan" className="flex flex-col gap-4">
@@ -34,14 +38,14 @@ export function CurrentPlan({ membership }: { membership: Membership }) {
 
       <div>
         <p className="text-label-m text-fg">
-          {expiresAt === null
+          {validUntil === null
             ? translate('noExpiry')
-            : translate('expiresOn', { date: formatDate(expiresAt) })}
+            : translate('validUntil', { date: dates.calendarDay(validUntil) })}
         </p>
         <p className="text-body-s text-fg-secondary">
-          {isFree
-            ? translate('activeSinceApproval')
-            : translate('activeSince', { date: formatDate(startedAt) })}
+          {showsStart && startedAt !== null
+            ? translate('activeSince', { date: dates.instant(startedAt) })
+            : translate('activeSinceApproval')}
         </p>
       </div>
 

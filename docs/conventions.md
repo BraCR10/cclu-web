@@ -290,18 +290,54 @@ The `react/jsx-no-literals` lint rule fails on text written inside JSX.
 Spanish is the only language, so the locale is fixed and never appears in the
 URL. Messages live in `src/i18n/messages/es/`, one file per namespace:
 
-| Namespace | Holds                                          |
-| --------- | ---------------------------------------------- |
-| `common`  | Text more than one area shares                 |
-| `errors`  | One sentence per API error code, and `generic` |
-| `public`  | Public site                                    |
-| `member`  | Member panel                                   |
-| `admin`   | Administration panel                           |
+| Namespace      | Holds                                          |
+| -------------- | ---------------------------------------------- |
+| `common`       | Text more than one area shares                 |
+| `errors`       | One sentence per API error code, and `generic` |
+| `public`       | Public site                                    |
+| `member`       | Member panel                                   |
+| `admin`        | Administration panel                           |
+| `auth`         | Signing in and out, and recovering a password  |
+| `registration` | The registration steps and the sent screen     |
+| `correction`   | The correction screen a link opens             |
+| `plans`        | Plan cards, comparison and how to pay          |
+
+A new namespace is a new file there and a line in `src/i18n/messages.ts`.
 
 Keys are English `camelCase`, grouped by the screen or component that shows
 them: `member.profile.saveButton`, `common.underConstruction.title`. The
 exception is `errors`, whose keys are the API codes themselves, in snake_case.
 The copy follows the prototype, including its voseo.
+
+## Dates
+
+Every date on screen is formatted by `next-intl`, which `src/i18n/formats.ts`
+configures once: the time zone is the chamber's, `America/Costa_Rica`, whatever
+zone the browser is in, and the formats are named. Components use the
+`useDates` hook from `src/shared/hooks/` and never write their own options.
+
+The API sends two kinds of date, and they are shown differently:
+
+| Kind         | Looks like             | Example                      | Shown with                    |
+| ------------ | ---------------------- | ---------------------------- | ----------------------------- |
+| Instant      | `2026-10-17T21:40:00Z` | when a fee changed           | `dates.instant(value, style)` |
+| Calendar day | `2026-11-17`           | the last day a plan is valid | `dates.calendarDay(value)`    |
+
+An instant is a moment, shown in the chamber's time zone. A calendar day has no
+time, so converting it between zones would move it; it is shown exactly as
+written. Passing a calendar day to `new Date` reads it as midnight in UTC, which
+is the evening before in Costa Rica.
+
+| Style    | Reads                   |
+| -------- | ----------------------- |
+| `date`   | 17 de octubre de 2026   |
+| `short`  | 17 oct 2026             |
+| `moment` | 17 oct 2026, 3:40 p. m. |
+
+A lint rule refuses `new Intl.DateTimeFormat` and `toLocaleDateString` with
+arguments in `src/`, because either one formats in whatever zone the browser
+happens to be in. Access is never decided by a date in the browser: the API
+works it out against its own clock.
 
 ## Showing an error
 

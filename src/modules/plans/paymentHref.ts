@@ -1,4 +1,4 @@
-import type { PlanKey } from '@/modules/plans/api/plans';
+import type { PlanKey } from './api/plans';
 
 // Registering a payment is where every upgrade and renewal begins.
 export function paymentHref(planKey: PlanKey): string {
