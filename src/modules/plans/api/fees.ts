@@ -1,4 +1,5 @@
 import { requestApi } from '@/shared/api/apiClient';
+import { pageQuery, type Paginated } from '@/shared/api/pagination';
 import type { Plan, PlanKey } from './plans';
 
 export type FeeChange = {
@@ -14,6 +15,10 @@ export function updateFees(fees: Partial<Record<PlanKey, number | null>>) {
   return requestApi<Plan[]>('/api/admin/plans/fees', { method: 'PATCH', body: { fees } });
 }
 
-export function readFeeChanges() {
-  return requestApi<FeeChange[]>('/api/admin/plans/fee-changes');
+export const FEE_HISTORY_PAGE_SIZE = 10;
+
+export function readFeeChanges(page: number) {
+  return requestApi<Paginated<FeeChange>>(
+    `/api/admin/plans/fee-changes?${pageQuery(page, FEE_HISTORY_PAGE_SIZE)}`,
+  );
 }

@@ -2,42 +2,41 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import type { Paginated } from '@/shared/api/pagination';
 import { useToast } from '@/shared/components/useToast';
 import { useErrorFeedback } from '@/shared/errors/useErrorFeedback';
 import { readFeeChanges, updateFees, type FeeChange } from '../api/fees';
 import { readPlans, type Plan, type PlanKey } from '../api/plans';
-import { changedFees, draftsFrom, type FeeDrafts } from '../feeForm';
-
-type Loaded = { plans: Plan[]; history: FeeChange[] };
+import { changedFees, draftsFrom, feeErrors, type FeeDrafts } from '../feeForm';
 
 const FEE_FIELD = /^fees\.(lite|pro|premium)$/;
-
-function readEditorData() {
-  return Promise.all([readPlans(), readFeeChanges()]);
-}
+const FIRST_PAGE = 1;
 
 export function useFeeEditor() {
   const translate = useTranslations('admin.plans');
+  const translateErrors = useTranslations('errors');
   const { showToast } = useToast();
   const showError = useErrorFeedback();
-  const [loaded, setLoaded] = useState<Loaded | null>(null);
+  const [plans, setPlans] = useState<Plan[] | null>(null);
+  const [history, setHistory] = useState<Paginated<FeeChange> | null>(null);
   const [failed, setFailed] = useState(false);
   const [drafts, setDrafts] = useState<FeeDrafts>({});
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [saving, setSaving] = useState(false);
 
-  const show = useCallback((plans: Plan[], history: FeeChange[]) => {
-    setLoaded({ plans, history });
-    setDrafts(draftsFrom(plans));
+  const showPlans = useCallback((loaded: Plan[]) => {
+    setPlans(loaded);
+    setDrafts(draftsFrom(loaded));
   }, []);
 
   useEffect(() => {
     let cancelled = false;
 
-    readEditorData()
-      .then(([plans, history]) => {
+    Promise.all([readPlans(), readFeeChanges(FIRST_PAGE)])
+      .then(([loadedPlans, firstPage]) => {
         if (!cancelled) {
-          show(plans, history);
+          showPlans(loadedPlans);
+          setHistory(firstPage);
         }
       })
       .catch(() => {
@@ -49,11 +48,11 @@ export function useFeeEditor() {
     return () => {
       cancelled = true;
     };
-  }, [show]);
+  }, [showPlans]);
 
   const pending = useMemo(
-    () => (loaded === null ? {} : changedFees(loaded.plans, drafts)),
-    [loaded, drafts],
+    () => (plans === null ? {} : changedFees(plans, drafts)),
+    [plans, drafts],
   );
   const hasChanges = Object.keys(pending).length > 0;
 
@@ -63,18 +62,35 @@ export function useFeeEditor() {
   }
 
   function discard() {
-    if (loaded !== null) {
-      setDrafts(draftsFrom(loaded.plans));
+    if (plans !== null) {
+      setDrafts(draftsFrom(plans));
       setFieldErrors({});
     }
   }
 
+  async function showHistoryPage(page: number) {
+    try {
+      setHistory(await readFeeChanges(page));
+    } catch (error) {
+      showError(error);
+    }
+  }
+
   async function save() {
+    const refused = Object.entries(feeErrors(pending));
+
+    if (refused.length > 0) {
+      setFieldErrors(
+        Object.fromEntries(refused.map(([key, code]) => [`fees.${key}`, translateErrors(code)])),
+      );
+      return;
+    }
+
     setSaving(true);
 
     try {
-      await updateFees(pending);
-      show(...(await readEditorData()));
+      showPlans(await updateFees(pending));
+      setHistory(await readFeeChanges(FIRST_PAGE));
       setFieldErrors({});
       showToast({ tone: 'success', title: translate('saved') });
     } catch (error) {
@@ -93,8 +109,8 @@ export function useFeeEditor() {
   }
 
   return {
-    plans: loaded?.plans ?? null,
-    history: loaded?.history ?? [],
+    plans,
+    history,
     failed,
     drafts,
     errorFor: (key: PlanKey) => fieldErrors[`fees.${key}`] || undefined,
@@ -103,5 +119,6 @@ export function useFeeEditor() {
     change,
     discard,
     save,
+    showHistoryPage,
   };
 }

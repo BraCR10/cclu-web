@@ -47,6 +47,7 @@ export function AdminPlansPage() {
                     label={translate('monthlyFee')}
                     inputMode="numeric"
                     autoComplete="off"
+                    maxLength={12}
                     readOnly={isFree}
                     value={draft === null || draft === undefined ? '' : formatColones(draft)}
                     help={isFree ? translate('alwaysFree') : undefined}
@@ -81,7 +82,9 @@ export function AdminPlansPage() {
         </form>
       )}
 
-      {editor.plans !== null && <FeeHistory history={editor.history} />}
+      {editor.history !== null && (
+        <FeeHistory history={editor.history} onPageChange={editor.showHistoryPage} />
+      )}
     </div>
   );
 }

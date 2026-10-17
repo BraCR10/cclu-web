@@ -1,6 +1,8 @@
 import { ChevronDown } from 'lucide-react';
 import { useFormatter, useTranslations } from 'next-intl';
+import type { Paginated } from '@/shared/api/pagination';
 import { Card } from '@/shared/components/Card';
+import { Pagination } from '@/shared/components/Pagination';
 import { formatColones } from '@/shared/utils/formatColones';
 import type { FeeChange } from '../api/fees';
 import { PlanBadge } from './PlanBadge';
@@ -15,12 +17,17 @@ const DATE_FORMAT = {
 
 // A table where there is room for five columns, and one card per change on a
 // telephone, folded so the fees stay the first thing on screen.
-export function FeeHistory({ history }: { history: FeeChange[] }) {
+type FeeHistoryProps = {
+  history: Paginated<FeeChange>;
+  onPageChange: (page: number) => void;
+};
+
+export function FeeHistory({ history, onPageChange }: FeeHistoryProps) {
   const translate = useTranslations('admin.plans.history');
   const format = useFormatter();
   const dateOf = (change: FeeChange) => format.dateTime(new Date(change.occurredAt), DATE_FORMAT);
 
-  if (history.length === 0) {
+  if (history.total === 0) {
     return (
       <Card as="section" aria-labelledby="fee-history">
         <h2 id="fee-history" className="font-display text-heading-m text-fg">
@@ -44,7 +51,7 @@ export function FeeHistory({ history }: { history: FeeChange[] }) {
           />
         </summary>
         <ul className="mt-4 flex flex-col gap-3">
-          {history.map((change) => (
+          {history.items.map((change) => (
             <li key={change.id} className="rounded-md border border-line-subtle p-3">
               <p className="text-label-m text-fg">{change.plan.name}</p>
               <p className="text-body-m text-fg">
@@ -85,7 +92,7 @@ export function FeeHistory({ history }: { history: FeeChange[] }) {
               </tr>
             </thead>
             <tbody className="text-body-m text-fg">
-              {history.map((change) => (
+              {history.items.map((change) => (
                 <tr key={change.id} className="border-t border-line-subtle">
                   <td className="px-4 py-4 text-fg-secondary">{dateOf(change)}</td>
                   <td className="px-4 py-4">
@@ -103,6 +110,9 @@ export function FeeHistory({ history }: { history: FeeChange[] }) {
             </tbody>
           </table>
         </div>
+      </div>
+      <div className="mt-4">
+        <Pagination page={history.page} pageCount={history.pageCount} onPageChange={onPageChange} />
       </div>
     </Card>
   );
