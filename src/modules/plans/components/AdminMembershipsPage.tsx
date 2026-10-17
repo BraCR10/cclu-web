@@ -22,15 +22,15 @@ export function AdminMembershipsPage() {
   const summary =
     list === null || list.total === 0
       ? undefined
-      : translate(`summary.${memberships.query.status}`, { from, to, total: list.total });
+      : translate('summary', { from, to, total: list.total });
 
   return (
     <div className="flex flex-col gap-6 px-4 py-6 lg:gap-8 lg:px-8 lg:py-8">
       <MembershipCounts
         counts={list?.counts ?? null}
         noticeDays={list?.noticeDays ?? null}
-        status={memberships.query.status}
-        onSelect={memberships.showStatus}
+        view={memberships.query.view}
+        onSelect={memberships.showView}
       />
 
       <MembershipFilters
@@ -49,7 +49,7 @@ export function AdminMembershipsPage() {
 
       {list !== null && list.total === 0 && (
         <p className="rounded-lg border border-line-subtle bg-surface p-6 text-body-m text-fg-secondary">
-          {translate(`empty.${memberships.query.status}`)}
+          {translate(`empty.${memberships.query.view}`)}
         </p>
       )}
 

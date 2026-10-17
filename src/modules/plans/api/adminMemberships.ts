@@ -2,9 +2,10 @@ import { requestApi } from '@/shared/api/apiClient';
 import type { Paginated } from '@/shared/api/pagination';
 import type { PlanKey } from './plans';
 
-// A paid membership either still grants its plan or it does not. Expiring
-// soon is a count over the active ones, not a state of its own.
-export type MembershipListStatus = 'active' | 'inactive';
+// The list holds paid plans in force only: every one of them, or the part that
+// ends within the notice. A plan that ran out is back on Gratuita, which is not
+// listed.
+export type MembershipListView = 'active' | 'expiring';
 export type PaidPlanKey = Exclude<PlanKey, 'free'>;
 export type PaymentFrequency = 'monthly' | 'quarterly' | 'semiannual' | 'annual';
 
@@ -17,16 +18,15 @@ export type AdminMembership = {
   lastPaymentAt: string | null;
   expiresAt: string | null;
   validUntil: string | null;
-  status: MembershipListStatus;
 };
 
 export type AdminMembershipList = Paginated<AdminMembership> & {
-  counts: { active: number; expiring: number; inactive: number };
+  counts: { active: number; expiring: number };
   noticeDays: number;
 };
 
 export type MembershipListQuery = {
-  status: MembershipListStatus;
+  view: MembershipListView;
   plan: PaidPlanKey | null;
   search: string;
   page: number;
@@ -34,9 +34,9 @@ export type MembershipListQuery = {
 
 export const MEMBERSHIP_PAGE_SIZE = 8;
 
-export function readAdminMemberships({ status, plan, search, page }: MembershipListQuery) {
+export function readAdminMemberships({ view, plan, search, page }: MembershipListQuery) {
   const query = new URLSearchParams({
-    status,
+    view,
     page: String(page),
     pageSize: String(MEMBERSHIP_PAGE_SIZE),
   });

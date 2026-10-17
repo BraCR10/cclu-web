@@ -5,7 +5,7 @@ import {
   readAdminMemberships,
   type AdminMembershipList,
   type MembershipListQuery,
-  type MembershipListStatus,
+  type MembershipListView,
   type PaidPlanKey,
 } from '../api/adminMemberships';
 
@@ -17,7 +17,7 @@ type Answer = { query: MembershipListQuery; list: AdminMembershipList | null; fa
 
 export function useAdminMemberships() {
   const [query, setQuery] = useState<MembershipListQuery>({
-    status: 'active',
+    view: 'active',
     plan: null,
     search: '',
     page: FIRST_PAGE,
@@ -68,8 +68,8 @@ export function useAdminMemberships() {
     failed: answer?.failed === true && answer.query === query,
     searchDraft,
     search: setSearchDraft,
-    showStatus: (status: MembershipListStatus) =>
-      setQuery((current) => ({ ...current, status, page: FIRST_PAGE })),
+    showView: (view: MembershipListView) =>
+      setQuery((current) => ({ ...current, view, page: FIRST_PAGE })),
     filterPlan: (plan: PaidPlanKey | null) =>
       setQuery((current) => ({ ...current, plan, page: FIRST_PAGE })),
     showPage: (page: number) => setQuery((current) => ({ ...current, page })),

@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Avatar } from '@/shared/components/Avatar';
-import { StatusBadge } from '@/shared/components/StatusBadge';
 import { useDates } from '@/shared/hooks/useDates';
 import type { AdminMembership } from '../api/adminMemberships';
 import { PlanBadge } from './PlanBadge';
@@ -28,15 +27,6 @@ function useMembershipText() {
   };
 }
 
-function StateBadge({ membership }: { membership: AdminMembership }) {
-  const translate = useTranslations('admin.memberships.status');
-  const isActive = membership.status === 'active';
-
-  return (
-    <StatusBadge tone={isActive ? 'success' : 'neutral'} label={translate(membership.status)} />
-  );
-}
-
 function PlanCell({ membership }: { membership: AdminMembership }) {
   const translate = useTranslations('admin.memberships');
 
@@ -48,10 +38,9 @@ function PlanCell({ membership }: { membership: AdminMembership }) {
 }
 
 export function MembershipTable({ items }: { items: AdminMembership[] }) {
-  const ended = items[0]?.status === 'inactive';
   const translate = useTranslations('admin.memberships');
   const text = useMembershipText();
-  const columns = ['member', 'plan', 'frequency', 'lastPayment', 'expires', 'status'] as const;
+  const columns = ['member', 'plan', 'frequency', 'lastPayment', 'expires'] as const;
 
   return (
     <div className="hidden overflow-hidden rounded-lg border border-line-subtle bg-surface shadow-raised lg:block">
@@ -61,7 +50,7 @@ export function MembershipTable({ items }: { items: AdminMembership[] }) {
           <tr>
             {columns.map((column) => (
               <th key={column} scope="col" className="px-4 py-3 text-label-s text-fg-secondary">
-                {translate(`columns.${column === 'expires' && ended ? 'ended' : column}`)}
+                {translate(`columns.${column}`)}
               </th>
             ))}
             <th scope="col" className="px-4 py-3">
@@ -87,9 +76,6 @@ export function MembershipTable({ items }: { items: AdminMembership[] }) {
               <td className="px-4 py-3 text-body-m text-fg">{text.frequency(membership)}</td>
               <td className="px-4 py-3 text-body-m text-fg">{text.lastPayment(membership)}</td>
               <td className="px-4 py-3 text-body-m text-fg">{text.end(membership)}</td>
-              <td className="px-4 py-3">
-                <StateBadge membership={membership} />
-              </td>
               <td className="px-4 py-3 text-right">
                 <Link
                   href={memberHref(membership)}
@@ -128,7 +114,7 @@ export function MembershipCards({ items }: { items: AdminMembership[] }) {
             <div className="flex min-w-0 flex-1 flex-col gap-1">
               <p className="truncate text-label-m text-fg">{membership.businessName}</p>
               <p className="text-body-s text-fg-muted">
-                {translate(membership.status === 'inactive' ? 'cardLineEnded' : 'cardLine', {
+                {translate('cardLine', {
                   code: membership.memberCode,
                   end: text.end(membership),
                   frequency: text.frequency(membership),
@@ -136,7 +122,6 @@ export function MembershipCards({ items }: { items: AdminMembership[] }) {
               </p>
               <div className="flex flex-wrap items-center gap-2">
                 <PlanCell membership={membership} />
-                <StateBadge membership={membership} />
               </div>
             </div>
             <ChevronRight aria-hidden className="size-5 shrink-0 text-fg-muted" />
