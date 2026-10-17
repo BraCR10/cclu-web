@@ -15,14 +15,14 @@ src/
   shared/     Used by two or more modules
 ```
 
-| Module folder         | Product area                                          |
-| --------------------- | ----------------------------------------------------- |
-| `modules/members`     | Member registration and its correction, profile, card |
-| `modules/plans`       | Plans, fees, and the plan a member holds              |
-| `modules/auth`        | Signing in and out, and recovering a password         |
-| `modules/marketplace` | Directory, products, promotions and discounts         |
-| `modules/jobs`        | Job board                                             |
-| `modules/admin`       | Administration panel                                  |
+| Module folder         | Product area                                                          |
+| --------------------- | --------------------------------------------------------------------- |
+| `modules/members`     | Member registration and its correction, profile, card                 |
+| `modules/plans`       | Plans, fees, the plan a member holds, and the panel's membership list |
+| `modules/auth`        | Signing in and out, and recovering a password                         |
+| `modules/marketplace` | Directory, products, promotions and discounts                         |
+| `modules/jobs`        | Job board                                                             |
+| `modules/admin`       | Administration panel                                                  |
 
 Module folder names are English, like every other identifier.
 
