@@ -323,6 +323,10 @@ The API sends two kinds of date, and they are shown differently:
 | Instant      | `2026-10-17T21:40:00Z` | when a fee changed           | `dates.instant(value, style)` |
 | Calendar day | `2026-11-17`           | the last day a plan is valid | `dates.calendarDay(value)`    |
 
+The certification's issue date comes back as `2026-10-05T00:00:00.000Z`, a
+calendar day stored as midnight UTC. Show it with
+`dates.calendarDay(value.slice(0, 10))`; as an instant it reads as 4 October.
+
 An instant is a moment, shown in the chamber's time zone. A calendar day has no
 time, so converting it between zones would move it; it is shown exactly as
 written. Passing a calendar day to `new Date` reads it as midnight in UTC, which
