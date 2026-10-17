@@ -311,26 +311,25 @@ The copy follows the prototype, including its voseo.
 
 ## Dates
 
-Every date on screen is formatted by `next-intl`, which `src/i18n/formats.ts`
-configures once: the time zone is the chamber's, `America/Costa_Rica`, whatever
-zone the browser is in, and the formats are named. Components use the
-`useDates` hook from `src/shared/hooks/` and never write their own options.
+The API works in one time, UTC. The screen shows every date on the clock of
+whoever is looking, so a member in China reads Chinese time.
 
-The API sends two kinds of date, and they are shown differently:
+**Where the zone comes from.** On its first load the browser names its zone and
+`TimeZoneSync` keeps it in the `cclu_time_zone` cookie, then renders the page
+again. From then on `src/i18n/request.ts` hands that zone to `next-intl`, so the
+server and the browser format every date the same way. Until the cookie exists,
+and for any value the runtime does not know as a zone, the chamber's
+`America/Costa_Rica` is used. The cookie is checked against the known zones
+before it reaches a formatter, because a browser writes it.
 
-| Kind         | Looks like             | Example                      | Shown with                    |
-| ------------ | ---------------------- | ---------------------------- | ----------------------------- |
-| Instant      | `2026-10-17T21:40:00Z` | when a fee changed           | `dates.instant(value, style)` |
-| Calendar day | `2026-11-17`           | the last day a plan is valid | `dates.calendarDay(value)`    |
+**How a component shows a date.** Always through the `useDates` hook in
+`src/shared/hooks/`, with the formats named once in `src/i18n/formats.ts`:
 
-The certification's issue date comes back as `2026-10-05T00:00:00.000Z`, a
-calendar day stored as midnight UTC. Show it with
-`dates.calendarDay(value.slice(0, 10))`; as an instant it reads as 4 October.
-
-An instant is a moment, shown in the chamber's time zone. A calendar day has no
-time, so converting it between zones would move it; it is shown exactly as
-written. Passing a calendar day to `new Date` reads it as midnight in UTC, which
-is the evening before in Costa Rica.
+| The API sends           | Looks like                 | Shown with                    |
+| ----------------------- | -------------------------- | ----------------------------- |
+| An instant              | `2026-10-17T21:40:00Z`     | `dates.instant(value, style)` |
+| The instant a term ends | `2026-11-18T06:00:00Z`     | `dates.termEnd(value)`        |
+| A day a person typed    | `2026-10-05T00:00:00.000Z` | `dates.calendarDay(day)`      |
 
 | Style    | Reads                   |
 | -------- | ----------------------- |
@@ -338,10 +337,26 @@ is the evening before in Costa Rica.
 | `short`  | 17 oct 2026             |
 | `moment` | 17 oct 2026, 3:40 p. m. |
 
+**When a term ends.** A plan valid through 17 November ends at midnight opening
+the 18th in Costa Rica, one instant everywhere. `termEnd` shows the last day
+covered where that instant is the viewer's own midnight, and the local date and
+time anywhere else, because a day alone would be wrong there:
+
+| Viewer      | Reads                                     |
+| ----------- | ----------------------------------------- |
+| Costa Rica  | Vigente hasta el 17 de noviembre de 2026  |
+| Los Angeles | Vigente hasta el 17 nov 2026, 10:00 p. m. |
+| Beijing     | Vigente hasta el 18 nov 2026, 2:00 p. m.  |
+
+**A day a person typed has no time.** The certification's issue date is stored
+as midnight UTC of that day. Show its first ten characters with
+`dates.calendarDay(value.slice(0, 10))`; converted between zones as an instant,
+it would read as the day before in the Americas.
+
 A lint rule refuses `new Intl.DateTimeFormat` and `toLocaleDateString` with
-arguments in `src/`, because either one formats in whatever zone the browser
-happens to be in. Access is never decided by a date in the browser: the API
-works it out against its own clock.
+arguments in `src/`, because either one bypasses the configured zone and
+formats. Access is never decided by a date in the browser: the API works it out
+against its own clock, whatever the screen shows.
 
 ## Showing an error
 

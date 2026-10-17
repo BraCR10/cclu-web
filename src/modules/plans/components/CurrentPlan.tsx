@@ -14,7 +14,7 @@ const ACTION_CLASSES =
 export function CurrentPlan({ membership }: { membership: Membership }) {
   const translate = useTranslations('member.membership');
   const dates = useDates();
-  const { plan, validUntil, startedAt, lapsed } = membership;
+  const { plan, expiresAt, startedAt, lapsed } = membership;
   const isFree = plan.key === 'free';
   // Gratuita after a lapse began on a known day; Gratuita from approval did not
   // need one.
@@ -38,9 +38,9 @@ export function CurrentPlan({ membership }: { membership: Membership }) {
 
       <div>
         <p className="text-label-m text-fg">
-          {validUntil === null
+          {expiresAt === null
             ? translate('noExpiry')
-            : translate('validUntil', { date: dates.calendarDay(validUntil) })}
+            : translate('validUntil', { date: dates.termEnd(expiresAt) })}
         </p>
         <p className="text-body-s text-fg-secondary">
           {showsStart && startedAt !== null

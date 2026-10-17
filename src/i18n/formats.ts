@@ -1,10 +1,5 @@
 import type { Formats } from 'next-intl';
 
-// Every date on screen is read as the chamber reads a calendar, wherever the
-// browser happens to be. Named by zone rather than by offset, so a change to
-// the country's rules arrives with the time zone database.
-export const timeZone = 'America/Costa_Rica';
-
 // The only date styles the interface uses. A component names one of these
 // instead of writing its own options, so the same kind of date always reads
 // the same way.

@@ -5,6 +5,7 @@ import { getTranslations } from 'next-intl/server';
 import { locale } from '@/i18n/messages';
 import { ToastProvider } from '@/shared/components/ToastProvider';
 import './globals.css';
+import { TimeZoneSync } from '@/shared/components/TimeZoneSync';
 
 const redHatDisplay = Red_Hat_Display({
   variable: '--font-red-hat-display',
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
     >
       <body className="flex min-h-full flex-col">
         <NextIntlClientProvider>
+          <TimeZoneSync />
           <ToastProvider>{children}</ToastProvider>
         </NextIntlClientProvider>
       </body>

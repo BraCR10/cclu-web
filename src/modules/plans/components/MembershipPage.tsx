@@ -45,11 +45,11 @@ export function MembershipPage() {
             <Alert
               tone="warning"
               title={
-                state.membership.lapsed.validUntil === null
+                state.membership.lapsed.expiresAt === null
                   ? translate('lapsed.titleUndated', { plan: state.membership.lapsed.plan.name })
                   : translate('lapsed.title', {
                       plan: state.membership.lapsed.plan.name,
-                      date: dates.calendarDay(state.membership.lapsed.validUntil),
+                      date: dates.termEnd(state.membership.lapsed.expiresAt),
                     })
               }
               message={translate('lapsed.message')}

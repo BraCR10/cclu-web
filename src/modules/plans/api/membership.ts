@@ -1,18 +1,22 @@
 import { requestApi } from '@/shared/api/apiClient';
 import type { Plan, PlanKey } from './plans';
 
-// validUntil is the last day a plan is valid, as YYYY-MM-DD in Costa Rica. It
-// is a calendar day, not an instant, and is shown exactly as written.
-export type LapsedPlan = {
-  plan: { key: PlanKey; name: string };
+// expiresAt is the instant a term ends, shown on the viewer's clock. validUntil
+// is its last day on the chamber's calendar, which messages from the chamber
+// name; the screen does not need it.
+export type Term = {
+  expiresAt: string | null;
   validUntil: string | null;
 };
 
-export type Membership = {
+export type LapsedPlan = Term & {
+  plan: { key: PlanKey; name: string };
+};
+
+export type Membership = Term & {
   memberCode: string;
   plan: Plan;
   startedAt: string | null;
-  validUntil: string | null;
   lapsed: LapsedPlan | null;
 };
 
