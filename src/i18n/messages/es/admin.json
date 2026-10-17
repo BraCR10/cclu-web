@@ -44,6 +44,61 @@
       "empty": "Todavía no hay cambios de cuota.",
       "change": "{previous} → {next}",
       "byline": "{date} · {name}"
+    },
+    "notice": {
+      "title": "Aviso de vencimiento",
+      "days": "Días de anticipación",
+      "help": "Cuántos días antes del vencimiento se le avisa al agremiado y la membresía cuenta como por vencer. Entre {minimum} y {maximum} días.",
+      "outOfRange": "Escribí un número de días entre {minimum} y {maximum}.",
+      "save": "Guardar aviso",
+      "saved": "Aviso de vencimiento guardado"
     }
+  },
+  "memberships": {
+    "counts": {
+      "active": "Activas",
+      "expiring": "Por vencer ({days} días)",
+      "inactive": "No activas"
+    },
+    "filters": {
+      "searchLabel": "Buscar membresías",
+      "searchPlaceholder": "Buscar por nombre o código",
+      "planLabel": "Filtrar por plan",
+      "allPlans": "Todos los planes"
+    },
+    "tableLabel": "Membresías",
+    "columns": {
+      "member": "Agremiado",
+      "plan": "Plan",
+      "frequency": "Frecuencia",
+      "lastPayment": "Último pago",
+      "expires": "Vence",
+      "status": "Estado",
+      "actions": "Acciones",
+      "ended": "Venció"
+    },
+    "frequencies": {
+      "monthly": "Mensual",
+      "quarterly": "Trimestral",
+      "semiannual": "Semestral",
+      "annual": "Anual"
+    },
+    "status": {
+      "active": "Activa",
+      "inactive": "No activa"
+    },
+    "none": "—",
+    "viewMember": "Ver agremiado",
+    "viewMemberNamed": "Ver agremiado {name}",
+    "cardLine": "{code} · Vence {end} · {frequency}",
+    "summary": {
+      "active": "Mostrando {from} a {to} de {total} membresías, ordenadas por vencimiento",
+      "inactive": "Mostrando {from} a {to} de {total} membresías, de la que venció más reciente a la más antigua"
+    },
+    "empty": {
+      "active": "No hay membresías activas que coincidan.",
+      "inactive": "No hay membresías no activas que coincidan."
+    },
+    "cardLineEnded": "{code} · Venció {end} · {frequency}"
   }
 }

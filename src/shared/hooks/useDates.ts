@@ -38,11 +38,11 @@ export function useDates() {
     // midnight on the viewer's own calendar, the last day still covered reads
     // best on its own. Anywhere else a day alone would be wrong, so the local
     // time it ends is shown with it.
-    termEnd: (expiresAt: string | Date) => {
+    termEnd: (expiresAt: string | Date, style: 'date' | 'short' = 'date') => {
       const end = new Date(expiresAt);
 
       return format.dateTime(end, CLOCK) === LOCAL_MIDNIGHT
-        ? instant(new Date(end.getTime() - 1))
+        ? instant(new Date(end.getTime() - 1), style)
         : instant(end, 'moment');
     },
   };

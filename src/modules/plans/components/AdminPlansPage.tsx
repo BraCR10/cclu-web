@@ -10,6 +10,7 @@ import { formatColones } from '@/shared/utils/formatColones';
 import { parseFeeInput } from '../feeForm';
 import { useFeeEditor } from '../hooks/useFeeEditor';
 import { FeeHistory } from './FeeHistory';
+import { NoticeSettings } from './NoticeSettings';
 import { PlanBadge } from './PlanBadge';
 
 export function AdminPlansPage() {
@@ -81,6 +82,8 @@ export function AdminPlansPage() {
           </StickyActionBar>
         </form>
       )}
+
+      <NoticeSettings />
 
       {editor.history !== null && (
         <FeeHistory history={editor.history} onPageChange={editor.showHistoryPage} />
