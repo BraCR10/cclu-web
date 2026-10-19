@@ -94,7 +94,7 @@ export function SignInForm({ initialRole = 'member' }: { initialRole?: AccountRo
   }
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-start">
+    <div className="mx-auto grid w-full max-w-4xl gap-8 py-8 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-start lg:py-12">
       <Card className="p-6 lg:max-w-xl">
         <h1 className="text-heading-xl text-fg">{translate('signIn.title')}</h1>
         <p className="mt-2 text-body-l text-fg-secondary">{translate('signIn.legend')}</p>

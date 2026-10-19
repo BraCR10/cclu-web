@@ -32,7 +32,7 @@ export function PlansPage() {
   const state = usePlans();
 
   return (
-    <div className="mx-auto flex w-full max-w-page flex-col gap-10 px-4 py-6 lg:gap-12 lg:px-20 lg:py-12 xl:px-0">
+    <div className="flex w-full flex-col gap-10 py-6 lg:gap-12 lg:py-12">
       <PageHeader title={translate('page.title')} />
       <StartsFree />
 

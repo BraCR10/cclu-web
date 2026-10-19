@@ -76,7 +76,10 @@ export function PublicShell({ children }: { children: ReactNode }) {
           </div>
         </div>
       </header>
-      <main id="content" className="flex flex-1 flex-col">
+      <main
+        id="content"
+        className="mx-auto flex w-full max-w-page flex-1 flex-col px-4 lg:px-20 xl:px-0"
+      >
         {children}
       </main>
       <PublicFooter />

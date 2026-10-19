@@ -46,7 +46,7 @@ export function RegistrationSent({ sent }: { sent: SentRegistration }) {
   ];
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-start">
+    <div className="mx-auto grid w-full max-w-4xl gap-8 py-8 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-start lg:py-12">
       <Card className="p-6 lg:p-8">
         <CircleCheck aria-hidden="true" className="h-10 w-10 text-success" />
         <h1 className="mt-4 text-heading-xl text-fg">{translate('title')}</h1>
