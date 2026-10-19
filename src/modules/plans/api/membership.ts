@@ -15,6 +15,9 @@ export type LapsedPlan = Term & {
 
 export type Membership = Term & {
   memberCode: string;
+  // Who the plan belongs to. The card printed with it names the business, so the
+  // name travels with the plan rather than needing the profile as well.
+  businessName: string;
   plan: Plan;
   startedAt: string | null;
   lapsed: LapsedPlan | null;
