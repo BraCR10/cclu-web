@@ -1,7 +1,9 @@
 import { requestApi } from '@/shared/api/apiClient';
 
 // What the API answers about the member signed in. The two statuses never
-// travel on their own: what arrives is the state they add up to.
+// travel on their own: what arrives is the state they add up to. A field the
+// record does not hold arrives as null, which an account approved before that
+// field existed does for the branch, the district and how to reach it.
 export type MemberProfile = {
   _id: string;
   state: 'active' | 'pending_review' | 'rejected' | 'changes_requested' | 'suspended';
@@ -17,20 +19,20 @@ export type MemberProfile = {
   certificationIssuedAt: string | null;
   businessName: string;
   managerName: string | null;
-  businessDescription: string;
+  businessDescription: string | null;
   logoFileKey: string | null;
   logoUrl: string | null;
   branchModality: 'physical' | 'virtual';
-  branchName: string;
+  branchName: string | null;
   canton: { _id: string; name: string; province: string } | null;
-  district: string;
+  district: string | null;
   location: string | null;
   institutionalPhone: string | null;
   activity: { _id: string; name: string } | null;
   activityOther: string | null;
   email: string;
-  phone: string;
-  whatsappNumber: string;
+  phone: string | null;
+  whatsappNumber: string | null;
   billingEmail: string | null;
   instagram: string | null;
   facebook: string | null;
