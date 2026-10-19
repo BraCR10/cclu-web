@@ -143,5 +143,106 @@
       },
       "toPayments": "Ver mis pagos"
     }
+  },
+  "profile": {
+    "title": "Mi perfil",
+    "failed": "No pudimos cargar tu perfil.",
+    "saved": "Guardamos los cambios.",
+    "edit": "Editar",
+    "viewPublic": "Ver mi ficha pública",
+    "verified": "Agremiada verificada",
+    "memberCode": "Código {code}",
+    "cancel": "Cancelar",
+    "save": "Guardar cambios",
+    "emailLinkSent": "Te enviamos un enlace al correo nuevo. Confirmalo para que tu cuenta lo use.",
+    "passwordLinkSent": "Te enviamos un enlace al correo de tu cuenta. El enlace vence en 30 minutos.",
+    "types": {
+      "business": "Empresa",
+      "association": "Asociación",
+      "independent": "Profesional independiente"
+    },
+    "business": {
+      "title": "Datos del negocio"
+    },
+    "contact": {
+      "title": "Contacto"
+    },
+    "legal": {
+      "title": "Datos legales",
+      "note": "Solo los ve la Cámara. No aparecen en tu ficha pública.",
+      "certification": "Certificación de personería jurídica",
+      "certificationHint": "Arrastrá el archivo o elegilo desde tu equipo",
+      "certificationHintMobile": "Elegí un archivo o tomá una foto",
+      "certificationFormats": "PDF, JPG o PNG, máximo 10 MB",
+      "certificationIssuedAt": "Fecha de emisión de la certificación",
+      "uploadFailed": "No pudimos subir el archivo. Intentá de nuevo."
+    },
+    "account": {
+      "title": "Datos de la cuenta",
+      "name": "Nombre de usuario",
+      "identification": "Identificación",
+      "memberCode": "Código de agremiado",
+      "since": "Afiliado desde"
+    },
+    "access": {
+      "title": "Acceso a la cuenta",
+      "email": "Correo electrónico",
+      "changeEmail": "Cambiar",
+      "password": "Contraseña",
+      "passwordNever": "Todavía no cambiás tu contraseña desde acá.",
+      "passwordChanged": "Último cambio de contraseña el {date}.",
+      "sendLink": "Enviarme el enlace"
+    },
+    "fields": {
+      "businessName": "Nombre comercial",
+      "managerName": "Encargado o encargada",
+      "businessDescription": "Descripción del negocio",
+      "activity": "Actividad",
+      "activityOther": "Escribí tu actividad",
+      "activityOtherOption": "Otra actividad",
+      "activityPlaceholder": "Buscá tu actividad",
+      "activityEmpty": "No encontramos esa actividad.",
+      "branchName": "Nombre de la sucursal",
+      "province": "Provincia",
+      "canton": "Cantón",
+      "district": "Distrito",
+      "institutionalPhone": "Teléfono institucional",
+      "location": "Dirección física o ubicación del servicio",
+      "address": "Dirección",
+      "phone": "Teléfono",
+      "whatsapp": "WhatsApp",
+      "billingEmail": "Correo de facturación",
+      "website": "Sitio web",
+      "networks": "Redes sociales",
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn",
+      "legalName": "Razón social",
+      "legalRepresentativeName": "Representante legal",
+      "legalRepresentativeIdentification": "Identificación del representante",
+      "certificationIssuedAt": "Fecha de emisión de la certificación"
+    },
+    "email": {
+      "title": "Cambiar correo",
+      "noteTitle": "Todavía no cambia nada",
+      "note": "Te enviamos un enlace al correo nuevo. Tu cuenta sigue usando {email} hasta que lo confirmes.",
+      "newEmail": "Correo nuevo",
+      "confirmation": "Repetí el correo nuevo",
+      "mismatch": "Los dos correos no coinciden.",
+      "send": "Enviar enlace",
+      "cancel": "Cancelar",
+      "confirm": {
+        "loading": "Abriendo el enlace…",
+        "title": "Confirmá tu nuevo correo",
+        "message": "Vas a usar {email} para iniciar sesión y para recibir los avisos de la Cámara. Tu cuenta conserva el correo anterior hasta que confirmes.",
+        "confirm": "Confirmar correo",
+        "doneTitle": "Correo confirmado",
+        "doneMessage": "Listo: tu cuenta ahora usa {email}.",
+        "signIn": "Iniciar sesión",
+        "invalidTitle": "Este enlace ya no sirve",
+        "invalidMessage": "El enlace vence a los 30 minutos y sirve una sola vez. Pedí otro desde tu perfil si todavía necesitás cambiar el correo.",
+        "toProfile": "Ir a mi perfil"
+      }
+    }
   }
 }
