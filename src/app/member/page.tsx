@@ -1,5 +1,5 @@
-import { UnderConstruction } from '@/shared/components/UnderConstruction';
+import { MemberHome } from '@/modules/plans/components/MemberHome';
 
-export default function MemberPageUnderConstruction() {
-  return <UnderConstruction headingLevel={2} />;
-}
+const Home = () => <MemberHome />;
+
+export default Home;
