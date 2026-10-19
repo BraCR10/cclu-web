@@ -130,6 +130,23 @@ This is the one screen where the plan is drawn rather than named: each plan
 tints the card, which is part of what the chamber sells, so the plan token
 reaches the card's wave as well as its badge.
 
+## The profile is three screens
+
+`/member/profile` is what the chamber knows, `/member/profile/branches` the
+places it affiliates and `/member/profile/store` the shop a client meets. They
+are separate routes rather than one long form, because each one is saved on its
+own and each one is a page in the prototype. `ProfileTabs` is the only thing
+they share.
+
+A branch is edited one at a time in a popup that sends the whole branch: the API
+takes the three required fields on a new one and only the ones present on an
+edit. Closing the last branch is not offered, because the API refuses it — a
+member always keeps one place to be found at.
+
+The shop sends the week whole, the same way. A day left out is a day the API
+stores as closed, so the screen never has to guess whether an absent pair of
+hours means "not set" or "never open".
+
 ## Data access
 
 This client reaches `cclu-api` over HTTP and by no other means. It holds no
