@@ -98,6 +98,22 @@ The registration keeps its own steps because the prototype draws them as three
 pages with a stepper, and those steps read a contract rather than a whole wizard,
 so a change to the wizard does not reach them.
 
+## The home
+
+`/member` answers three questions: what plan am I on and until when, is anything
+waiting on me, and what am I publishing.
+
+The first two are the plans module's data, so the screen lives in
+`modules/plans/components/MemberHome.tsx` rather than in a module of its own. The
+third has no API yet. The publications grid is drawn for paid plans and states
+that nothing has been published, so the screen does not pretend to data the API
+cannot give it. When publishing arrives, its component comes from its own module
+and `app/member/page.tsx` composes the two.
+
+A rejected payment is shown as pending, not as history: it is the one payment
+state the member can still act on, so the home opens its detail in place and
+offers to send it again with the same plan.
+
 ## Data access
 
 This client reaches `cclu-api` over HTTP and by no other means. It holds no
