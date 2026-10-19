@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { CircleCheck, Lock } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { StatusBadge } from '@/shared/components/StatusBadge';
 import { JOIN_HREF } from '@/shared/layouts/publicNavigation';
@@ -7,6 +6,7 @@ import { classNames } from '@/shared/utils/classNames';
 import { formatColones } from '@/shared/utils/formatColones';
 import type { Plan } from '../api/plans';
 import { cardBenefitsFor } from '../planBenefits';
+import { PlanBenefitList } from './PlanBenefitList';
 
 export type PlanCardAction = { href: string; label: string };
 
@@ -54,36 +54,11 @@ export function PlanCard({ plan, current = false, action }: PlanCardProps) {
         </span>
       </p>
 
-      <ul
-        aria-label={translate('cards.benefitsOf', { plan: plan.name })}
-        className="mt-4 flex flex-1 flex-col gap-3"
-      >
-        {cardBenefitsFor(plan.entitlements).map((benefit) => {
-          const isLocked = benefit.value === 'locked';
-          const Icon = isLocked ? Lock : CircleCheck;
-
-          return (
-            <li
-              key={benefit.id}
-              className={classNames(
-                'flex gap-2 text-body-s',
-                isLocked ? 'text-fg-muted' : 'text-fg',
-              )}
-            >
-              <Icon
-                aria-hidden
-                className={classNames('mt-0.5 size-4 shrink-0', !isLocked && 'text-success')}
-              />
-              <span>
-                {translate(`cardBenefits.${benefit.label}`)}
-                {isLocked && (
-                  <span className="sr-only">{`, ${translate('comparison.values.locked')}`}</span>
-                )}
-              </span>
-            </li>
-          );
-        })}
-      </ul>
+      <PlanBenefitList
+        benefits={cardBenefitsFor(plan.entitlements)}
+        label={translate('cards.benefitsOf', { plan: plan.name })}
+        className="mt-4 flex-1"
+      />
 
       {current ? (
         <p className="mt-6 inline-flex min-h-11 items-center justify-center rounded-sm border border-line-subtle bg-surface-subtle px-4 text-label-m text-fg-muted lg:min-h-10">
