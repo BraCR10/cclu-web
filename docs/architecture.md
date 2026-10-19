@@ -114,6 +114,22 @@ A rejected payment is shown as pending, not as history: it is the one payment
 state the member can still act on, so the home opens its detail in place and
 offers to send it again with the same plan.
 
+## The card
+
+`/member/card` draws the card the member shows in their shop. `Descargar` prints
+it: a print sheet in `globals.css` leaves nothing but the card, the browser
+offers to save it as a PDF, and the QR survives as vector. An image file would
+need a rasteriser, and the card's job is to be printed and put up in a shop.
+
+The QR carries the absolute address of the public profile, which only the
+browser knows. The server therefore draws the card with a gap where the code
+goes and `useSyncExternalStore` fills it in, because a QR holding a relative
+address is useless once printed.
+
+This is the one screen where the plan is drawn rather than named: each plan
+tints the card, which is part of what the chamber sells, so the plan token
+reaches the card's wave as well as its badge.
+
 ## Data access
 
 This client reaches `cclu-api` over HTTP and by no other means. It holds no

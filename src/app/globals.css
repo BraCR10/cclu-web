@@ -152,3 +152,24 @@ body {
   color: var(--color-fg);
   font-family: var(--font-sans);
 }
+
+/* The card is printed to be put up in the shop, so a print leaves nothing but
+   the card on the sheet. Scoped to a page that draws one, and `visibility`
+   rather than `display` so the card keeps the place it was laid out in. */
+@media print {
+  body:has(.member-card-sheet) * {
+    visibility: hidden;
+  }
+
+  body:has(.member-card-sheet) .member-card-sheet,
+  body:has(.member-card-sheet) .member-card-sheet * {
+    visibility: visible;
+  }
+
+  body:has(.member-card-sheet) .member-card-sheet {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+}

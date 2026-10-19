@@ -41,6 +41,40 @@
     "noPublications": "Todavía no publicaste nada",
     "seePlans": "Ver los planes"
   },
+  "card": {
+    "failed": "No pudimos cargar tu carné. Intentá de nuevo en unos minutos.",
+    "description": "Mostralo en tu local o compartilo. El código QR abre tu ficha pública en el directorio.",
+    "label": "Carné digital de {business}",
+    "chamber": "Cámara de Comercio de La Unión",
+    "active": "Activa",
+    "lapsed": "Vencida",
+    "noExpiry": "Sin vencimiento",
+    "validUntil": "Vigente hasta el {date}",
+    "lapsedOn": "Venció el {date}",
+    "qrTitle": "Código QR de tu ficha pública",
+    "freeNoticeTitle": "Tu carné es del plan {plan}",
+    "freeNoticeMessage": "Con un plan pagado tu carné cambia de color, aparecés en el marketplace y podés publicar productos, promociones y vacantes.",
+    "seePlans": "Ver planes",
+    "download": "Descargar",
+    "copy": "Copiar enlace de la ficha",
+    "copied": "Copiamos el enlace de tu ficha.",
+    "copyFailed": "No pudimos copiar el enlace. Copialo desde la barra del navegador.",
+    "viewPublic": "Ver mi ficha pública",
+    "dataTitle": "Datos del carné",
+    "fields": {
+      "business": "Comercio",
+      "code": "Código de agremiado",
+      "term": "Vigencia"
+    },
+    "qr": {
+      "title": "Qué abre el código QR",
+      "intro": "Cualquier persona que escanee tu carné llega a tu ficha permanente en el directorio de la Cámara.",
+      "public": "Tu ficha pública: {url}",
+      "verified": "El sello Agremiado verificado con tu plan y el estado de tu membresía",
+      "contact": "Tus datos de contacto, horario y publicaciones activas",
+      "private": "Nunca muestra tu correo ni tus datos legales"
+    }
+  },
   "membership": {
     "currentPlan": "Plan actual",
     "active": "Activa",
