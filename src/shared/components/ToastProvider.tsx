@@ -7,7 +7,10 @@ import { ToastContext, type ToastRequest } from './toastContext';
 
 type ShownToast = ToastRequest & { id: number };
 
-const DISMISS_AFTER_MS = 5000;
+// Long enough to read a sentence in Spanish without hurrying, which is what the
+// prototype asks for: a notice that disappears in five seconds is a notice
+// somebody misses while they are still reading the field under it.
+const DISMISS_AFTER_MS = 6000;
 
 export function ToastProvider({ children }: { children: ReactNode }) {
   const translate = useTranslations('common.toast');
