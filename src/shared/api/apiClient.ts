@@ -81,3 +81,19 @@ export async function requestApi<Result = unknown>(
 
   return (await readJson(response)) as Result;
 }
+
+// A file the API builds, such as an export, read as it comes. It carries the
+// session like any other call, so it cannot be a plain link to another origin.
+export async function requestFile(path: string, fetcher: Fetcher = fetch): Promise<Blob> {
+  const response = await send(
+    buildApiUrl(path),
+    { method: 'GET', credentials: 'include' },
+    fetcher,
+  );
+
+  if (!response.ok) {
+    throw await toApiError(response);
+  }
+
+  return response.blob();
+}

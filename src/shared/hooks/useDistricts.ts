@@ -5,9 +5,12 @@ import { readDistricts } from '@/shared/api/catalogs';
 
 type Districts = { canton: string; districts: string[] };
 
-// The districts where a listed business is, for the canton chosen. They follow
-// the canton, including one only chosen in the sheet and not yet applied.
-export function useDistricts(canton: string) {
+type ReadDistricts = (canton: string) => Promise<{ districts: string[] }>;
+
+// The districts on offer for the canton chosen: by default where a listed
+// business is. They follow the canton, including one only chosen in the sheet
+// and not yet applied. `read` must be defined outside the component.
+export function useDistricts(canton: string, read: ReadDistricts = readDistricts) {
   const [answer, setAnswer] = useState<Districts | null>(null);
 
   useEffect(() => {
@@ -17,7 +20,7 @@ export function useDistricts(canton: string) {
 
     let cancelled = false;
 
-    readDistricts(canton)
+    read(canton)
       .then(({ districts }) => {
         if (!cancelled) {
           setAnswer({ canton, districts });
@@ -28,7 +31,7 @@ export function useDistricts(canton: string) {
     return () => {
       cancelled = true;
     };
-  }, [canton]);
+  }, [canton, read]);
 
   return answer !== null && answer.canton === canton ? answer.districts : [];
 }
