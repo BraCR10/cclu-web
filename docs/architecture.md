@@ -147,6 +147,30 @@ The shop sends the week whole, the same way. A day left out is a day the API
 stores as closed, so the screen never has to guess whether an absent pair of
 hours means "not set" or "never open".
 
+## Panel lists
+
+Every list in the panel is put together from the same parts, so the payments,
+the memberships and every list after them search, filter, page and fail in the
+same way.
+
+| Part                                  | What it decides                                                                     |
+| ------------------------------------- | ----------------------------------------------------------------------------------- |
+| `usePagedList` in `shared/hooks/`     | The query: filters, a search that waits for a pause, the page, and reload           |
+| `ChipGroup`                           | One state among a few, such as Por revisar, Aprobados, Rechazados                   |
+| `SearchField`                         | The search input                                                                    |
+| `FilterSheet`                         | Further filters: inline on a desktop, a sheet that applies on demand on a telephone |
+| `PagedList`                           | The failure, the first load, the empty state and the pages around the rows          |
+| `DataList`, `NameCell` and `ListCard` | The rows: a table on a desktop, cards on a telephone                                |
+| `ReasonDialog`                        | An action the affected person must be given a reason for                            |
+
+A screen keeps only what is its own: the reader of its endpoint, its columns, its
+card line and its messages. `read` is passed to `usePagedList` from outside the
+component, so the same function arrives on every render and the list is not
+read again for nothing.
+
+On a card the badges sit on their own line under the name, never beside it, so
+a long business name is not cut to make room for a state.
+
 ## Data access
 
 This client reaches `cclu-api` over HTTP and by no other means. It holds no
