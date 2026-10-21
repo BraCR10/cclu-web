@@ -19,9 +19,9 @@ function filtersOf({ activity, canton, district }: DirectoryFilters): DirectoryF
 
 // P-02: the chamber's affiliated businesses, searched by name or card code and
 // filtered by place and activity. There is no filter by plan.
-export function DirectoryPage() {
+export function DirectoryPage({ initialSearch = '' }: { initialSearch?: string }) {
   const translate = useTranslations('public.directory');
-  const directory = useDirectory();
+  const directory = useDirectory(initialSearch);
   const catalogs = useDirectoryCatalogs();
   const { list, query } = directory;
   const filters = filtersOf(query);
