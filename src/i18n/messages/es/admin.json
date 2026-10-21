@@ -197,5 +197,34 @@
       "title": "Actividad reciente",
       "none": "Todavía no hay actividad."
     }
+  },
+  "subscribers": {
+    "title": "Suscriptores",
+    "export": "Exportar CSV",
+    "searchLabel": "Buscar suscriptores",
+    "searchPlaceholder": "Buscar por nombre, correo o WhatsApp",
+    "empty": "No hay suscriptores con esos filtros.",
+    "summary": "Mostrando {from} a {to} de {total} suscriptores",
+    "status": {
+      "subscribed": "Suscrito",
+      "unsubscribed": "Dado de baja"
+    },
+    "columns": {
+      "name": "Nombre",
+      "place": "Provincia, cantón y distrito",
+      "email": "Correo electrónico",
+      "whatsapp": "WhatsApp",
+      "subscribedAt": "Fecha de suscripción",
+      "status": "Estado"
+    },
+    "filters": {
+      "title": "Filtros de suscriptores",
+      "canton": "Cantón",
+      "allCantons": "Todos los cantones",
+      "district": "Distrito",
+      "allDistricts": "Todos los distritos",
+      "status": "Estado",
+      "allStatuses": "Todos"
+    }
   }
 }
