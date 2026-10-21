@@ -31,6 +31,7 @@
   "route_not_found": "No encontramos lo que buscás.",
   "already_decided": "Esta solicitud ya fue resuelta.",
   "changed_meanwhile": "Otra persona cambió este valor mientras editabas. Recargá la página para ver el valor actual.",
+  "last_branch": "Necesitás al menos una sucursal. Agregá otra antes de eliminar esta.",
   "plan_required": "Tu plan actual no incluye esta función. Revisá los planes en Mi membresía.",
   "renewal_not_open": "Tu plan todavía está vigente. Podés renovarlo cuando se abra la ventana de renovación.",
   "payment_pending": "Ya tenés un pago en revisión. Esperá a que la Cámara lo revise.",
