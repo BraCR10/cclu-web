@@ -1,6 +1,6 @@
 import { Sparkles } from 'lucide-react';
 import { classNames } from '@/shared/utils/classNames';
-import type { PlanKey } from '../api/plans';
+import type { PlanKey } from '@/shared/api/planKey';
 
 const PLAN_CLASSES: Record<PlanKey, string> = {
   free: 'bg-plan-free text-plan-free-fg',

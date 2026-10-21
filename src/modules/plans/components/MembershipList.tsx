@@ -5,7 +5,7 @@ import { DataList, NameCell, type DataColumn } from '@/shared/components/DataLis
 import { ListCard } from '@/shared/components/ListCard';
 import { useDates } from '@/shared/hooks/useDates';
 import type { AdminMembership } from '../api/adminMemberships';
-import { PlanBadge } from './PlanBadge';
+import { PlanBadge } from '@/shared/components/PlanBadge';
 
 // The member's own page in the panel. It shows "En construcción" until the
 // member detail is built.

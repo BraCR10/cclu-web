@@ -4,7 +4,7 @@ import QRCode from 'react-qr-code';
 import { ModalLayer } from '@/shared/components/ModalLayer';
 import { StatusBadge } from '@/shared/components/StatusBadge';
 import type { Membership } from '../api/membership';
-import { PlanBadge } from './PlanBadge';
+import { PlanBadge } from '@/shared/components/PlanBadge';
 
 type MemberCardFullscreenProps = {
   open: boolean;

@@ -49,5 +49,27 @@
       "privacy": "Política de privacidad"
     },
     "copyright": "© {year} Cámara de Comercio, Turismo, Industria y Afines del Cantón de La Unión"
+  },
+  "directory": {
+    "title": "Directorio de comercios",
+    "searchLabel": "Buscar comercios",
+    "searchPlaceholder": "Nombre o código de carné",
+    "summary": "Mostrando {from} a {to} de {total} comercios",
+    "empty": "No encontramos comercios con esa búsqueda",
+    "clearFilters": "Limpiar filtros",
+    "filters": {
+      "title": "Filtros",
+      "canton": "Cantón",
+      "allCantons": "Todos los cantones",
+      "district": "Distrito",
+      "allDistricts": "Todos los distritos",
+      "activity": "Actividad",
+      "allActivities": "Todas las actividades"
+    },
+    "card": {
+      "online": "En línea",
+      "otherBranches": "{count, plural, one {+# sucursal} other {+# sucursales}}",
+      "verified": "Agremiado verificado"
+    }
   }
 }

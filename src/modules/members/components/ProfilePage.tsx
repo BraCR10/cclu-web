@@ -13,6 +13,7 @@ import { useMemberProfile } from '../hooks/useMemberProfile';
 import { ChangeEmailModal } from './ChangeEmailModal';
 import { ProfileModal, type ProfileSection } from './ProfileModal';
 import { ProfileTabs } from './ProfileTabs';
+import { publicProfilePath } from '@/shared/utils/publicProfilePath';
 
 type OpenPopup = ProfileSection | 'email' | null;
 
@@ -48,7 +49,7 @@ export function ProfilePage() {
 
   const member = profile.profile;
   const typeKey = MEMBER_TYPE_KEY[member.memberType === '' ? 'business' : member.memberType];
-  const publicHref = member.memberCode === null ? null : `/directory/${member.memberCode}`;
+  const publicHref = member.memberCode === null ? null : publicProfilePath(member.memberCode);
 
   return (
     <div className="flex flex-col gap-6 px-4 py-6 lg:gap-8 lg:px-8 lg:py-8">

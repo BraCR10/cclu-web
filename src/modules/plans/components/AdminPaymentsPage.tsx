@@ -15,7 +15,7 @@ import { formatColones } from '@/shared/utils/formatColones';
 import type { AdminPayment, PaymentStatus } from '../api/payments';
 import { useAdminPayments } from '../hooks/useAdminPayments';
 import { PaymentReviewModal } from './PaymentReviewModal';
-import { PlanBadge } from './PlanBadge';
+import { PlanBadge } from '@/shared/components/PlanBadge';
 
 const TABS: PaymentStatus[] = ['pending_review', 'approved', 'rejected'];
 const DAY_IN_MILLISECONDS = 24 * 60 * 60 * 1000;

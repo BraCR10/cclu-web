@@ -1,6 +1,8 @@
 import { requestApi } from '@/shared/api/apiClient';
 
-export type PlanKey = 'free' | 'lite' | 'pro' | 'premium';
+import type { PlanKey } from '@/shared/api/planKey';
+
+export type { PlanKey };
 
 export type BannerAllowance = 'none' | 'one_month' | 'unlimited';
 

@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import { formatColones } from '@/shared/utils/formatColones';
 import type { Plan } from '../api/plans';
 import { comparisonRows, type BenefitValue } from '../planBenefits';
-import { PlanBadge } from './PlanBadge';
+import { PlanBadge } from '@/shared/components/PlanBadge';
 
 function ComparisonCell({ value }: { value: BenefitValue }) {
   const translate = useTranslations('plans.comparison.values');

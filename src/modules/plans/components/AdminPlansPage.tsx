@@ -11,7 +11,7 @@ import { parseFeeInput } from '../feeForm';
 import { useFeeEditor } from '../hooks/useFeeEditor';
 import { FeeHistory } from './FeeHistory';
 import { NoticeSettings } from './NoticeSettings';
-import { PlanBadge } from './PlanBadge';
+import { PlanBadge } from '@/shared/components/PlanBadge';
 
 export function AdminPlansPage() {
   const translate = useTranslations('admin.plans');

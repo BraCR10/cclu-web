@@ -6,7 +6,7 @@ import { Card } from '@/shared/components/Card';
 import { Pagination } from '@/shared/components/Pagination';
 import { formatColones } from '@/shared/utils/formatColones';
 import type { FeeChange } from '../api/fees';
-import { PlanBadge } from './PlanBadge';
+import { PlanBadge } from '@/shared/components/PlanBadge';
 
 // A table where there is room for five columns, and one card per change on a
 // telephone, folded so the fees stay the first thing on screen.

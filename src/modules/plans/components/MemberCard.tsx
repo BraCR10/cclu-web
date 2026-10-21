@@ -8,7 +8,7 @@ import { useDates } from '@/shared/hooks/useDates';
 import { classNames } from '@/shared/utils/classNames';
 import type { Membership } from '../api/membership';
 import type { PlanKey } from '../api/plans';
-import { PlanBadge } from './PlanBadge';
+import { PlanBadge } from '@/shared/components/PlanBadge';
 
 type CardAppearance = {
   surface: string;

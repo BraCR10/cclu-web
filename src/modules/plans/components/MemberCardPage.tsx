@@ -13,7 +13,7 @@ import { MemberCardFullscreen } from './MemberCardFullscreen';
 import { MemberPlanSummary } from './MemberPlanSummary';
 import { useMembership } from '../hooks/useMembership';
 import { useSharePublicProfile } from '../hooks/useSharePublicProfile';
-import { publicProfilePath } from '../publicProfilePath';
+import { publicProfilePath } from '@/shared/utils/publicProfilePath';
 
 // The absolute address the QR carries. Only the browser knows which host it is
 // being served from, and a QR with a relative address is useless once printed,
