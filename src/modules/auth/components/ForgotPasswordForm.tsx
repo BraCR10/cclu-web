@@ -46,7 +46,7 @@ export function ForgotPasswordForm() {
   }
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-start">
+    <div className="mx-auto grid w-full max-w-4xl gap-8 py-8 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-start lg:py-12">
       <Card className="p-6 lg:max-w-xl">
         <Link
           href="/login"

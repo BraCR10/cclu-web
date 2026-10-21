@@ -3,7 +3,11 @@ import { EmailChangeConfirmation } from '@/modules/members/components/EmailChang
 const ConfirmEmail = async ({ params }: { params: Promise<{ token: string }> }) => {
   const { token } = await params;
 
-  return <EmailChangeConfirmation token={token} />;
+  return (
+    <div className="mx-auto w-full max-w-xl py-8 lg:py-12">
+      <EmailChangeConfirmation token={token} />
+    </div>
+  );
 };
 
 export default ConfirmEmail;

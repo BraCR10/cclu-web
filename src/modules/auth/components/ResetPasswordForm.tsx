@@ -82,7 +82,7 @@ export function ResetPasswordForm({ token }: { token: string }) {
 
   if (link === 'checking') {
     return (
-      <Card className="p-6 lg:max-w-xl">
+      <Card className="mx-auto my-8 w-full max-w-xl p-6 lg:my-12">
         <p className="text-body-l text-fg-secondary">{translateCommon('loading')}</p>
       </Card>
     );
@@ -90,7 +90,7 @@ export function ResetPasswordForm({ token }: { token: string }) {
 
   if (link === 'invalid') {
     return (
-      <Card className="p-6 lg:max-w-xl">
+      <Card className="mx-auto my-8 w-full max-w-xl p-6 lg:my-12">
         <h1 className="text-heading-xl text-fg">{translate('reset.invalidTitle')}</h1>
         <div className="mt-4">
           <Alert
@@ -110,7 +110,7 @@ export function ResetPasswordForm({ token }: { token: string }) {
   }
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-start">
+    <div className="mx-auto grid w-full max-w-4xl gap-8 py-8 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-start lg:py-12">
       <Card className="p-6 lg:max-w-xl">
         <h1 className="text-heading-xl text-fg">{translate('reset.title')}</h1>
 

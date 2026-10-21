@@ -39,7 +39,7 @@ export function SignOutPanel() {
   }, [router]);
 
   return (
-    <Card className="p-6 lg:max-w-xl">
+    <Card className="mx-auto my-8 w-full max-w-xl p-6 lg:my-12">
       <h1 className="text-heading-l text-fg">{translate('signOut.title')}</h1>
 
       {failed ? (

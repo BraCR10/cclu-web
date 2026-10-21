@@ -84,7 +84,7 @@ export function CorrectionForm({ token }: { token: string }) {
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 py-6 lg:py-8">
       <PageHeader
         title={translate('page.title')}
         legend={draft.businessName}
