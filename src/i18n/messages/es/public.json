@@ -226,6 +226,10 @@
           "detail": "Tu código CLU te identifica como agremiado. Con un plan pagado también publicás productos, promociones y empleos."
         }
       }
+    },
+    "carousel": {
+      "previous": "Ver anteriores",
+      "next": "Ver siguientes"
     }
   }
 }
