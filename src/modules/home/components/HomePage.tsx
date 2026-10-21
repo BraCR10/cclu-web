@@ -72,7 +72,7 @@ export function HomePage() {
             {state.home.featured.length === 0 ? (
               <EmptySection message={translate('featured.empty')} />
             ) : (
-              <CardRow>
+              <CardRow label={translate('featured.title')}>
                 {state.home.featured.map((listing) => (
                   <BusinessCard key={listing.memberCode} listing={listing} />
                 ))}
