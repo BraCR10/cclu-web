@@ -94,6 +94,30 @@ describe('the profile screen', () => {
     expect(screen.getByText('3-102-650901')).toBeVisible();
   });
 
+  // An account approved before these fields existed holds nothing for them, and
+  // the API answers null. The screen and its popups still open, with the fields
+  // empty and ready to be filled in.
+  it('opens a member whose older record lacks fields added since', async () => {
+    const user = userEvent.setup();
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+    readProfile.mockResolvedValue({
+      ...PROFILE,
+      branchName: null,
+      district: null,
+      whatsappNumber: null,
+      certificationIssuedAt: null,
+      passwordChangedAt: null,
+    });
+
+    renderPage();
+
+    await user.click((await screen.findAllByRole('button', { name: 'Editar' }))[0]);
+    expect(screen.getByRole('textbox', { name: /Nombre de la sucursal/ })).toHaveValue('');
+
+    expect(consoleError).not.toHaveBeenCalled();
+    consoleError.mockRestore();
+  });
+
   // Each section is edited in its own popup, and the body carries that section
   // only: a popup that never showed the address cannot overwrite it.
   it('edits the business in its popup and says it saved', async () => {

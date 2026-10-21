@@ -12,6 +12,7 @@ import { useDates } from '@/shared/hooks/useDates';
 import { useMemberProfile } from '../hooks/useMemberProfile';
 import { ChangeEmailModal } from './ChangeEmailModal';
 import { ProfileModal, type ProfileSection } from './ProfileModal';
+import { ProfileTabs } from './ProfileTabs';
 
 type OpenPopup = ProfileSection | 'email' | null;
 
@@ -51,6 +52,8 @@ export function ProfilePage() {
 
   return (
     <div className="flex flex-col gap-6 px-4 py-6 lg:gap-8 lg:px-8 lg:py-8">
+      <ProfileTabs active="profile" />
+
       {/* Who the chamber sees, and the way to the page the clients see. */}
       <Card className="p-6 lg:p-8">
         <div className="flex flex-wrap items-start justify-between gap-4">
@@ -105,9 +108,9 @@ export function ProfilePage() {
                   },
                   {
                     term: translate('fields.businessDescription'),
-                    detail: member.businessDescription,
+                    detail: member.businessDescription ?? '—',
                   },
-                  { term: translate('fields.branchName'), detail: member.branchName },
+                  { term: translate('fields.branchName'), detail: member.branchName ?? '—' },
                   {
                     term: translate('fields.address'),
                     detail: [member.canton?.name, member.district, member.location]
@@ -129,8 +132,8 @@ export function ProfilePage() {
             <div className="mt-4">
               <DescriptionList
                 items={[
-                  { term: translate('fields.phone'), detail: member.phone },
-                  { term: translate('fields.whatsapp'), detail: member.whatsappNumber },
+                  { term: translate('fields.phone'), detail: member.phone ?? '—' },
+                  { term: translate('fields.whatsapp'), detail: member.whatsappNumber ?? '—' },
                   { term: translate('fields.billingEmail'), detail: member.billingEmail ?? '—' },
                   { term: translate('fields.website'), detail: member.website ?? '—' },
                   {
