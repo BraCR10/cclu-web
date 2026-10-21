@@ -108,5 +108,18 @@
       "callShort": "Llamar",
       "ourBranches": "Nuestras sucursales"
     }
+  },
+  "jobs": {
+    "workdays": {
+      "full_time": "Tiempo completo",
+      "part_time": "Medio tiempo",
+      "temporary": "Temporal"
+    },
+    "card": {
+      "untitled": "Título del puesto",
+      "published": "Publicada el {date}",
+      "publishedToday": "Publicada hoy",
+      "howToApply": "Ver cómo aplicar"
+    }
   }
 }
