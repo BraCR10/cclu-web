@@ -226,5 +226,51 @@
       "status": "Estado",
       "allStatuses": "Todos"
     }
+  },
+  "reports": {
+    "catalogLabel": "Reportes predeterminados",
+    "chooseType": "Tipo de reporte",
+    "apply": "Aplicar",
+    "unavailable": "Disponible cuando existan las publicaciones",
+    "catalogFailed": "No pudimos cargar los reportes. Intentá de nuevo en unos minutos.",
+    "filtersTitle": "Filtros",
+    "generate": "Generar reporte",
+    "pending": "Elegí un reporte y sus filtros, y generalo para ver sus datos.",
+    "failed": "No pudimos generar el reporte. Intentá de nuevo.",
+    "empty": "Este reporte no tiene datos con estos filtros.",
+    "exportCsv": "Exportar CSV",
+    "exportPdf": "Exportar PDF",
+    "summary": "Mostrando {from} a {to} de {total}",
+    "filters": {
+      "canton": "Cantón",
+      "allCantons": "Todos",
+      "district": "Distrito",
+      "allDistricts": "Todos",
+      "plan": "Plan",
+      "allPlans": "Todos los planes",
+      "memberType": "Tipo de agremiado",
+      "allMemberTypes": "Todos",
+      "activity": "Actividad",
+      "allActivities": "Todas",
+      "accountStatus": "Estado de cuenta",
+      "allAccountStatuses": "Todos",
+      "from": "Desde",
+      "to": "Hasta"
+    },
+    "plans": {
+      "free": "Gratuita",
+      "lite": "Lite MiPyme",
+      "pro": "Pro Pymex",
+      "premium": "Premium Empresarial"
+    },
+    "memberTypes": {
+      "business": "Empresa",
+      "association": "Asociación",
+      "independent_professional": "Profesional independiente"
+    },
+    "accountStatuses": {
+      "active": "Activa",
+      "suspended": "Suspendida"
+    }
   }
 }
