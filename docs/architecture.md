@@ -158,6 +158,20 @@ chosen canton, because a district is typed at registration rather than picked
 from a catalog. Choosing another canton clears the district, which belonged to
 the first one. There is no filter by plan; a paid plan only shows as a badge.
 
+## Notifications
+
+The bell in the panel header shows the newest notices and how many are unread,
+for members and administrators alike: `PanelNavigation` says whose panel it is
+(`audience`) and where the full list lives (`notificationsHref`). On a desktop
+the bell opens the newest five in place; on a telephone it opens the page.
+
+The API names what happened (`payment_submitted`) and the values involved, and
+`useNotificationText` writes the sentence and picks the screen it leads to. The
+same event reads differently to the member it is about and to the panel, and a
+type this client does not know is left out rather than shown blank. The count
+refreshes every minute and on opening, and a refresh that fails keeps what is
+on screen: the bell is a hint, the page is the record.
+
 ## Panel lists
 
 Every list in the panel is put together from the same parts, so the payments,
