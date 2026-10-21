@@ -11,7 +11,9 @@ type PagedListProps = {
   list: PageInfo | null;
   loading: boolean;
   failed: boolean;
-  emptyMessage: string;
+  emptyMessage?: string;
+  // An empty state with more to it than a sentence, such as a way out.
+  emptyState?: ReactNode;
   summary?: string;
   onPageChange: (page: number) => void;
   children: ReactNode;
@@ -24,6 +26,7 @@ export function PagedList({
   loading,
   failed,
   emptyMessage,
+  emptyState,
   summary,
   onPageChange,
   children,
@@ -38,11 +41,13 @@ export function PagedList({
         <div aria-hidden className="h-80 animate-pulse rounded-lg bg-surface-hover" />
       )}
 
-      {list !== null && list.total === 0 && (
-        <p className="rounded-lg border border-line-subtle bg-surface p-6 text-body-m text-fg-secondary">
-          {emptyMessage}
-        </p>
-      )}
+      {list !== null &&
+        list.total === 0 &&
+        (emptyState ?? (
+          <p className="rounded-lg border border-line-subtle bg-surface p-6 text-body-m text-fg-secondary">
+            {emptyMessage}
+          </p>
+        ))}
 
       {list !== null && list.total > 0 && (
         <div aria-busy={loading} className="flex flex-col gap-4">
