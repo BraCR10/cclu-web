@@ -130,7 +130,10 @@ describe('the member card', () => {
     renderPage();
 
     expect(await screen.findByText('Tu carné es del plan Gratuita')).toBeVisible();
-    expect(screen.getByRole('link', { name: 'Ver planes' })).toHaveAttribute('href', '/plans');
+    expect(screen.getByRole('link', { name: 'Mejorar mi plan' })).toHaveAttribute(
+      'href',
+      '/member/membership#change-plan',
+    );
   });
 
   it('shows a paid plan with the day its term ends and no upgrade notice', async () => {
@@ -145,11 +148,89 @@ describe('the member card', () => {
     expect(screen.queryByText('Tu carné es del plan Gratuita')).toBeNull();
   });
 
-  it('copies the link to the public profile', async () => {
+  // The prototype draws one card per plan: its colour, its two hills and, on
+  // Premium alone, the sun.
+  it('draws the hills of the member plan on the card', async () => {
+    readOwnMembership.mockResolvedValue(paidMembership());
+
+    renderPage();
+
+    const card = await screen.findByRole('article');
+    const artwork = Array.from(card.querySelectorAll('img')).map((image) =>
+      image.getAttribute('src'),
+    );
+
+    expect(artwork).toEqual(
+      expect.arrayContaining([
+        expect.stringContaining('/brand/card/pro-back-hill.svg'),
+        expect.stringContaining('/brand/card/pro-hill.svg'),
+      ]),
+    );
+    expect(artwork.some((source) => source?.includes('premium-sun'))).toBe(false);
+  });
+
+  it('puts the sun on the Premium card', async () => {
+    readOwnMembership.mockResolvedValue({
+      ...paidMembership(),
+      plan: { ...PRO, key: 'premium', name: 'Premium Empresarial' },
+    });
+
+    renderPage();
+
+    const card = await screen.findByRole('article');
+    const artwork = Array.from(card.querySelectorAll('img')).map((image) =>
+      image.getAttribute('src'),
+    );
+
+    expect(artwork).toEqual(
+      expect.arrayContaining([expect.stringContaining('/brand/card/premium-sun.svg')]),
+    );
+  });
+
+  // At the counter the card is shown, not read: it opens on its own, as large as
+  // the screen allows, so the QR scans at arm's length.
+  it('shows the card on its own, large, to hold up at the counter', async () => {
     const user = userEvent.setup();
     renderPage();
 
-    await user.click(await screen.findByRole('button', { name: 'Copiar enlace de la ficha' }));
+    await user.click(await screen.findByRole('button', { name: 'Mostrar carné' }));
+
+    const shown = await screen.findByRole('dialog', { name: 'Tu carné' });
+    expect(shown).toHaveAttribute('data-presentation', 'fullscreen');
+    expect(within(shown).getByText('Café Loma Verde')).toBeVisible();
+    expect(within(shown).getByText('CLU001')).toBeVisible();
+    expect(within(shown).getByTestId('qr')).toHaveAttribute(
+      'data-value',
+      'http://localhost:3000/directory/CLU001',
+    );
+
+    await user.click(within(shown).getByRole('button', { name: 'Cerrar' }));
+    expect(screen.queryByRole('dialog')).toBeNull();
+  });
+
+  // A telephone shares through its own sheet; a browser without one copies the
+  // link instead, so the button always does something.
+  it('shares the public profile through the share sheet when there is one', async () => {
+    const user = userEvent.setup();
+    const share = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(window.navigator, 'share', { value: share, configurable: true });
+
+    renderPage();
+    await user.click(await screen.findByRole('button', { name: 'Compartir' }));
+
+    expect(share).toHaveBeenCalledWith({
+      title: 'Café Loma Verde',
+      url: 'http://localhost:3000/directory/CLU001',
+    });
+
+    Reflect.deleteProperty(window.navigator, 'share');
+  });
+
+  it('copies the link to the public profile when there is no share sheet', async () => {
+    const user = userEvent.setup();
+    renderPage();
+
+    await user.click(await screen.findByRole('button', { name: 'Compartir' }));
 
     expect(await window.navigator.clipboard.readText()).toBe(
       'http://localhost:3000/directory/CLU001',
@@ -157,15 +238,121 @@ describe('the member card', () => {
     expect(await screen.findByText('Copiamos el enlace de tu ficha.')).toBeVisible();
   });
 
-  it('sends the card to the printer when it is downloaded', async () => {
+  it('sends the card to the printer', async () => {
     const user = userEvent.setup();
     const print = vi.spyOn(window, 'print').mockImplementation(() => {});
 
     renderPage();
-    await user.click(await screen.findByRole('button', { name: 'Descargar' }));
+    await user.click(await screen.findByRole('button', { name: 'Imprimir' }));
 
     expect(print).toHaveBeenCalledOnce();
     print.mockRestore();
+  });
+
+  // The member checks what a customer sees without leaving their card behind.
+  it('opens the public profile in a new tab from a button beside the others', async () => {
+    renderPage();
+
+    const link = await screen.findByRole('link', { name: /Ver mi ficha/ });
+
+    expect(link).toHaveAttribute('href', '/directory/CLU001');
+    expect(link).toHaveAttribute('target', '_blank');
+    expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+    expect(link).toHaveAccessibleName('Ver mi ficha (se abre en una pestaña nueva)');
+  });
+
+  // The card already says who, which code and until when. Beside it goes what
+  // the member can do about their plan, never the same data a second time.
+  it('does not repeat the card data beside it', async () => {
+    readOwnMembership.mockResolvedValue(paidMembership());
+
+    renderPage();
+
+    await screen.findByRole('article');
+    expect(screen.queryByRole('heading', { name: 'Datos del carné' })).toBeNull();
+    expect(screen.queryByText(/http:\/\/localhost:3000\/directory/)).toBeNull();
+  });
+
+  // Beside the card goes what the card cannot say: what the plan lets the member
+  // do and how long it has left, never the plan or the date a second time.
+  it('lists what the plan includes and how many days it has left', async () => {
+    readOwnMembership.mockResolvedValue(paidMembership());
+
+    renderPage();
+
+    const included = await screen.findByRole('list', { name: 'Lo que incluye tu plan' });
+    expect(
+      within(included).getByText('Publicar productos, promociones y descuentos'),
+    ).toBeVisible();
+    expect(within(included).queryByText('Carné digital con QR')).toBeNull();
+    expect(screen.getByText(/Te quedan? \d+ días?/)).toBeVisible();
+    expect(screen.getAllByText('Pro Pymex')).toHaveLength(1);
+  });
+
+  it('shows no countdown for Gratuita, which does not expire', async () => {
+    renderPage();
+
+    await screen.findByRole('list', { name: 'Lo que incluye tu plan' });
+    expect(screen.queryByText(/Te quedan? \d+ días?/)).toBeNull();
+  });
+
+  it('offers to renew a paid plan once the renewal is open', async () => {
+    readOwnMembership.mockResolvedValue(paidMembership());
+
+    renderPage();
+
+    expect(await screen.findByRole('link', { name: 'Renovar' })).toHaveAttribute(
+      'href',
+      '/member/payments/new?plan=pro',
+    );
+  });
+
+  it('says when a paid plan can be renewed while the renewal is not open yet', async () => {
+    readOwnMembership.mockResolvedValue(paidMembership());
+    readPaymentEligibility.mockResolvedValue({
+      ...ELIGIBILITY,
+      canSubmit: false,
+      reason: 'renewal_not_open',
+      opensOn: '2026-11-23',
+    });
+
+    renderPage();
+
+    expect(await screen.findByText(/Podés renovar desde el/)).toBeVisible();
+    expect(screen.queryByRole('link', { name: 'Renovar' })).toBeNull();
+  });
+
+  it('says a payment is being reviewed instead of offering another', async () => {
+    readOwnMembership.mockResolvedValue(paidMembership());
+    readPaymentEligibility.mockResolvedValue({
+      ...ELIGIBILITY,
+      canSubmit: false,
+      reason: 'payment_pending',
+      pendingPaymentId: 'payment-1',
+    });
+
+    renderPage();
+
+    expect(await screen.findByText('Estamos revisando tu pago.')).toBeVisible();
+    expect(screen.queryByRole('link', { name: 'Renovar' })).toBeNull();
+  });
+
+  it('offers to renew the plan that lapsed', async () => {
+    readOwnMembership.mockResolvedValue({
+      ...freeMembership(),
+      lapsed: {
+        plan: { key: 'pro', name: 'Pro Pymex' },
+        expiresAt: '2026-09-01T06:00:00.000Z',
+        validUntil: '2026-08-31',
+      },
+    });
+
+    renderPage();
+
+    expect(await screen.findByRole('link', { name: 'Renovar Pro Pymex' })).toHaveAttribute(
+      'href',
+      '/member/payments/new?plan=pro',
+    );
   });
 
   it('says the card could not be loaded when the membership fails', async () => {

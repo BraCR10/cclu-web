@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import { useModalBehavior } from '@/shared/hooks/useModalBehavior';
 import { classNames } from '@/shared/utils/classNames';
 
-export type ModalPresentation = 'popup' | 'sheet';
+export type ModalPresentation = 'popup' | 'sheet' | 'fullscreen';
 
 type ModalLayerProps = {
   open: boolean;
@@ -21,6 +21,7 @@ type ModalLayerProps = {
 const PANEL_CLASSES: Record<ModalPresentation, string> = {
   popup: 'm-auto w-full max-w-[30rem] rounded-xl p-6',
   sheet: 'mt-auto max-h-[90dvh] w-full overflow-y-auto rounded-t-xl px-4 pt-2 pb-6',
+  fullscreen: 'h-dvh w-full overflow-y-auto px-4 py-4 lg:px-8',
 };
 
 // The one place a dialog is assembled. Dialog and BottomSheet only choose how
@@ -42,7 +43,10 @@ export function ModalLayer({
   }
 
   return createPortal(
-    <div className="fixed inset-0 z-50 flex p-0 lg:p-4" onKeyDown={handleKeyDown}>
+    <div
+      className={classNames('fixed inset-0 z-50 flex', presentation !== 'fullscreen' && 'lg:p-4')}
+      onKeyDown={handleKeyDown}
+    >
       <div
         data-testid="modal-scrim"
         aria-hidden

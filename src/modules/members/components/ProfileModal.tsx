@@ -39,14 +39,14 @@ function text(value: string | null | undefined): string {
 function draftFor(section: ProfileSection, profile: MemberProfile): Record<string, string> {
   if (section === 'business') {
     return {
-      businessName: profile.businessName,
+      businessName: text(profile.businessName),
       managerName: text(profile.managerName),
-      businessDescription: profile.businessDescription,
+      businessDescription: text(profile.businessDescription),
       activity: text(profile.activity?._id),
       activityOther: text(profile.activityOther),
-      branchName: profile.branchName,
+      branchName: text(profile.branchName),
       canton: text(profile.canton?._id),
-      district: profile.district,
+      district: text(profile.district),
       institutionalPhone: text(profile.institutionalPhone),
       location: text(profile.location),
     };
@@ -54,8 +54,8 @@ function draftFor(section: ProfileSection, profile: MemberProfile): Record<strin
 
   if (section === 'contact') {
     return {
-      phone: profile.phone,
-      whatsappNumber: profile.whatsappNumber,
+      phone: text(profile.phone),
+      whatsappNumber: text(profile.whatsappNumber),
       billingEmail: text(profile.billingEmail),
       website: text(profile.website),
       instagram: text(profile.instagram),

@@ -108,9 +108,9 @@ export function ProfilePage() {
                   },
                   {
                     term: translate('fields.businessDescription'),
-                    detail: member.businessDescription,
+                    detail: member.businessDescription ?? '—',
                   },
-                  { term: translate('fields.branchName'), detail: member.branchName },
+                  { term: translate('fields.branchName'), detail: member.branchName ?? '—' },
                   {
                     term: translate('fields.address'),
                     detail: [member.canton?.name, member.district, member.location]
@@ -132,8 +132,8 @@ export function ProfilePage() {
             <div className="mt-4">
               <DescriptionList
                 items={[
-                  { term: translate('fields.phone'), detail: member.phone },
-                  { term: translate('fields.whatsapp'), detail: member.whatsappNumber },
+                  { term: translate('fields.phone'), detail: member.phone ?? '—' },
+                  { term: translate('fields.whatsapp'), detail: member.whatsappNumber ?? '—' },
                   { term: translate('fields.billingEmail'), detail: member.billingEmail ?? '—' },
                   { term: translate('fields.website'), detail: member.website ?? '—' },
                   {
