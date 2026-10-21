@@ -1,15 +1,11 @@
 import { requestApi } from '@/shared/api/apiClient';
 
-export type CatalogCanton = {
-  _id: string;
-  name: string;
-  province: string;
-};
-
-export type CatalogActivity = {
-  _id: string;
-  name: string;
-};
+export {
+  readActivities,
+  readCantons,
+  type CatalogActivity,
+  type CatalogCanton,
+} from '@/shared/api/catalogs';
 
 export type UploadPurpose = 'membership-certifications' | 'member-logos';
 
@@ -88,14 +84,6 @@ export const EMPTY_DRAFT: RegistrationDraft = {
   passwordConfirmation: '',
   consents: { statutes: false, marketplaceTerms: false, privacyPolicy: false },
 };
-
-export function readCantons() {
-  return requestApi<CatalogCanton[]>('/api/cantons');
-}
-
-export function readActivities() {
-  return requestApi<CatalogActivity[]>('/api/activities');
-}
 
 // The uploaded name is never the key the file is stored under, so a person is
 // free to call their certification whatever they like.
