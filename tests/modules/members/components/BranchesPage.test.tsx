@@ -7,6 +7,8 @@ import type { Branch } from '@/modules/members/api/branches';
 import { renderWithIntl } from '../../../support/renderWithIntl';
 import { viewportIsDesktop } from '../../../support/viewport';
 
+const TYPING_TIMEOUT_IN_MILLISECONDS = 15_000;
+
 const readBranches = vi.fn();
 const createBranch = vi.fn();
 const updateBranch = vi.fn();
@@ -100,32 +102,38 @@ describe('the branches screen', () => {
     expect(screen.getByText('La patente solo la ve la Cámara.')).toBeVisible();
   });
 
-  it('adds a branch from its popup', async () => {
-    const user = userEvent.setup();
-    renderPage();
+  // Typing four fields key by key outlasts the default five seconds when the
+  // whole suite runs at once.
+  it(
+    'adds a branch from its popup',
+    async () => {
+      const user = userEvent.setup();
+      renderPage();
 
-    await user.click(await screen.findByRole('button', { name: 'Agregar sucursal' }));
+      await user.click(await screen.findByRole('button', { name: 'Agregar sucursal' }));
 
-    const dialog = within(screen.getByRole('dialog'));
+      const dialog = within(screen.getByRole('dialog'));
 
-    await user.type(dialog.getByLabelText('Nombre de la sucursal'), 'Sucursal Curridabat');
-    await user.selectOptions(dialog.getByLabelText('Cantón'), '65f0c3a1b2c3d4e5f6a7b8ca');
-    await user.type(dialog.getByLabelText('Distrito'), 'Granadilla');
-    await user.type(dialog.getByLabelText('Dirección exacta'), '100 m sur del parque');
-    await user.click(dialog.getByRole('button', { name: 'Guardar' }));
+      await user.type(dialog.getByLabelText('Nombre de la sucursal'), 'Sucursal Curridabat');
+      await user.selectOptions(dialog.getByLabelText('Cantón'), '65f0c3a1b2c3d4e5f6a7b8ca');
+      await user.type(dialog.getByLabelText('Distrito'), 'Granadilla');
+      await user.type(dialog.getByLabelText('Dirección exacta'), '100 m sur del parque');
+      await user.click(dialog.getByRole('button', { name: 'Guardar' }));
 
-    await waitFor(() =>
-      expect(createBranch).toHaveBeenCalledWith(
-        expect.objectContaining({
-          name: 'Sucursal Curridabat',
-          canton: '65f0c3a1b2c3d4e5f6a7b8ca',
-          district: 'Granadilla',
-          address: '100 m sur del parque',
-        }),
-      ),
-    );
-    expect(await screen.findByRole('heading', { name: 'Sucursal Curridabat' })).toBeVisible();
-  });
+      await waitFor(() =>
+        expect(createBranch).toHaveBeenCalledWith(
+          expect.objectContaining({
+            name: 'Sucursal Curridabat',
+            canton: '65f0c3a1b2c3d4e5f6a7b8ca',
+            district: 'Granadilla',
+            address: '100 m sur del parque',
+          }),
+        ),
+      );
+      expect(await screen.findByRole('heading', { name: 'Sucursal Curridabat' })).toBeVisible();
+    },
+    TYPING_TIMEOUT_IN_MILLISECONDS,
+  );
 
   it('edits a branch and keeps what the popup never showed', async () => {
     const user = userEvent.setup();
