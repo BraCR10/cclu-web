@@ -397,5 +397,50 @@
         "toProfile": "Ir a mi perfil"
       }
     }
+  },
+  "vacancies": {
+    "title": "Mis vacantes",
+    "new": "Nueva vacante",
+    "empty": "Todavía no publicaste vacantes.",
+    "published": "Vacante publicada",
+    "deleted": "Vacante eliminada",
+    "deleteNamed": "Eliminar {title}",
+    "status": {
+      "active": "Activa",
+      "inactive": "Inactiva"
+    },
+    "columns": {
+      "title": "Puesto",
+      "workday": "Jornada",
+      "published": "Publicada",
+      "status": "Estado",
+      "actions": "Acciones"
+    },
+    "locked": {
+      "title": "Publicar vacantes está disponible con un plan pagado",
+      "seePlans": "Ver planes",
+      "compare": "Comparar beneficios"
+    },
+    "confirmDelete": {
+      "title": "Eliminar vacante",
+      "message": "«{title}» dejará de aparecer en la bolsa de empleo.",
+      "cancel": "Cancelar",
+      "confirm": "Eliminar"
+    },
+    "form": {
+      "title": "Título del puesto",
+      "description": "Descripción",
+      "requirements": "Requisitos",
+      "requirementsHelp": "Escribí un requisito por línea o separalos con punto.",
+      "branch": "Ubicación del trabajo (sucursal)",
+      "workday": "Jornada",
+      "howToApply": "Cómo aplicar",
+      "howToApplyHelp": "Las personas interesadas te contactan directo. No hay postulación en línea.",
+      "choose": "Elegí una opción",
+      "cancel": "Cancelar",
+      "publish": "Publicar vacante",
+      "preview": "Vista previa",
+      "required": "Completá este campo."
+    }
   }
 }

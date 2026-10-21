@@ -179,6 +179,14 @@ type this client does not know is left out rather than shown blank. The count
 refreshes every minute and on opening, and a refresh that fails keeps what is
 on screen: the bell is a hint, the page is the record.
 
+## Vacancies
+
+`/member/vacancies` lists the member's vacancies, in `modules/jobs`. Whether
+the plan allows publishing comes with the list (`canPublish`), so a member on
+Gratuita sees what unlocks it instead of a form the API would refuse.
+`/member/vacancies/new` previews the vacancy with `VacancyCard`, the card the
+job board shows, so the member sees what a visitor will. Deleting asks first.
+
 ## Panel lists
 
 Every list in the panel is put together from the same parts, so the payments,
