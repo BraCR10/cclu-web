@@ -70,6 +70,43 @@
       "online": "En línea",
       "otherBranches": "{count, plural, one {+# sucursal} other {+# sucursales}}",
       "verified": "Agremiado verificado"
+    },
+    "profile": {
+      "back": "Volver al directorio",
+      "verified": "Agremiado verificado",
+      "code": "Código {code}",
+      "activity": "Actividad",
+      "membership": "Membresía",
+      "whatsapp": "Escribir por WhatsApp",
+      "call": "Llamar al {phone}",
+      "information": "Información",
+      "story": "Nuestra historia",
+      "branches": "Sucursales",
+      "publications": "Publicaciones",
+      "primaryBranch": "Principal",
+      "hours": "Horario",
+      "closed": "Cerrado",
+      "dayRange": "{from} a {to}",
+      "hoursRange": "{opensAt} a {closesAt}",
+      "directions": "Cómo llegar",
+      "contact": "Contacto",
+      "whatsappNumber": "WhatsApp {number}",
+      "categories": "Categorías",
+      "affiliation": "Afiliación a la Cámara",
+      "memberSince": "Agremiado desde",
+      "notListed": "Este comercio no está en el directorio",
+      "days": {
+        "monday": "Lunes",
+        "tuesday": "Martes",
+        "wednesday": "Miércoles",
+        "thursday": "Jueves",
+        "friday": "Viernes",
+        "saturday": "Sábado",
+        "sunday": "Domingo"
+      },
+      "whatsappShort": "WhatsApp",
+      "callShort": "Llamar",
+      "ourBranches": "Nuestras sucursales"
     }
   }
 }

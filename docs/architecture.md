@@ -158,6 +158,13 @@ chosen canton, because a district is typed at registration rather than picked
 from a catalog. Choosing another canton clears the district, which belonged to
 the first one. There is no filter by plan; a paid plan only shows as a badge.
 
+`/directory/[memberCode]` is one business's public page, the address its card's
+QR carries, so the path never changes. A branch shows its own hours when it
+wrote them and the shop's week otherwise, with neighbouring days that keep the
+same hours joined into one line. Numbers are dialled and opened in WhatsApp
+from their digits, so a member who wrote +506 or dashes still gets a working
+link. The publications section says it is under construction until it exists.
+
 ## Notifications
 
 The bell in the panel header shows the newest notices and how many are unread,
