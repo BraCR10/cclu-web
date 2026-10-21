@@ -57,5 +57,25 @@
   },
   "reason": {
     "length": "Escribí un motivo de entre {minimum} y {maximum} caracteres."
+  },
+  "notifications": {
+    "title": "Notificaciones",
+    "open": "Notificaciones",
+    "openWithUnread": "Notificaciones, {count, plural, one {# sin leer} other {# sin leer}}",
+    "markAllRead": "Marcar todas como leídas",
+    "seeAll": "Ver todas las notificaciones",
+    "empty": "No tenés notificaciones.",
+    "admin": {
+      "application_submitted": "{businessName} envió una solicitud de afiliación",
+      "application_resubmitted": "{businessName} corrigió su solicitud",
+      "payment_submitted": "{businessName} registró un pago de {amount}",
+      "membership_expiring": "La membresía {planName} de {businessName} vence el {validUntil}"
+    },
+    "member": {
+      "payment_approved": "Aprobamos tu pago de {amount}. Tu membresía vence el {validUntil}.",
+      "payment_rejected": "Rechazamos tu pago de {amount}: {reason}",
+      "membership_expiring": "Tu plan {planName} vence el {validUntil}. Renovalo para no perder sus beneficios.",
+      "membership_lapsed": "Tu plan {planName} venció y volviste a Gratuita."
+    }
   }
 }

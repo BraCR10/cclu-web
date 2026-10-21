@@ -1,3 +1,4 @@
+import type { NotificationAudience } from '@/shared/api/notifications';
 import type { LucideIcon } from 'lucide-react';
 
 export type NavigationItem = {
@@ -15,7 +16,9 @@ export type NavigationGroup = {
 
 export type PanelNavigation = {
   readonly contextKey: string;
+  readonly audience: NotificationAudience;
   readonly profileHref: string;
+  readonly notificationsHref: string;
   readonly sidebar: readonly NavigationGroup[];
   readonly bottomNav: readonly NavigationItem[];
   readonly more: readonly NavigationGroup[];

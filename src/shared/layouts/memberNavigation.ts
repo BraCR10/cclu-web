@@ -54,7 +54,9 @@ const vacancies: NavigationItem = {
 
 export const memberNavigation: PanelNavigation = {
   contextKey: 'member.context',
+  audience: 'member',
   profileHref: profile.href,
+  notificationsHref: '/member/notifications',
   sidebar: [
     { id: 'main', items: [home, profile, card, membership, payments, publications, vacancies] },
   ],

@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import { classNames } from '@/shared/utils/classNames';
 import { BottomNav } from './BottomNav';
 import { Logo } from './Logo';
+import { NotificationBell } from './NotificationBell';
 import { SkipLink } from './SkipLink';
 import { ProfileMenu, type Viewer } from './ProfileMenu';
 import { findActiveItem, itemsOf, type PanelNavigation } from './navigation';
@@ -21,6 +22,7 @@ type PanelShellProps = {
 export function PanelShell({ navigation, viewer, children }: PanelShellProps) {
   const pathname = usePathname();
   const translate = useTranslations('common.shell');
+  const translateNotifications = useTranslations('common.notifications');
   const labelOf = useNavigationLabel();
   const context = labelOf(navigation.contextKey);
   const allItems = [...itemsOf(navigation.sidebar), ...navigation.bottomNav];
@@ -74,8 +76,16 @@ export function PanelShell({ navigation, viewer, children }: PanelShellProps) {
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b border-line-subtle bg-surface pr-2 pl-4 lg:h-16 lg:px-8">
           <h1 className="flex-1 truncate font-display text-heading-m text-fg lg:text-heading-l">
-            {active ? labelOf(active.labelKey) : context}
+            {pathname === navigation.notificationsHref
+              ? translateNotifications('title')
+              : active
+                ? labelOf(active.labelKey)
+                : context}
           </h1>
+          <NotificationBell
+            audience={navigation.audience}
+            notificationsHref={navigation.notificationsHref}
+          />
           <ProfileMenu viewer={viewer} profileHref={navigation.profileHref} />
         </header>
         <main id="content" className="flex flex-1 flex-col pb-24 lg:pb-0">

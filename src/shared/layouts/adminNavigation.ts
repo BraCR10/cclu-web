@@ -33,7 +33,9 @@ const profile = adminItem('profile', '/profile', User);
 
 export const adminNavigation: PanelNavigation = {
   contextKey: 'admin.context',
+  audience: 'admin',
   profileHref: profile.href,
+  notificationsHref: '/admin/notifications',
   sidebar: [
     { id: 'general', labelKey: 'admin.groups.general', items: [overview] },
     {
