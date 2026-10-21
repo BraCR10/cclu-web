@@ -72,3 +72,48 @@ export async function readBranchOptions(): Promise<VacancyBranch[]> {
     canton: branch.canton?.name ?? null,
   }));
 }
+
+export type BoardVacancy = {
+  id: string;
+  title: string;
+  workday: Workday;
+  publishedAt: string;
+  branch: (VacancyBranch & { address?: string | null }) | null;
+  business: { name: string; memberCode: string };
+};
+
+export type BoardVacancyDetail = BoardVacancy & {
+  description: string;
+  requirements: string | null;
+  howToApply: string;
+  business: {
+    name: string;
+    memberCode: string;
+    whatsappNumber: string | null;
+    logoFileKey: string | null;
+  };
+};
+
+export type BoardFilters = { canton: string; district: string; workday: Workday | '' };
+
+export const NO_BOARD_FILTERS: BoardFilters = { canton: '', district: '', workday: '' };
+
+export function readBoard({
+  search,
+  page,
+  ...filters
+}: BoardFilters & { search: string; page: number }) {
+  const query = new URLSearchParams({ page: String(page) });
+
+  for (const [name, value] of Object.entries({ search: search.trim(), ...filters })) {
+    if (value !== '') {
+      query.set(name, value);
+    }
+  }
+
+  return requestApi<Paginated<BoardVacancy>>(`/api/vacancies?${query.toString()}`);
+}
+
+export function readBoardVacancy(vacancyId: string) {
+  return requestApi<BoardVacancyDetail>(`/api/vacancies/${encodeURIComponent(vacancyId)}`);
+}

@@ -120,6 +120,37 @@
       "published": "Publicada el {date}",
       "publishedToday": "Publicada hoy",
       "howToApply": "Ver cómo aplicar"
+    },
+    "title": "Bolsa de empleo",
+    "searchLabel": "Buscar vacantes",
+    "searchPlaceholder": "Buscar por puesto",
+    "summary": "Mostrando {from} a {to} de {total} vacantes",
+    "empty": "No hay vacantes con esos filtros.",
+    "filters": {
+      "title": "Filtros",
+      "canton": "Cantón",
+      "allCantons": "Todos los cantones",
+      "district": "Distrito",
+      "allDistricts": "Todos los distritos",
+      "workday": "Jornada",
+      "allWorkdays": "Todas las jornadas"
+    },
+    "noResumes": {
+      "title": "La Cámara no recibe currículums",
+      "message": "Cada comercio indica cómo aplicar: por WhatsApp, por correo o en persona."
+    },
+    "detail": {
+      "back": "Volver a la bolsa de empleo",
+      "published": "Publicada el {date}",
+      "whatYouDo": "Qué vas a hacer",
+      "requirements": "Requisitos",
+      "howToApply": "Cómo aplicar",
+      "location": "Ver ubicación",
+      "hiring": "La contratación la hace directamente el comercio. La Cámara solo publica la vacante.",
+      "postedBy": "Publicado por",
+      "verified": "Agremiado verificado",
+      "seeBusiness": "Ver ficha del comercio",
+      "notAvailable": "Esta vacante ya no está disponible"
     }
   },
   "subscription": {

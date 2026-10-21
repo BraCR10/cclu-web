@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import { Select } from '@/shared/components/Select';
 import type { CatalogActivity, CatalogCanton } from '@/shared/api/catalogs';
 import type { DirectoryFilters } from '../api/directory';
-import { useDistricts } from '../hooks/useDirectoryCatalogs';
+import { useDistricts } from '@/shared/hooks/useDistricts';
 
 type DirectoryFilterFieldsProps = {
   filters: DirectoryFilters;
