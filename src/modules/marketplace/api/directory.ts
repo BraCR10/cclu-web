@@ -41,3 +41,44 @@ export function readDistricts(canton: string) {
 export function logoUrl(logoFileKey: string) {
   return buildApiUrl(`/api/files/${encodeURIComponent(logoFileKey)}`);
 }
+
+export type ShopDay =
+  'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday';
+
+export type ShopDayHours =
+  | { day: ShopDay; closed: true }
+  | { day: ShopDay; closed: false; opensAt: string | null; closesAt: string | null };
+
+export type PublicBranch = {
+  name: string;
+  isPrimary: boolean;
+  canton: string | null;
+  district: string | null;
+  address: string | null;
+  phone: string | null;
+  schedule: string | null;
+};
+
+export type PublicProfile = {
+  memberCode: string;
+  businessName: string;
+  businessDescription: string | null;
+  activity: string | null;
+  canton: string | null;
+  phone: string | null;
+  whatsappNumber: string | null;
+  instagram: string | null;
+  facebook: string | null;
+  linkedin: string | null;
+  website: string | null;
+  logoFileKey: string | null;
+  affiliatedSince: string;
+  plan: { key: Exclude<PlanKey, 'free'>; name: string } | null;
+  branches: PublicBranch[];
+  categories: string[];
+  schedule: ShopDayHours[];
+};
+
+export function readPublicProfile(memberCode: string) {
+  return requestApi<PublicProfile>(`/api/directory/${encodeURIComponent(memberCode)}`);
+}
