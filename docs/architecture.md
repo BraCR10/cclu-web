@@ -147,6 +147,17 @@ The shop sends the week whole, the same way. A day left out is a day the API
 stores as closed, so the screen never has to guess whether an absent pair of
 hours means "not set" or "never open".
 
+## The directory
+
+`/directory` is the chamber's public roll, in `modules/marketplace`. It is
+built from the same parts as a panel list, `usePagedList`, `FilterSheet` and
+`PagedList`, with a grid of cards on a desktop instead of a table.
+
+The district filter offers what `GET /api/directory/districts` answers for the
+chosen canton, because a district is typed at registration rather than picked
+from a catalog. Choosing another canton clears the district, which belonged to
+the first one. There is no filter by plan; a paid plan only shows as a badge.
+
 ## Panel lists
 
 Every list in the panel is put together from the same parts, so the payments,
