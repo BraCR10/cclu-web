@@ -169,5 +169,63 @@
     "thanks": "Gracias por suscribirte",
     "required": "Completá este campo.",
     "consentRequired": "Para suscribirte, aceptá recibir promociones."
+  },
+  "home": {
+    "failed": "No pudimos cargar la portada. Intentá de nuevo en unos minutos.",
+    "hero": {
+      "title": "Los comercios de La Unión, en un solo lugar",
+      "lead": "Encontrá negocios verificados por la Cámara, sus promociones y empleos. Si tenés un negocio, afiliate gratis y empezá a vender en tu cantón.",
+      "searchLabel": "Buscar en el directorio",
+      "searchPlaceholder": "Buscá comercios por nombre o código",
+      "search": "Buscar",
+      "join": "Afiliar mi negocio",
+      "plans": "Ver planes de membresía",
+      "members": "comercios agremiados",
+      "vacancies": "empleos disponibles"
+    },
+    "featured": {
+      "title": "Comercios destacados",
+      "link": "Ver directorio",
+      "empty": "Todavía no hay comercios destacados."
+    },
+    "promotions": {
+      "title": "Promociones",
+      "empty": "Todavía no hay promociones vigentes."
+    },
+    "vacancies": {
+      "title": "Empleos en La Unión",
+      "link": "Ver bolsa de empleo",
+      "empty": "Todavía no hay vacantes publicadas."
+    },
+    "quickLinks": {
+      "label": "Accesos",
+      "jobs": "Ver empleos",
+      "discounts": "Ver descuentos para agremiados"
+    },
+    "plans": {
+      "title": "Afiliarte es gratis. Crecer depende de vos.",
+      "lead": "Con un plan pagado publicás productos, promociones, descuentos y vacantes, y tu comercio aparece en el marketplace.",
+      "compare": "Comparar planes",
+      "perMonth": "al mes",
+      "onApproval": "al aprobarse"
+    },
+    "joining": {
+      "title": "Afiliarte toma tres pasos",
+      "start": "Empezar mi solicitud",
+      "steps": {
+        "apply": {
+          "title": "Enviá tu solicitud",
+          "detail": "Completá el formulario con los datos de tu negocio. Toma unos 10 minutos."
+        },
+        "review": {
+          "title": "La Cámara la revisa",
+          "detail": "Verificamos tu identificación y tu actividad. Te respondemos por correo en un máximo de 5 días hábiles."
+        },
+        "code": {
+          "title": "Recibí tu código y aparecé en el directorio",
+          "detail": "Tu código CLU te identifica como agremiado. Con un plan pagado también publicás productos, promociones y empleos."
+        }
+      }
+    }
   }
 }
