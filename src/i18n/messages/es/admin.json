@@ -154,5 +154,48 @@
       "approved": "Todavía no hay pagos aprobados.",
       "rejected": "No hay pagos rechazados."
     }
+  },
+  "summary": {
+    "greeting": {
+      "morning": "Buenos días, {name}",
+      "afternoon": "Buenas tardes, {name}",
+      "evening": "Buenas noches, {name}"
+    },
+    "kpis": {
+      "thisMonth": "+{count} este mes",
+      "underConstruction": "{label}, en construcción",
+      "members": "Agremiados",
+      "applications": "Solicitudes pendientes",
+      "payments": "Pagos por revisar",
+      "paidMemberships": "Membresías pagadas activas",
+      "publications": "Publicaciones activas",
+      "vacancies": "Vacantes activas"
+    },
+    "pending": {
+      "title": "Pendientes de hoy",
+      "oldest": "La más antigua espera desde el {date}.",
+      "applications": {
+        "count": "{count, plural, =0 {Sin solicitudes de registro} one {# solicitud de registro} other {# solicitudes de registro}}",
+        "review": "Revisar solicitudes"
+      },
+      "payments": {
+        "count": "{count, plural, =0 {Sin pagos por revisar} one {# pago por revisar} other {# pagos por revisar}}",
+        "review": "Revisar pagos"
+      }
+    },
+    "expiring": {
+      "title": "Vencen en los próximos {days} días",
+      "seeAll": "Ver membresías",
+      "none": "Ninguna membresía vence en estos días.",
+      "expires": "Vence {date}"
+    },
+    "byPlan": {
+      "title": "Membresías por plan",
+      "percent": "{percent} %"
+    },
+    "activity": {
+      "title": "Actividad reciente",
+      "none": "Todavía no hay actividad."
+    }
   }
 }
