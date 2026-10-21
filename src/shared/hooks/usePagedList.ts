@@ -16,12 +16,13 @@ type Answer<Filters, List> = { request: Request<Filters>; list: List | null; fai
 export function usePagedList<Filters extends object, List>(
   read: (query: PagedQuery<Filters>) => Promise<List>,
   initialFilters: Filters,
+  initialSearch = '',
 ) {
   const [request, setRequest] = useState<Request<Filters>>(() => ({
-    query: { ...initialFilters, search: '', page: FIRST_PAGE },
+    query: { ...initialFilters, search: initialSearch, page: FIRST_PAGE },
     version: 0,
   }));
-  const [searchDraft, setSearchDraft] = useState('');
+  const [searchDraft, setSearchDraft] = useState(initialSearch);
   const [answer, setAnswer] = useState<Answer<Filters, List> | null>(null);
 
   useEffect(() => {

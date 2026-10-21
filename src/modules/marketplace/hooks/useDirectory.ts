@@ -9,9 +9,11 @@ import {
   type DirectoryListing,
 } from '../api/directory';
 
-export function useDirectory() {
+// A search typed on the home page arrives already applied.
+export function useDirectory(initialSearch = '') {
   return usePagedList<DirectoryFilters, Paginated<DirectoryListing>>(
     readDirectory,
     NO_DIRECTORY_FILTERS,
+    initialSearch,
   );
 }
