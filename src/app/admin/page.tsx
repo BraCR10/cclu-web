@@ -1,5 +1,5 @@
-import { UnderConstruction } from '@/shared/components/UnderConstruction';
+import { AdminSummaryPage } from '@/modules/admin/components/AdminSummaryPage';
 
-export default function AdminPageUnderConstruction() {
-  return <UnderConstruction headingLevel={2} />;
+export default function AdminHome() {
+  return <AdminSummaryPage />;
 }

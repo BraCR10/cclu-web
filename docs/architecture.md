@@ -194,6 +194,15 @@ requirements are written one per line or separated by periods, and the detail
 reads them back as a list either way. A vacancy that left the board says it is
 no longer available.
 
+## The administration summary
+
+`/admin` opens on the day: the figures, each leading to the screen that lists
+it, what is waiting for review, the memberships expiring within the chamber's
+notice, the members by plan and the latest of the administrator's own notices.
+It lives in `modules/admin` and reads `GET /api/admin/summary` once on arrival.
+A figure for something not built yet, such as the publications, says it is
+under construction instead of showing a zero that reads as a fact.
+
 ## Panel lists
 
 Every list in the panel is put together from the same parts, so the payments,
