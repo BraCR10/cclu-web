@@ -4,13 +4,13 @@ import { useState } from 'react';
 import { FileText } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Alert } from '@/shared/components/Alert';
-import { Avatar } from '@/shared/components/Avatar';
 import { Button } from '@/shared/components/Button';
 import { ChipGroup } from '@/shared/components/ChipGroup';
-import { Pagination } from '@/shared/components/Pagination';
+import { DataList, NameCell, type DataColumn } from '@/shared/components/DataList';
+import { ListCard } from '@/shared/components/ListCard';
+import { PagedList } from '@/shared/components/PagedList';
 import { SearchField } from '@/shared/components/SearchField';
 import { useDates } from '@/shared/hooks/useDates';
-import { classNames } from '@/shared/utils/classNames';
 import { formatColones } from '@/shared/utils/formatColones';
 import type { AdminPayment, PaymentStatus } from '../api/payments';
 import { useAdminPayments } from '../hooks/useAdminPayments';
@@ -33,7 +33,6 @@ function daysWaiting(submittedAt: string) {
 // review.
 export function AdminPaymentsPage() {
   const translate = useTranslations('admin.payments');
-  const translateErrors = useTranslations('errors');
   const dates = useDates();
   const payments = useAdminPayments();
   const [reviewing, setReviewing] = useState<string | null>(null);
@@ -44,6 +43,55 @@ export function AdminPaymentsPage() {
     isPendingTab
       ? translate('waiting', { days: daysWaiting(payment.submittedAt) })
       : dates.instant(payment.decidedAt ?? payment.submittedAt, 'short');
+
+  const reviewButton = (payment: AdminPayment) => (
+    <Button variant="secondary" size="s" onClick={() => setReviewing(payment.id)}>
+      {translate(isPendingTab ? 'reviewAction' : 'view')}
+    </Button>
+  );
+
+  const columns: DataColumn<AdminPayment>[] = [
+    {
+      id: 'member',
+      header: translate('columns.member'),
+      cell: (payment) => (
+        <NameCell name={payment.member.businessName} detail={payment.member.memberCode} />
+      ),
+    },
+    {
+      id: 'plan',
+      header: translate('columns.plan'),
+      cell: (payment) => <PlanBadge planKey={payment.plan.key} name={payment.plan.name} />,
+    },
+    {
+      id: 'amount',
+      header: translate('columns.amount'),
+      align: 'end',
+      cell: (payment) => formatColones(payment.amount),
+    },
+    {
+      id: 'when',
+      header: translate(isPendingTab ? 'columns.waiting' : 'columns.decided'),
+      cell: whenOf,
+    },
+    {
+      id: 'receipt',
+      header: translate('columns.receipt'),
+      cell: (payment) => (
+        <span className="inline-flex items-center gap-2 text-body-s text-fg-muted">
+          <FileText aria-hidden className="size-4" />
+          {translate(payment.receipt.contentType === 'application/pdf' ? 'pdf' : 'image')}
+        </span>
+      ),
+    },
+    {
+      id: 'actions',
+      header: translate('columns.actions'),
+      hideHeader: true,
+      align: 'end',
+      cell: reviewButton,
+    },
+  ];
 
   return (
     <div className="flex flex-col gap-6 px-4 py-6 lg:gap-8 lg:px-8 lg:py-8">
@@ -72,123 +120,33 @@ export function AdminPaymentsPage() {
         onChange={payments.search}
       />
 
-      {payments.failed && <Alert tone="danger" title={translateErrors('network_error')} />}
-
-      {list === null && payments.loading && (
-        <div aria-hidden className="h-80 animate-pulse rounded-lg bg-surface-hover" />
-      )}
-
-      {list !== null && list.total === 0 && (
-        <p className="rounded-lg border border-line-subtle bg-surface p-6 text-body-m text-fg-secondary">
-          {translate(`empty.${query.status}`)}
-        </p>
-      )}
-
-      {list !== null && list.total > 0 && (
-        <div aria-busy={payments.loading} className="flex flex-col gap-4">
-          <ul
-            aria-label={translate('title')}
-            className="divide-y divide-line-subtle overflow-hidden rounded-lg border border-line-subtle bg-surface shadow-raised lg:hidden"
-          >
-            {list.items.map((payment) => (
-              <li key={payment.id} className="flex items-center gap-3 p-4">
-                <Avatar name={payment.member.businessName} size="m" />
-                <div className="flex min-w-0 flex-1 flex-col gap-1">
-                  <p className="truncate text-label-m text-fg">{payment.member.businessName}</p>
-                  <p className="text-body-s text-fg-muted">
-                    {translate('cardLine', {
-                      code: payment.member.memberCode,
-                      amount: formatColones(payment.amount),
-                      when: whenOf(payment),
-                    })}
-                  </p>
-                  <PlanBadge planKey={payment.plan.key} name={payment.plan.name} />
-                </div>
-                <Button variant="secondary" size="s" onClick={() => setReviewing(payment.id)}>
-                  {translate(isPendingTab ? 'reviewAction' : 'view')}
-                </Button>
-              </li>
-            ))}
-          </ul>
-
-          <div className="hidden overflow-hidden rounded-lg border border-line-subtle bg-surface shadow-raised lg:block">
-            <table className="w-full border-collapse text-left">
-              <caption className="sr-only">{translate('title')}</caption>
-              <thead className="bg-surface-subtle">
-                <tr>
-                  {(
-                    [
-                      'member',
-                      'plan',
-                      'amount',
-                      isPendingTab ? 'waiting' : 'decided',
-                      'receipt',
-                    ] as const
-                  ).map((column) => (
-                    <th
-                      key={column}
-                      scope="col"
-                      className={classNames(
-                        'px-4 py-3 text-label-s text-fg-secondary',
-                        column === 'amount' && 'text-right',
-                      )}
-                    >
-                      {translate(`columns.${column}`)}
-                    </th>
-                  ))}
-                  <th scope="col" className="px-4 py-3">
-                    <span className="sr-only">{translate('columns.actions')}</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {list.items.map((payment) => (
-                  <tr key={payment.id} className="border-t border-line-subtle">
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-3">
-                        <Avatar name={payment.member.businessName} size="s" />
-                        <div className="min-w-0">
-                          <p className="truncate text-body-m text-fg">
-                            {payment.member.businessName}
-                          </p>
-                          <p className="text-body-s text-fg-muted">{payment.member.memberCode}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-4 py-3">
-                      <PlanBadge planKey={payment.plan.key} name={payment.plan.name} />
-                    </td>
-                    <td className="px-4 py-3 text-right text-body-m text-fg">
-                      {formatColones(payment.amount)}
-                    </td>
-                    <td className="px-4 py-3 text-body-m text-fg">{whenOf(payment)}</td>
-                    <td className="px-4 py-3">
-                      <span className="inline-flex items-center gap-2 text-body-s text-fg-muted">
-                        <FileText aria-hidden className="size-4" />
-                        {translate(
-                          payment.receipt.contentType === 'application/pdf' ? 'pdf' : 'image',
-                        )}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3 text-right">
-                      <Button variant="secondary" size="s" onClick={() => setReviewing(payment.id)}>
-                        {translate(isPendingTab ? 'reviewAction' : 'view')}
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <Pagination
-            page={list.page}
-            pageCount={list.pageCount}
-            onPageChange={payments.showPage}
-            summary={translate('summary', { total: list.total })}
-          />
-        </div>
-      )}
+      <PagedList
+        list={list}
+        loading={payments.loading}
+        failed={payments.failed}
+        emptyMessage={translate(`empty.${query.status}`)}
+        summary={list === null ? undefined : translate('summary', { total: list.total })}
+        onPageChange={payments.showPage}
+      >
+        <DataList
+          label={translate('title')}
+          items={list?.items ?? []}
+          keyOf={(payment) => payment.id}
+          columns={columns}
+          card={(payment) => (
+            <ListCard
+              name={payment.member.businessName}
+              line={translate('cardLine', {
+                code: payment.member.memberCode,
+                amount: formatColones(payment.amount),
+                when: whenOf(payment),
+              })}
+              badges={<PlanBadge planKey={payment.plan.key} name={payment.plan.name} />}
+              action={reviewButton(payment)}
+            />
+          )}
+        />
+      </PagedList>
 
       <PaymentReviewModal
         paymentId={reviewing}

@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { Avatar } from '@/shared/components/Avatar';
+import { DataList, NameCell, type DataColumn } from '@/shared/components/DataList';
+import { ListCard } from '@/shared/components/ListCard';
 import { useDates } from '@/shared/hooks/useDates';
 import type { AdminMembership } from '../api/adminMemberships';
 import { PlanBadge } from './PlanBadge';
@@ -37,97 +38,65 @@ function PlanCell({ membership }: { membership: AdminMembership }) {
   );
 }
 
-export function MembershipTable({ items }: { items: AdminMembership[] }) {
+export function MembershipList({ items }: { items: AdminMembership[] }) {
   const translate = useTranslations('admin.memberships');
   const text = useMembershipText();
-  const columns = ['member', 'plan', 'frequency', 'lastPayment', 'expires'] as const;
+  const viewLabel = (membership: AdminMembership) =>
+    translate('viewMemberNamed', { name: membership.businessName });
+
+  const columns: DataColumn<AdminMembership>[] = [
+    {
+      id: 'member',
+      header: translate('columns.member'),
+      cell: (membership) => (
+        <NameCell name={membership.businessName} detail={membership.memberCode} />
+      ),
+    },
+    {
+      id: 'plan',
+      header: translate('columns.plan'),
+      cell: (membership) => <PlanCell membership={membership} />,
+    },
+    { id: 'frequency', header: translate('columns.frequency'), cell: text.frequency },
+    { id: 'lastPayment', header: translate('columns.lastPayment'), cell: text.lastPayment },
+    { id: 'expires', header: translate('columns.expires'), cell: text.end },
+    {
+      id: 'actions',
+      header: translate('columns.actions'),
+      hideHeader: true,
+      align: 'end',
+      cell: (membership) => (
+        <Link
+          href={memberHref(membership)}
+          aria-label={viewLabel(membership)}
+          className="inline-flex min-h-10 items-center gap-1 rounded-sm px-2 text-label-m whitespace-nowrap text-fg-link hover:bg-surface-hover focus-visible:shadow-focus focus-visible:outline-none"
+        >
+          {translate('viewMember')}
+          <ChevronRight aria-hidden className="size-4" />
+        </Link>
+      ),
+    },
+  ];
 
   return (
-    <div className="hidden overflow-hidden rounded-lg border border-line-subtle bg-surface shadow-raised lg:block">
-      <table className="w-full border-collapse text-left">
-        <caption className="sr-only">{translate('tableLabel')}</caption>
-        <thead className="bg-surface-subtle">
-          <tr>
-            {columns.map((column) => (
-              <th key={column} scope="col" className="px-4 py-3 text-label-s text-fg-secondary">
-                {translate(`columns.${column}`)}
-              </th>
-            ))}
-            <th scope="col" className="px-4 py-3">
-              <span className="sr-only">{translate('columns.actions')}</span>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((membership) => (
-            <tr key={membership.memberId} className="border-t border-line-subtle">
-              <td className="px-4 py-3">
-                <div className="flex items-center gap-3">
-                  <Avatar name={membership.businessName} size="s" />
-                  <div className="min-w-0">
-                    <p className="truncate text-body-m text-fg">{membership.businessName}</p>
-                    <p className="text-body-s text-fg-muted">{membership.memberCode}</p>
-                  </div>
-                </div>
-              </td>
-              <td className="px-4 py-3">
-                <PlanCell membership={membership} />
-              </td>
-              <td className="px-4 py-3 text-body-m text-fg">{text.frequency(membership)}</td>
-              <td className="px-4 py-3 text-body-m text-fg">{text.lastPayment(membership)}</td>
-              <td className="px-4 py-3 text-body-m text-fg">{text.end(membership)}</td>
-              <td className="px-4 py-3 text-right">
-                <Link
-                  href={memberHref(membership)}
-                  aria-label={translate('viewMemberNamed', { name: membership.businessName })}
-                  className="inline-flex min-h-10 items-center gap-1 rounded-sm px-2 text-label-m whitespace-nowrap text-fg-link hover:bg-surface-hover focus-visible:shadow-focus focus-visible:outline-none"
-                >
-                  {translate('viewMember')}
-                  <ChevronRight aria-hidden className="size-4" />
-                </Link>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
-export function MembershipCards({ items }: { items: AdminMembership[] }) {
-  const translate = useTranslations('admin.memberships');
-  const text = useMembershipText();
-
-  return (
-    <ul
-      aria-label={translate('tableLabel')}
-      className="divide-y divide-line-subtle overflow-hidden rounded-lg border border-line-subtle bg-surface shadow-raised lg:hidden"
-    >
-      {items.map((membership) => (
-        <li key={membership.memberId}>
-          <Link
-            href={memberHref(membership)}
-            aria-label={translate('viewMemberNamed', { name: membership.businessName })}
-            className="flex min-h-11 items-center gap-3 p-4 hover:bg-surface-hover focus-visible:shadow-focus focus-visible:outline-none"
-          >
-            <Avatar name={membership.businessName} size="m" />
-            <div className="flex min-w-0 flex-1 flex-col gap-1">
-              <p className="truncate text-label-m text-fg">{membership.businessName}</p>
-              <p className="text-body-s text-fg-muted">
-                {translate('cardLine', {
-                  code: membership.memberCode,
-                  end: text.end(membership),
-                  frequency: text.frequency(membership),
-                })}
-              </p>
-              <div className="flex flex-wrap items-center gap-2">
-                <PlanCell membership={membership} />
-              </div>
-            </div>
-            <ChevronRight aria-hidden className="size-5 shrink-0 text-fg-muted" />
-          </Link>
-        </li>
-      ))}
-    </ul>
+    <DataList
+      label={translate('tableLabel')}
+      items={items}
+      keyOf={(membership) => membership.memberId}
+      columns={columns}
+      card={(membership) => (
+        <ListCard
+          name={membership.businessName}
+          line={translate('cardLine', {
+            code: membership.memberCode,
+            end: text.end(membership),
+            frequency: text.frequency(membership),
+          })}
+          badges={<PlanCell membership={membership} />}
+          href={memberHref(membership)}
+          linkLabel={viewLabel(membership)}
+        />
+      )}
+    />
   );
 }

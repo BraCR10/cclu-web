@@ -1,18 +1,16 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { Alert } from '@/shared/components/Alert';
-import { Pagination } from '@/shared/components/Pagination';
+import { PagedList } from '@/shared/components/PagedList';
 import { MEMBERSHIP_PAGE_SIZE } from '../api/adminMemberships';
 import { useAdminMemberships } from '../hooks/useAdminMemberships';
 import { usePlans } from '../hooks/usePlans';
 import { MembershipCounts } from './MembershipCounts';
 import { MembershipFilters } from './MembershipFilters';
-import { MembershipCards, MembershipTable } from './MembershipList';
+import { MembershipList } from './MembershipList';
 
 export function AdminMembershipsPage() {
   const translate = useTranslations('admin.memberships');
-  const translateErrors = useTranslations('errors');
   const memberships = useAdminMemberships();
   const plans = usePlans();
   const { list } = memberships;
@@ -41,34 +39,16 @@ export function AdminMembershipsPage() {
         onPlan={memberships.filterPlan}
       />
 
-      {memberships.failed && <Alert tone="danger" title={translateErrors('network_error')} />}
-
-      {list === null && memberships.loading && (
-        <div aria-hidden className="h-96 animate-pulse rounded-lg bg-surface-hover" />
-      )}
-
-      {list !== null && list.total === 0 && (
-        <p className="rounded-lg border border-line-subtle bg-surface p-6 text-body-m text-fg-secondary">
-          {translate(`empty.${memberships.query.view}`)}
-        </p>
-      )}
-
-      {list !== null && list.total > 0 && (
-        <div aria-busy={memberships.loading} className="flex flex-col gap-4">
-          <MembershipTable items={list.items} />
-          <MembershipCards items={list.items} />
-          {list.pageCount > 1 ? (
-            <Pagination
-              page={list.page}
-              pageCount={list.pageCount}
-              onPageChange={memberships.showPage}
-              summary={summary}
-            />
-          ) : (
-            <p className="text-body-s text-fg-muted">{summary}</p>
-          )}
-        </div>
-      )}
+      <PagedList
+        list={list}
+        loading={memberships.loading}
+        failed={memberships.failed}
+        emptyMessage={translate(`empty.${memberships.query.view}`)}
+        summary={summary}
+        onPageChange={memberships.showPage}
+      >
+        <MembershipList items={list?.items ?? []} />
+      </PagedList>
     </div>
   );
 }
