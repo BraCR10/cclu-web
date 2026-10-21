@@ -121,5 +121,22 @@
       "publishedToday": "Publicada hoy",
       "howToApply": "Ver cómo aplicar"
     }
+  },
+  "subscription": {
+    "title": "Recibí las promociones de la Cámara",
+    "open": "Quiero recibir promociones",
+    "name": "Nombre",
+    "canton": "Cantón",
+    "chooseCanton": "Elegí un cantón",
+    "district": "Distrito",
+    "email": "Correo electrónico",
+    "whatsapp": "WhatsApp (opcional)",
+    "consent": "Acepto recibir promociones (obligatorio)",
+    "legal": "Tratamos tus datos según la Ley 8968 de protección de datos personales y la Ley 7472 de defensa del consumidor. Podés darte de baja cuando quieras escribiendo a info@camaralaunion.com.",
+    "privacy": "Ver política de privacidad",
+    "submit": "Quiero recibir promociones",
+    "thanks": "Gracias por suscribirte",
+    "required": "Completá este campo.",
+    "consentRequired": "Para suscribirte, aceptá recibir promociones."
   }
 }
