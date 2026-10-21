@@ -1,12 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { Check, FileText, Search } from 'lucide-react';
+import { FileText } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Alert } from '@/shared/components/Alert';
 import { Avatar } from '@/shared/components/Avatar';
 import { Button } from '@/shared/components/Button';
+import { ChipGroup } from '@/shared/components/ChipGroup';
 import { Pagination } from '@/shared/components/Pagination';
+import { SearchField } from '@/shared/components/SearchField';
 import { useDates } from '@/shared/hooks/useDates';
 import { classNames } from '@/shared/utils/classNames';
 import { formatColones } from '@/shared/utils/formatColones';
@@ -45,33 +47,15 @@ export function AdminPaymentsPage() {
 
   return (
     <div className="flex flex-col gap-6 px-4 py-6 lg:gap-8 lg:px-8 lg:py-8">
-      <div
-        role="group"
-        aria-label={translate('tabsLabel')}
-        className="-mx-4 flex gap-2 overflow-x-auto px-4 lg:mx-0 lg:px-0"
-      >
-        {TABS.map((status) => {
-          const selected = query.status === status;
-
-          return (
-            <button
-              key={status}
-              type="button"
-              aria-pressed={selected}
-              onClick={() => payments.showStatus(status)}
-              className={classNames(
-                'inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-full border px-4 text-label-m focus-visible:shadow-focus focus-visible:outline-none lg:min-h-9',
-                selected
-                  ? 'border-primary bg-brand-union-soft text-fg-brand'
-                  : 'border-line bg-surface text-fg hover:bg-surface-hover',
-              )}
-            >
-              {selected && <Check aria-hidden className="size-4" />}
-              {translate(`tabs.${status}`, { count: list?.counts[status] ?? 0 })}
-            </button>
-          );
-        })}
-      </div>
+      <ChipGroup
+        label={translate('tabsLabel')}
+        chips={TABS.map((status) => ({
+          value: status,
+          label: translate(`tabs.${status}`, { count: list?.counts[status] ?? 0 }),
+        }))}
+        selected={query.status}
+        onSelect={payments.showStatus}
+      />
 
       {isPendingTab && (
         <Alert
@@ -81,21 +65,12 @@ export function AdminPaymentsPage() {
         />
       )}
 
-      <label className="relative">
-        <span className="sr-only">{translate('searchLabel')}</span>
-        <Search
-          aria-hidden
-          className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-fg-muted"
-        />
-        <input
-          type="search"
-          value={payments.searchDraft}
-          maxLength={100}
-          placeholder={translate('searchPlaceholder')}
-          onChange={(event) => payments.search(event.target.value)}
-          className="min-h-11 w-full rounded-sm border border-line bg-surface pr-3 pl-9 text-body-m text-fg placeholder:text-fg-muted focus-visible:border-primary focus-visible:shadow-focus focus-visible:outline-none lg:min-h-10"
-        />
-      </label>
+      <SearchField
+        label={translate('searchLabel')}
+        placeholder={translate('searchPlaceholder')}
+        value={payments.searchDraft}
+        onChange={payments.search}
+      />
 
       {payments.failed && <Alert tone="danger" title={translateErrors('network_error')} />}
 
