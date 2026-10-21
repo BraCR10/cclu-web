@@ -187,6 +187,13 @@ Gratuita sees what unlocks it instead of a form the API would refuse.
 `/member/vacancies/new` previews the vacancy with `VacancyCard`, the card the
 job board shows, so the member sees what a visitor will. Deleting asks first.
 
+`/jobs` is the public job board and `/jobs/[vacancyId]` one vacancy. The board
+filters by canton, district and workday with the same `FilterSheet` as the
+directory, and the district list comes from `useDistricts` in `shared`. The
+requirements are written one per line or separated by periods, and the detail
+reads them back as a list either way. A vacancy that left the board says it is
+no longer available.
+
 ## Panel lists
 
 Every list in the panel is put together from the same parts, so the payments,
