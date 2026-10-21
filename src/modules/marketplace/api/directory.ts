@@ -31,12 +31,6 @@ export function readDirectory({ search, page, ...filters }: PagedQuery<Directory
   return requestApi<Paginated<DirectoryListing>>(`/api/directory?${query.toString()}`);
 }
 
-export function readDistricts(canton: string) {
-  const query = new URLSearchParams({ canton });
-
-  return requestApi<{ districts: string[] }>(`/api/directory/districts?${query.toString()}`);
-}
-
 // A logo is a public file, opened by its key like any other.
 export function logoUrl(logoFileKey: string) {
   return buildApiUrl(`/api/files/${encodeURIComponent(logoFileKey)}`);

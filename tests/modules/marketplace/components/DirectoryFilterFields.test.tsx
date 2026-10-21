@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { DirectoryFilterFields } from '@/modules/marketplace/components/DirectoryFilterFields';
 import { renderWithIntl } from '../../../support/renderWithIntl';
 
-vi.mock('@/modules/marketplace/hooks/useDirectoryCatalogs', () => ({
+vi.mock('@/shared/hooks/useDistricts', () => ({
   useDistricts: (canton: string) => (canton === 'la-union' ? ['San Juan', 'Tres Ríos'] : []),
 }));
 
