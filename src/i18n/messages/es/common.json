@@ -54,5 +54,8 @@
     "openWithCount": "Filtros, {count, plural, one {# activo} other {# activos}}",
     "clear": "Limpiar",
     "apply": "Aplicar filtros"
+  },
+  "reason": {
+    "length": "Escribí un motivo de entre {minimum} y {maximum} caracteres."
   }
 }
