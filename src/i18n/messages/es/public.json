@@ -109,6 +109,37 @@
       "ourBranches": "Nuestras sucursales"
     }
   },
+  "marketplace": {
+    "title": "Marketplace",
+    "searchLabel": "Buscar en el marketplace",
+    "searchPlaceholder": "Producto, servicio o promoción",
+    "summary": "Mostrando {from}–{to} de {total} publicaciones",
+    "empty": "Todavía no hay publicaciones con ese criterio.",
+    "until": "Vigente hasta el {date}",
+    "validUntil": "Vigente hasta el {date}",
+    "percentOff": "{percentage}% de descuento",
+    "condition": "Condición: {condition}",
+    "soldBy": "Lo publica",
+    "seeBusiness": "Ver la ficha del comercio",
+    "back": "Volver al marketplace",
+    "detailFailedTitle": "Marketplace",
+    "detailFailed": "No encontramos esa publicación. Puede haber vencido o haberse retirado.",
+    "types": {
+      "product": "Producto",
+      "service": "Servicio",
+      "promotion": "Promoción",
+      "discount": "Descuento"
+    },
+    "filters": {
+      "title": "Filtrar publicaciones",
+      "type": "Tipo de publicación",
+      "all": "Todas"
+    },
+    "note": {
+      "title": "Publicado por agremiados",
+      "message": "Estas publicaciones las cargan los comercios con un plan de pago. La Cámara no vende ni cobra por lo que se ofrece acá."
+    }
+  },
   "jobs": {
     "workdays": {
       "full_time": "Tiempo completo",
