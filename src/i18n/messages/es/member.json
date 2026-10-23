@@ -160,6 +160,91 @@
       "sunday": "Domingo"
     }
   },
+  "publications": {
+    "title": "Mis publicaciones",
+    "new": "Publicar",
+    "filterLabel": "Filtrar publicaciones",
+    "empty": "Todavía no publicaste nada con ese criterio.",
+    "from": "Desde el {date}",
+    "until": "Vigente hasta el {date}",
+    "chamberReason": "Inactivada por la Cámara · Motivo: {reason}",
+    "deleted": "Eliminamos la publicación.",
+    "deactivated": "Desactivamos la publicación.",
+    "reactivated": "Reactivamos la publicación.",
+    "editNamed": "Editar {title}",
+    "deactivateNamed": "Desactivar {title}",
+    "reactivateNamed": "Reactivar {title}",
+    "deleteNamed": "Eliminar {title}",
+    "types": {
+      "all": "Todas",
+      "product": "Productos",
+      "service": "Servicios",
+      "promotion": "Promociones",
+      "discount": "Descuentos"
+    },
+    "status": {
+      "active": "Activo",
+      "inactive": "Inactivo"
+    },
+    "columns": {
+      "title": "Publicación",
+      "price": "Precio",
+      "status": "Estado",
+      "updated": "Actualizada",
+      "actions": "Acciones"
+    },
+    "consultPrice": "Consultar precio",
+    "percentOff": "{percentage}% de descuento",
+    "confirmDelete": {
+      "title": "Eliminar publicación",
+      "message": "¿Eliminar «{title}»? Deja de aparecer en el marketplace y en tu ficha.",
+      "cancel": "Cancelar",
+      "confirm": "Eliminar"
+    },
+    "locked": {
+      "title": "Publicar está disponible con un plan pagado",
+      "message": "Con Lite MiPyme, Pro Pymex o Premium Empresarial podés publicar servicios, promociones, descuentos para agremiados y vacantes. Tu ficha en el directorio sigue activa con el plan Gratuita.",
+      "seePlans": "Ver planes",
+      "compare": "Comparar beneficios"
+    },
+    "form": {
+      "newTitle": "Publicar",
+      "editTitle": "Editar publicación",
+      "legend": "Lo que publicás aparece en el marketplace y en tu ficha pública.",
+      "back": "Volver a mis publicaciones",
+      "typeLegend": "Qué vas a publicar",
+      "types": {
+        "product": "Producto",
+        "service": "Servicio",
+        "promotion": "Promoción",
+        "discount": "Descuento"
+      },
+      "title": "Nombre",
+      "description": "Descripción",
+      "descriptionHelp": "Contá qué incluye y para quién es.",
+      "price": "Precio (opcional)",
+      "priceHelp": "Si lo dejás vacío, en el marketplace aparece «Consultar precio».",
+      "imageUrl": "Imagen (opcional)",
+      "imageUrlHelp": "Pegá el enlace de una imagen JPG o PNG.",
+      "imageUrlPlaceholder": "https://",
+      "percentage": "Porcentaje de descuento",
+      "percentageHelp": "Un número entero de 1 a 90.",
+      "condition": "Condición",
+      "startsAt": "Empieza",
+      "endsAt": "Termina",
+      "category": "Categoría",
+      "categoryHelp": "Con qué se agrupa en el marketplace.",
+      "categoryNone": "Sin categoría",
+      "categoryPlaceholder": "Buscá la categoría",
+      "categoryEmpty": "No encontramos esa categoría",
+      "publish": "Publicar",
+      "save": "Guardar cambios",
+      "cancel": "Cancelar",
+      "published": "Publicamos lo que cargaste.",
+      "saved": "Guardamos los cambios.",
+      "notFound": "No encontramos esa publicación. Puede haber sido eliminada."
+    }
+  },
   "membership": {
     "currentPlan": "Plan actual",
     "active": "Activa",
