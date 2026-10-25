@@ -507,5 +507,43 @@
       "status": "Estado",
       "published": "Publicada"
     }
+  },
+  "moderation": {
+    "title": "Moderación",
+    "description": "Lo que la Cámara publica, retira y vuelve a poner.",
+    "tabsLegend": "Qué se modera",
+    "searchLabel": "Buscar",
+    "searchPlaceholder": "Título o descripción",
+    "takeDown": "Inactivar",
+    "takeDownTitle": "Inactivar la publicación",
+    "takeDownHelp": "Deja de verse en el sitio y la persona es avisada con el motivo. No se borra: puede volver a ponerse.",
+    "restore": "Reactivar",
+    "reasonLabel": "Motivo",
+    "takenDownToast": "Publicación inactivada",
+    "restoredToast": "Publicación reactivada",
+    "noMember": "Sin agremiado",
+    "columns": {
+      "item": "Publicación",
+      "status": "Estado",
+      "reason": "Motivo",
+      "published": "Publicada",
+      "actions": "Acciones"
+    },
+    "statuses": {
+      "active": "Activa",
+      "inactive": "Inactiva"
+    },
+    "kinds": {
+      "products": "Productos y servicios",
+      "promotions": "Promociones",
+      "discounts": "Descuentos",
+      "vacancies": "Vacantes"
+    },
+    "empty": {
+      "products": "No hay productos ni servicios que moderar.",
+      "promotions": "No hay promociones que moderar.",
+      "discounts": "No hay descuentos que moderar.",
+      "vacancies": "No hay vacantes que moderar."
+    }
   }
 }
