@@ -341,6 +341,75 @@
       "invitation_expired": "Invitación vencida"
     }
   },
+  "applications": {
+    "title": "Solicitudes de registro",
+    "description": "Lo que espera una decisión y lo que ya se decidió.",
+    "tabsLegend": "Vista de las solicitudes",
+    "tabs": {
+      "pending": "Pendientes",
+      "decided": "Decididas"
+    },
+    "searchLabel": "Buscar solicitud",
+    "searchPlaceholder": "Negocio, nombre, correo o cédula",
+    "review": "Revisar",
+    "noActivity": "Sin actividad",
+    "loadFailed": "No pudimos cargar las solicitudes.",
+    "empty": {
+      "pending": "No hay solicitudes esperando una decisión.",
+      "decided": "Todavía no se ha decidido ninguna solicitud."
+    },
+    "columns": {
+      "applicant": "Solicitante",
+      "activity": "Actividad",
+      "received": "Recibida",
+      "status": "Estado",
+      "actions": "Acciones"
+    },
+    "statuses": {
+      "pending_review": "En revisión",
+      "changes_requested": "Cambios pedidos",
+      "approved": "Aprobada",
+      "rejected": "Rechazada"
+    },
+    "detailTitle": "Solicitud",
+    "detailDescription": "Revise los datos y los documentos antes de decidir.",
+    "back": "Volver a las solicitudes",
+    "summaryTitle": "Datos de la solicitud",
+    "documentsTitle": "Documentos",
+    "documentsHelp": "Se abren en una pestaña aparte; son privados y solo el panel puede verlos.",
+    "certification": "Certificación de personería jurídica",
+    "logo": "Logotipo",
+    "noCertification": "No adjuntó certificación.",
+    "decideTitle": "Decidir",
+    "decideHelp": "La persona recibe la respuesta por correo.",
+    "approve": "Aprobar",
+    "requestChanges": "Pedir cambios",
+    "reject": "Rechazar",
+    "alreadyDecided": "Esta solicitud ya fue decidida.",
+    "approveTitle": "Aprobar la solicitud",
+    "approveHelp": "Se le asigna el código de agremiado y puede entrar al sistema. La actividad que escribió queda por aceptar en el catálogo.",
+    "rejectTitle": "Rechazar la solicitud",
+    "rejectHelp": "Se le avisa por correo con el motivo. El rechazo es definitivo.",
+    "changesTitle": "Pedir cambios",
+    "changesHelp": "Se le avisa por correo con el motivo y un enlace para corregir y reenviar.",
+    "reasonLabel": "Motivo",
+    "reasonTitle": "Lo que se le dijo",
+    "approved": "Solicitud aprobada",
+    "rejected": "Solicitud rechazada",
+    "changesRequested": "Cambios pedidos",
+    "cancel": "Cancelar",
+    "fields": {
+      "email": "Correo electrónico",
+      "phone": "Teléfono",
+      "whatsapp": "WhatsApp",
+      "identification": "Identificación",
+      "legalName": "Razón social",
+      "representative": "Representante legal",
+      "activity": "Actividad",
+      "location": "Ubicación",
+      "received": "Recibida"
+    }
+  },
   "members": {
     "title": "Agremiados",
     "description": "La ficha de cada agremiado, su plan y sus movimientos.",
