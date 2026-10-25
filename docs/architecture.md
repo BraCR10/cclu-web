@@ -212,6 +212,21 @@ same `signIn` the login form uses, and opens `/admin`. If that second call fails
 the person lands on `/login` with the password they just chose, rather than on a
 dead screen: a working password is never thrown away because the entry failed.
 
+## Administrators
+
+`/admin/administrators` (A-13) is the list the panel uses to grow itself: who can
+enter, and in what state their account is. `useAdministrators` reads the directory
+once, and every write answers with the row the API now holds rather than a guess
+from the body, so the screen and the database cannot drift. Each write confirms
+with a toast; a refusal that names a field lands under that field in the
+invitation form.
+
+Two rules are the API's, and the screen only echoes them. An invitation past its
+day reads as `invitation_expired` from its date, not from a stored state. And
+nobody can inactivate themselves — that one is not offered at all: your own row
+says _"Tu cuenta"_ where the switch would be, so the rule is said before the
+click rather than after it.
+
 ## The administration summary
 
 `/admin` opens on the day: the figures, each leading to the screen that lists
