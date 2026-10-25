@@ -194,6 +194,24 @@ requirements are written one per line or separated by periods, and the detail
 reads them back as a list either way. A vacancy that left the board says it is
 no longer available.
 
+## Joining the panel
+
+An administrator arrives through an invitation, so the link in that email opens
+`/invitation/[token]`, a public page in `modules/auth`. It sits outside `/admin`
+on purpose: the panel's layout turns away anybody without a session, and the
+person holding the link has none.
+
+The page asks about the link before it draws anything, because a form that
+offered the fields first would collect a password for a link already spent. A
+valid one shows the address fixed with the lock, the rules the API enforces under
+the field, and the day the invitation stops working; a spent one says so and
+leads to the sign-in screen.
+
+Accepting sets the password and then signs the new administrator in through the
+same `signIn` the login form uses, and opens `/admin`. If that second call fails
+the person lands on `/login` with the password they just chose, rather than on a
+dead screen: a working password is never thrown away because the entry failed.
+
 ## The administration summary
 
 `/admin` opens on the day: the figures, each leading to the screen that lists
