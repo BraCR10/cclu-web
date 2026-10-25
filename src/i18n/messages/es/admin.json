@@ -340,5 +340,103 @@
       "invitation_pending": "Invitación pendiente",
       "invitation_expired": "Invitación vencida"
     }
+  },
+  "members": {
+    "title": "Agremiados",
+    "description": "La ficha de cada agremiado, su plan y sus movimientos.",
+    "searchLabel": "Buscar agremiado",
+    "searchPlaceholder": "Negocio, nombre, correo, cédula o código",
+    "export": "Exportar",
+    "exportFailed": "No pudimos exportar la lista.",
+    "empty": "No hay agremiados que coincidan con la búsqueda.",
+    "open": "Ver ficha",
+    "code": "Código {code}",
+    "codeAndEmail": "{code} · {email}",
+    "loadFailed": "No pudimos cargar la ficha.",
+    "detailTitle": "Agremiado",
+    "detailDescription": "Los datos de la ficha, el plan y lo que ha pagado y publicado.",
+    "back": "Volver a agremiados",
+    "editContact": "Editar contacto",
+    "editContactTitle": "Editar datos de contacto",
+    "editContactHelp": "El correo de la cuenta, la cédula y la actividad no se cambian desde aquí: son lo que se aprobó en la solicitud.",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "savedContact": "Datos de contacto guardados",
+    "suspend": "Suspender cuenta",
+    "suspendTitle": "Suspender la cuenta",
+    "suspendHelp": "La persona no podrá entrar al sistema desde el próximo intento. La ficha se conserva y la razón queda registrada.",
+    "reactivate": "Reactivar cuenta",
+    "reactivateTitle": "Reactivar la cuenta",
+    "reactivateHelp": "La cuenta vuelve a funcionar y la razón queda registrada.",
+    "reasonLabel": "Motivo",
+    "suspendedToast": "Cuenta suspendida",
+    "reactivatedToast": "Cuenta reactivada",
+    "tabsLabel": "Secciones de la ficha",
+    "filters": {
+      "title": "Filtros",
+      "status": "Estado",
+      "allStatuses": "Todos",
+      "memberType": "Tipo",
+      "allTypes": "Todos",
+      "plan": "Plan",
+      "allPlans": "Todos"
+    },
+    "columns": {
+      "member": "Agremiado",
+      "place": "Cantón",
+      "plan": "Plan",
+      "status": "Estado",
+      "actions": "Acciones"
+    },
+    "statuses": {
+      "active": "Activo",
+      "suspended": "Suspendido"
+    },
+    "types": {
+      "business": "Empresa",
+      "association": "Asociación",
+      "independent": "Profesional independiente"
+    },
+    "plans": {
+      "free": "Gratuita",
+      "lite": "Lite",
+      "pro": "Pro",
+      "premium": "Premium"
+    },
+    "fields": {
+      "email": "Correo electrónico",
+      "phone": "Teléfono",
+      "whatsapp": "WhatsApp",
+      "identification": "Identificación",
+      "legalName": "Razón social",
+      "activity": "Actividad",
+      "location": "Ubicación",
+      "joined": "Afiliado desde",
+      "billingEmail": "Correo de facturación"
+    },
+    "tabs": {
+      "data": "Datos",
+      "membership": "Membresía",
+      "payments": "Pagos",
+      "publications": "Publicaciones"
+    },
+    "membership": {
+      "plan": "Plan",
+      "started": "Desde",
+      "expires": "Vence",
+      "never": "No vence"
+    },
+    "payments": {
+      "plan": "Plan",
+      "amount": "Monto",
+      "status": "Estado",
+      "submitted": "Enviado"
+    },
+    "publications": {
+      "title": "Publicación",
+      "type": "Tipo",
+      "status": "Estado",
+      "published": "Publicada"
+    }
   }
 }
