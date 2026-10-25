@@ -8,7 +8,11 @@ export type NotificationType =
   | 'payment_approved'
   | 'payment_rejected'
   | 'membership_expiring'
-  | 'membership_lapsed';
+  | 'membership_lapsed'
+  | 'publication_taken_down'
+  | 'publication_restored'
+  | 'vacancy_taken_down'
+  | 'vacancy_restored';
 
 export type NotificationAudience = 'member' | 'admin';
 

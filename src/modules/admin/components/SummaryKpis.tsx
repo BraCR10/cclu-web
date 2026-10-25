@@ -18,7 +18,7 @@ type KpiId =
 type Kpi = {
   id: KpiId;
   icon: LucideIcon;
-  value: number | null;
+  value: number;
   href: string;
   growth?: number;
 };
@@ -43,14 +43,8 @@ function KpiCard({ kpi }: { kpi: Kpi }) {
           </span>
         )}
       </div>
-      <p className="font-display text-display-section text-fg">
-        {kpi.value === null ? '—' : kpi.value}
-      </p>
-      <p className="text-body-m text-fg-secondary">
-        {kpi.value === null
-          ? translate('underConstruction', { label: translate(kpi.id) })
-          : translate(kpi.id)}
-      </p>
+      <p className="font-display text-display-section text-fg">{kpi.value}</p>
+      <p className="text-body-m text-fg-secondary">{translate(kpi.id)}</p>
     </Link>
   );
 }
@@ -79,8 +73,13 @@ export function SummaryKpis({ summary }: { summary: AdminSummary }) {
       growth: summary.paidMemberships.newThisMonth,
       href: '/admin/memberships',
     },
-    // Publications are not built yet, so the figure says so rather than a zero.
-    { id: 'publications', icon: ShoppingBag, value: null, href: '/admin/moderation' },
+    // What the marketplace is showing now, counted with its own query.
+    {
+      id: 'publications',
+      icon: ShoppingBag,
+      value: summary.publications.active,
+      href: '/admin/moderation',
+    },
     { id: 'vacancies', icon: Briefcase, value: summary.vacancies.active, href: '/jobs' },
   ];
 

@@ -47,3 +47,25 @@ export function resetPassword(token: string, newPassword: string) {
     body: { token, newPassword },
   });
 }
+
+export type AdminInvitation = {
+  name: string | null;
+  email: string;
+  expiresAt: string | null;
+};
+
+// Asked without a session: the person holding the link has no account yet,
+// which is exactly what the invitation exists for. The address comes back so the
+// form can show it fixed, and the day, so it can say when the link stops working.
+export function readAdminInvitation(token: string) {
+  return requestApi<AdminInvitation>(`/api/admin-invitations/${encodeURIComponent(token)}`);
+}
+
+// The password answers to the same rules as every other, and the administrator
+// becomes active in the same write that burns the link.
+export function acceptAdminInvitation(token: string, password: string) {
+  return requestApi<{ email: string }>(`/api/admin-invitations/${encodeURIComponent(token)}`, {
+    method: 'POST',
+    body: { password },
+  });
+}

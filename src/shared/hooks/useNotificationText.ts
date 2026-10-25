@@ -21,6 +21,11 @@ const DESTINATIONS: Record<
     payment_rejected: '/member/payments',
     membership_expiring: '/member/membership',
     membership_lapsed: '/member/membership',
+    // Moderación: the member lands where they can see the item itself.
+    publication_taken_down: '/member/publications',
+    publication_restored: '/member/publications',
+    vacancy_taken_down: '/member/vacancies',
+    vacancy_restored: '/member/vacancies',
   },
 };
 

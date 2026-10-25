@@ -9,8 +9,8 @@ type MembershipCountsProps = {
   onSelect: (view: MembershipListView) => void;
 };
 
-// Each figure is also the view it counts: every active membership, or the part
-// of them that ends within the notice.
+// Each figure is also the view it counts: every active membership, the part of
+// them that ends within the notice, or the ones that already ran out.
 export function MembershipCounts({ counts, noticeDays, view, onSelect }: MembershipCountsProps) {
   const translate = useTranslations('admin.memberships.counts');
 
@@ -42,9 +42,10 @@ export function MembershipCounts({ counts, noticeDays, view, onSelect }: Members
   }
 
   return (
-    <div className="grid grid-cols-2 gap-2 lg:gap-4">
+    <div className="grid grid-cols-2 gap-2 lg:grid-cols-3 lg:gap-4">
       {card('active')}
       {card('expiring')}
+      {card('expired')}
     </div>
   );
 }

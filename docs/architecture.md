@@ -194,14 +194,33 @@ requirements are written one per line or separated by periods, and the detail
 reads them back as a list either way. A vacancy that left the board says it is
 no longer available.
 
+## Joining the panel
+
+An administrator arrives through an invitation, so the link in that email opens
+`/invitation/[token]`, a public page in `modules/auth`. It sits outside `/admin`
+on purpose: the panel's layout turns away anybody without a session, and the
+person holding the link has none.
+
+The page asks about the link before it draws anything, because a form that
+offered the fields first would collect a password for a link already spent. A
+valid one shows the address fixed with the lock, the rules the API enforces under
+the field, and the day the invitation stops working; a spent one says so and
+leads to the sign-in screen.
+
+Accepting sets the password and then signs the new administrator in through the
+same `signIn` the login form uses, and opens `/admin`. If that second call fails
+the person lands on `/login` with the password they just chose, rather than on a
+dead screen: a working password is never thrown away because the entry failed.
+
 ## The administration summary
 
 `/admin` opens on the day: the figures, each leading to the screen that lists
 it, what is waiting for review, the memberships expiring within the chamber's
 notice, the members by plan and the latest of the administrator's own notices.
 It lives in `modules/admin` and reads `GET /api/admin/summary` once on arrival.
-A figure for something not built yet, such as the publications, says it is
-under construction instead of showing a zero that reads as a fact.
+Every figure is a number from the API and every card is a link: the publications
+figure counts what the marketplace is showing and leads to moderation, which is
+where the panel works on them.
 
 ## Panel lists
 
@@ -218,6 +237,13 @@ same way.
 | `PagedList`                           | The failure, the first load, the empty state and the pages around the rows          |
 | `DataList`, `NameCell` and `ListCard` | The rows: a table on a desktop, cards on a telephone                                |
 | `ReasonDialog`                        | An action the affected person must be given a reason for                            |
+
+The memberships screen adds one thing: its three figures are also its views —
+Activas, Próximas a vencer and Vencidas — so choosing one asks the API for that
+view, and the last column follows it, saying Vence on the plans in force and
+Venció on the ones that ran out. A view is never a filter the rows apply for
+themselves: the list is read whole from the server, counts included, so no
+figure can disagree with the rows under it.
 
 A screen keeps only what is its own: the reader of its endpoint, its columns, its
 card line and its messages. `read` is passed to `usePagedList` from outside the

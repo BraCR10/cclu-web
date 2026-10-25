@@ -53,4 +53,28 @@ describe('useNotificationText', () => {
   it('shows nothing for a notice the web does not know how to say', () => {
     expect(describeFor('member', { type: 'payment_submitted' }).text).toBeNull();
   });
+
+  // Moderación writes four notices the member must be able to read: what was
+  // taken down and why, and what came back.
+  it('tells the member what was taken down and why, and where to look', () => {
+    const { text, href } = describeFor('member', {
+      type: 'publication_taken_down',
+      params: { title: 'Café de altura', reason: 'La foto no corresponde al producto.' },
+    });
+
+    expect(text).toBe(
+      'Retiramos tu publicación «Café de altura»: La foto no corresponde al producto.',
+    );
+    expect(href).toBe('/member/publications');
+  });
+
+  it('tells the member their vacancy came back, next to their vacancies', () => {
+    const { text, href } = describeFor('member', {
+      type: 'vacancy_restored',
+      params: { title: 'Cajero' },
+    });
+
+    expect(text).toBe('Tu vacante «Cajero» vuelve a estar visible.');
+    expect(href).toBe('/member/vacancies');
+  });
 });

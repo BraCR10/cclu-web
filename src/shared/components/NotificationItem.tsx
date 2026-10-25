@@ -7,6 +7,8 @@ import {
   CircleX,
   ClipboardList,
   Clock,
+  Eye,
+  EyeOff,
   FileCheck,
   Receipt,
   type LucideIcon,
@@ -28,6 +30,10 @@ const ICONS: Record<NotificationType, LucideIcon> = {
   payment_rejected: CircleX,
   membership_expiring: Clock,
   membership_lapsed: Clock,
+  publication_taken_down: EyeOff,
+  publication_restored: Eye,
+  vacancy_taken_down: EyeOff,
+  vacancy_restored: Eye,
 };
 
 type NotificationItemProps = {
