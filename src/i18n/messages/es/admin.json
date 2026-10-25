@@ -272,5 +272,49 @@
       "active": "Activa",
       "suspended": "Suspendida"
     }
+  },
+  "administrators": {
+    "title": "Administradores",
+    "description": "Quiénes pueden entrar al panel y en qué estado está su cuenta.",
+    "invite": "Invitar administrador",
+    "inviteTitle": "Invitar administrador",
+    "inviteDescription": "Le enviaremos un enlace para que cree su contraseña.",
+    "name": "Nombre completo",
+    "email": "Correo electrónico",
+    "sendInvitation": "Enviar invitación",
+    "cancel": "Cancelar",
+    "resend": "Reenviar invitación",
+    "inactivate": "Inactivar",
+    "reactivate": "Reactivar",
+    "loading": "Cargando administradores…",
+    "loadFailed": "No pudimos cargar los administradores.",
+    "invited": "Invitación enviada",
+    "resent": "Invitación reenviada",
+    "inactivated": "Administrador inactivado",
+    "reactivated": "Administrador reactivado",
+    "columns": {
+      "administrator": "Administrador",
+      "status": "Estado",
+      "actions": "Acciones"
+    },
+    "statuses": {
+      "active": "Activo",
+      "invitation_pending": "Invitación pendiente",
+      "invitation_expired": "Invitación vencida",
+      "inactive": "Inactivo"
+    }
+  },
+  "invitation": {
+    "title": "Crear mi contraseña",
+    "subtitle": "Su correo ya está registrado. Solo falta la contraseña con la que entrará al panel.",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "submit": "Activar mi cuenta",
+    "loading": "Revisando la invitación…",
+    "invalid": "Este enlace ya no sirve.",
+    "invalidHelp": "Puede que haya vencido o que ya se haya usado. Pida que le envíen uno nuevo.",
+    "done": "Su cuenta está activa. Ya puede entrar al panel.",
+    "toLogin": "Ir a iniciar sesión"
   }
 }
