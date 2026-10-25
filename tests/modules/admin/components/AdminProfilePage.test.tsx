@@ -108,4 +108,44 @@ describe('AdminProfilePage', () => {
 
     expect(await screen.findByText('La contraseña actual no es correcta.')).toBeInTheDocument();
   });
+
+  // The three password rules are refused on the new password, so a banner would
+  // be the wrong place and silence would be worse.
+  it('a new password that breaks the rules is shown under its own field', async () => {
+    const person = userEvent.setup();
+    changeOwnPassword.mockRejectedValue(
+      new ApiError({
+        status: 400,
+        code: 'password_too_short',
+        field: 'newPassword',
+        message: 'The password must be at least 10 characters.',
+      }),
+    );
+
+    renderPage();
+
+    await screen.findByLabelText('Contraseña actual');
+    await person.type(screen.getByLabelText('Contraseña actual'), 'Actual2026!');
+    await person.type(screen.getByLabelText('Contraseña nueva'), 'corta');
+    await person.click(screen.getByRole('button', { name: 'Cambiar contraseña' }));
+
+    expect(
+      await screen.findByText('La contraseña debe tener al menos 10 caracteres.'),
+    ).toBeInTheDocument();
+  });
+
+  // A refusal that names no field used to be swallowed entirely.
+  it('a failure that is not about a field is shown as an alert', async () => {
+    const person = userEvent.setup();
+    updateAdminProfile.mockRejectedValue(
+      new ApiError({ status: 500, code: 'internal_error', message: 'boom' }),
+    );
+
+    renderPage();
+
+    await screen.findByLabelText('Nombre completo');
+    await person.click(screen.getByRole('button', { name: 'Guardar nombre' }));
+
+    expect(await screen.findByText('Algo salió mal. Intentá de nuevo.')).toBeInTheDocument();
+  });
 });

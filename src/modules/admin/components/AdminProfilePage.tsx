@@ -38,6 +38,9 @@ export function AdminProfilePage() {
   const [nameDraft, setNameDraft] = useState<string | null>(null);
   const name = nameDraft ?? profile?.name ?? '';
   const [nameError, setNameError] = useState<string | undefined>(undefined);
+  // A refusal that is not about the field itself (a network failure, a server
+  // one) has nowhere else to go, so it is shown above the buttons.
+  const [nameProblem, setNameProblem] = useState<string | null>(null);
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [passwordError, setPasswordError] = useState<{ message: string; field?: string } | null>(
@@ -47,11 +50,15 @@ export function AdminProfilePage() {
   const submitName = async () => {
     const outcome = await saveName(name.trim());
 
-    setNameError(outcome.ok ? undefined : outcome.field === 'name' ? outcome.message : undefined);
-
     if (outcome.ok) {
+      setNameError(undefined);
+      setNameProblem(null);
       confirmName();
+      return;
     }
+
+    setNameError(outcome.field === 'name' ? outcome.message : undefined);
+    setNameProblem(outcome.field === 'name' ? null : outcome.message);
   };
 
   const submitPassword = async () => {
@@ -111,6 +118,12 @@ export function AdminProfilePage() {
                 {translate('saveName')}
               </Button>
             </div>
+
+            {nameProblem !== null ? (
+              <div className="mt-4">
+                <Alert tone="danger" title={nameProblem} />
+              </div>
+            ) : null}
           </Card>
 
           <Card className="p-6 lg:p-8">
@@ -132,13 +145,18 @@ export function AdminProfilePage() {
                   label={translate('newPassword')}
                   type="password"
                   value={newPassword}
+                  error={passwordError?.field === 'newPassword' ? passwordError.message : undefined}
                   onChange={(event) => setNewPassword(event.target.value)}
                 />
                 <PasswordRules password={newPassword} />
               </div>
             </div>
 
-            {passwordError !== null && passwordError.field === undefined ? (
+            {/* The three password rules are refused on `newPassword`, so that
+                refusal belongs under that field rather than in a banner. */}
+            {passwordError !== null &&
+            passwordError.field !== 'currentPassword' &&
+            passwordError.field !== 'newPassword' ? (
               <div className="mt-4">
                 <Alert tone="danger" title={passwordError.message} />
               </div>
