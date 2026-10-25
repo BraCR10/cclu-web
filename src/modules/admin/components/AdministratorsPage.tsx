@@ -10,6 +10,7 @@ import { Input } from '@/shared/components/Input';
 import { Modal } from '@/shared/components/Modal';
 import { PageHeader } from '@/shared/components/PageHeader';
 import { StatusBadge, type StatusTone } from '@/shared/components/StatusBadge';
+import { useCurrentAccount } from '@/shared/hooks/useCurrentAccount';
 import { useAdministrators } from '../hooks/useAdministrators';
 import type { Administrator, AdministratorStatus } from '../api/administrators';
 
@@ -30,6 +31,7 @@ function StatusCell({ administrator }: { administrator: Administrator }) {
 
 export function AdministratorsPage() {
   const translate = useTranslations('admin.administrators');
+  const self = useCurrentAccount();
   const { state, failureMessage, administrators, saving, invite, resend, setStatus } =
     useAdministrators();
 
@@ -80,6 +82,13 @@ export function AdministratorsPage() {
 
   function RowActions({ administrator }: { administrator: Administrator }) {
     const pending = administrator.status !== 'active' && administrator.status !== 'inactive';
+    // The API refuses it either way; not offering the button is the same rule
+    // said before the click rather than after it.
+    const isSelf = self.status === 'ready' && self.account.id === administrator.id;
+
+    if (isSelf) {
+      return <span className="text-body-s text-fg-muted">{translate('yourAccount')}</span>;
+    }
 
     return (
       <div className="flex items-center justify-end gap-2">

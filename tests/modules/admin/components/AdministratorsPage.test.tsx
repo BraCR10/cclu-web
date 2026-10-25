@@ -3,7 +3,6 @@ import { screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ToastProvider } from '@/shared/components/ToastProvider';
 import { AdministratorsPage } from '@/modules/admin/components/AdministratorsPage';
-import { AdminInvitationPage } from '@/modules/admin/components/AdminInvitationPage';
 import type { Administrator } from '@/modules/admin/api/administrators';
 import { renderWithIntl } from '../../../support/renderWithIntl';
 import { viewportIsDesktop } from '../../../support/viewport';
@@ -12,8 +11,6 @@ const readAdministrators = vi.fn();
 const inviteAdministrator = vi.fn();
 const resendInvitation = vi.fn();
 const setAdministratorStatus = vi.fn();
-const readInvitation = vi.fn();
-const acceptInvitation = vi.fn();
 
 vi.mock('@/modules/admin/api/administrators', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@/modules/admin/api/administrators')>()),
@@ -21,8 +18,15 @@ vi.mock('@/modules/admin/api/administrators', async (importOriginal) => ({
   inviteAdministrator: (draft: unknown) => inviteAdministrator(draft),
   resendInvitation: (id: string) => resendInvitation(id),
   setAdministratorStatus: (id: string, status: string) => setAdministratorStatus(id, status),
-  readInvitation: (token: string) => readInvitation(token),
-  acceptInvitation: (token: string, password: string) => acceptInvitation(token, password),
+}));
+
+// Who is looking, which decides whose row offers no switch.
+const viewer = vi.hoisted(() => ({
+  current: { id: 'a0', role: 'admin', email: 'yo@camaralaunion.cr', displayName: 'Yo Mismo' },
+}));
+
+vi.mock('@/shared/hooks/useCurrentAccount', () => ({
+  useCurrentAccount: () => ({ status: 'ready', account: viewer.current }),
 }));
 
 const mariana: Administrator = {
@@ -56,6 +60,7 @@ function renderPanel() {
 describe('AdministratorsPage', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    viewer.current = { ...viewer.current, id: 'a0' };
     readAdministrators.mockResolvedValue({ items: [mariana, invited] });
   });
 
@@ -119,46 +124,33 @@ describe('AdministratorsPage', () => {
     await waitFor(() => expect(setAdministratorStatus).toHaveBeenCalledWith('a1', 'inactive'));
     expect((await screen.findAllByText('Administrador inactivado')).length).toBeGreaterThan(0);
   });
-});
 
-describe('AdminInvitationPage', () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
-  it('opens the register with the address the invitation went to, fixed', async () => {
-    readInvitation.mockResolvedValue({ name: 'Diego Ramírez', email: 'diego@camaralaunion.cr' });
-
-    renderWithIntl(<AdminInvitationPage token={'a'.repeat(64)} />);
-
-    const email = await screen.findByLabelText('Correo electrónico');
-    expect(email).toHaveValue('diego@camaralaunion.cr');
-    expect(email).toBeDisabled();
-    expect(readInvitation).toHaveBeenCalledWith('a'.repeat(64));
-  });
-
-  it('sets the password, activates the account and burns the link', async () => {
+  it('reactivates an inactive administrator', async () => {
     const person = userEvent.setup();
-    readInvitation.mockResolvedValue({ name: 'Diego Ramírez', email: 'diego@camaralaunion.cr' });
-    acceptInvitation.mockResolvedValue({ email: 'diego@camaralaunion.cr' });
+    const inactive: Administrator = { ...mariana, status: 'inactive' };
 
-    renderWithIntl(<AdminInvitationPage token={'b'.repeat(64)} />);
+    readAdministrators.mockResolvedValue({ items: [inactive] });
+    setAdministratorStatus.mockResolvedValue(mariana);
 
-    await screen.findByLabelText('Correo electrónico');
-    await person.type(screen.getByLabelText('Contraseña'), 'Camara2026!');
-    await person.click(screen.getByRole('button', { name: 'Activar mi cuenta' }));
+    renderPanel();
 
-    await waitFor(() => {
-      expect(acceptInvitation).toHaveBeenCalledWith('b'.repeat(64), 'Camara2026!');
-    });
-    expect(await screen.findByText(/Su cuenta está activa/)).toBeInTheDocument();
+    await screen.findAllByText('Mariana Solís');
+    await person.click(screen.getAllByRole('button', { name: 'Reactivar' })[0]);
+
+    await waitFor(() => expect(setAdministratorStatus).toHaveBeenCalledWith('a1', 'active'));
+    expect((await screen.findAllByText('Administrador reactivado')).length).toBeGreaterThan(0);
   });
 
-  it('says the link no longer works when it came back as invalid', async () => {
-    readInvitation.mockRejectedValue({ status: 404, code: 'invalid_code' });
+  // The API refuses it, so the screen does not offer it: the rule is said before
+  // the click rather than after it.
+  it('offers no switch on the row of the administrator who is looking', async () => {
+    viewer.current = { ...viewer.current, id: 'a1' };
 
-    renderWithIntl(<AdminInvitationPage token={'c'.repeat(64)} />);
+    renderPanel();
 
-    expect(await screen.findByText('Este enlace ya no sirve.')).toBeInTheDocument();
+    await screen.findAllByText('Mariana Solís');
+
+    expect(screen.getAllByText('Tu cuenta').length).toBeGreaterThan(0);
+    expect(screen.queryByRole('button', { name: 'Inactivar' })).toBeNull();
   });
 });

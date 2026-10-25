@@ -578,6 +578,7 @@
       "invitation_pending": "Invitación pendiente",
       "invitation_expired": "Invitación vencida",
       "inactive": "Inactivo"
-    }
+    },
+    "yourAccount": "Tu cuenta"
   }
 }
