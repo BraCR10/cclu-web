@@ -219,6 +219,13 @@ same way.
 | `DataList`, `NameCell` and `ListCard` | The rows: a table on a desktop, cards on a telephone                                |
 | `ReasonDialog`                        | An action the affected person must be given a reason for                            |
 
+The memberships screen adds one thing: its three figures are also its views —
+Activas, Próximas a vencer and Vencidas — so choosing one asks the API for that
+view, and the last column follows it, saying Vence on the plans in force and
+Venció on the ones that ran out. A view is never a filter the rows apply for
+themselves: the list is read whole from the server, counts included, so no
+figure can disagree with the rows under it.
+
 A screen keeps only what is its own: the reader of its endpoint, its columns, its
 card line and its messages. `read` is passed to `usePagedList` from outside the
 component, so the same function arrives on every render and the list is not

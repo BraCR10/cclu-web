@@ -57,7 +57,8 @@
   "memberships": {
     "counts": {
       "active": "Activas",
-      "expiring": "Próximas a vencer ({days} días)"
+      "expiring": "Próximas a vencer ({days} días)",
+      "expired": "Vencidas"
     },
     "filters": {
       "searchLabel": "Buscar membresías",
@@ -72,6 +73,7 @@
       "frequency": "Frecuencia",
       "lastPayment": "Último pago",
       "expires": "Vence",
+      "expired": "Venció",
       "actions": "Acciones"
     },
     "frequencies": {
@@ -84,10 +86,12 @@
     "viewMember": "Ver agremiado",
     "viewMemberNamed": "Ver agremiado {name}",
     "cardLine": "{code} · Vence {end} · {frequency}",
+    "cardLineExpired": "{code} · Venció {end} · {frequency}",
     "summary": "Mostrando {from} a {to} de {total} membresías, ordenadas por vencimiento",
     "empty": {
       "active": "No hay membresías activas que coincidan.",
-      "expiring": "No hay membresías próximas a vencer que coincidan."
+      "expiring": "No hay membresías próximas a vencer que coincidan.",
+      "expired": "No hay membresías vencidas que coincidan."
     }
   },
   "payments": {

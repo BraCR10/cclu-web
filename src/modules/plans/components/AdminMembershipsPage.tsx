@@ -47,7 +47,7 @@ export function AdminMembershipsPage() {
         summary={summary}
         onPageChange={memberships.showPage}
       >
-        <MembershipList items={list?.items ?? []} />
+        <MembershipList items={list?.items ?? []} view={memberships.query.view} />
       </PagedList>
     </div>
   );

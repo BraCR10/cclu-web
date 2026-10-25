@@ -2,10 +2,10 @@ import { requestApi } from '@/shared/api/apiClient';
 import type { Paginated } from '@/shared/api/pagination';
 import type { PlanKey } from './plans';
 
-// The list holds paid plans in force only: every one of them, or the part that
-// ends within the notice. A plan that ran out is back on Gratuita, which is not
-// listed.
-export type MembershipListView = 'active' | 'expiring';
+// The list holds the plans the chamber is paid for: the ones in force and the
+// ones that ran out. An expired membership is back on Gratuita and keeps the
+// plan it ran out of, which is the plan its row names.
+export type MembershipListView = 'active' | 'expiring' | 'expired';
 export type PaidPlanKey = Exclude<PlanKey, 'free'>;
 export type PaymentFrequency = 'monthly' | 'quarterly' | 'semiannual' | 'annual';
 
@@ -21,7 +21,7 @@ export type AdminMembership = {
 };
 
 export type AdminMembershipList = Paginated<AdminMembership> & {
-  counts: { active: number; expiring: number };
+  counts: { active: number; expiring: number; expired: number };
   noticeDays: number;
 };
 
