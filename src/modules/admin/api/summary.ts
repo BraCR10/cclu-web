@@ -16,6 +16,7 @@ export type AdminSummary = {
   payments: { pending: number; oldestSubmittedAt: string | null };
   paidMemberships: { active: number; newThisMonth: number };
   membershipsByPlan: Array<{ key: PlanKey; name: string; count: number }>;
+  publications: { active: number };
   vacancies: { active: number };
   expiring: { items: ExpiringMembership[]; total: number; noticeDays: number };
 };

@@ -167,7 +167,6 @@
     },
     "kpis": {
       "thisMonth": "+{count} este mes",
-      "underConstruction": "{label}, en construcción",
       "members": "Agremiados",
       "applications": "Solicitudes pendientes",
       "payments": "Pagos por revisar",

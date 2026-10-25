@@ -200,8 +200,9 @@ no longer available.
 it, what is waiting for review, the memberships expiring within the chamber's
 notice, the members by plan and the latest of the administrator's own notices.
 It lives in `modules/admin` and reads `GET /api/admin/summary` once on arrival.
-A figure for something not built yet, such as the publications, says it is
-under construction instead of showing a zero that reads as a fact.
+Every figure is a number from the API and every card is a link: the publications
+figure counts what the marketplace is showing and leads to moderation, which is
+where the panel works on them.
 
 ## Panel lists
 
