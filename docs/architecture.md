@@ -165,6 +165,23 @@ same hours joined into one line. Numbers are dialled and opened in WhatsApp
 from their digits, so a member who wrote +506 or dashes still gets a working
 link. The publications section says it is under construction until it exists.
 
+## The marketplace
+
+`/marketplace` is what the businesses with a paid plan are offering, in
+`modules/marketplace`, built from the same parts as the directory. It is read in
+three sections, drawn as tabs: **productos y servicios** (`/marketplace`),
+**promociones** (`/promotions`) and **descuentos** (`/discounts`). Each section
+is a URL of its own, because the public footer, the home page and any link a
+person shares all need one place to land.
+
+A section is the API's `type` filter, not something the screen applies
+afterwards: the promotions and discounts pages ask for `?type=promotion` and
+`?type=discount` and start from that filter, which is why they no longer offer
+the kind again in the filter sheet. Only what is inside its validity arrives —
+a promotion that ended is already out of the answer — and both the card and the
+detail say what a discount takes off and on what condition, where a product
+shows its price.
+
 ## Notifications
 
 The bell in the panel header shows the newest notices and how many are unread,

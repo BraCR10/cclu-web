@@ -39,6 +39,12 @@ export function PublicationPage({ publicationId }: { publicationId: string }) {
   }
 
   const publication = state.publication;
+  const section =
+    publication.type === 'promotion'
+      ? 'promotions'
+      : publication.type === 'discount'
+        ? 'discounts'
+        : 'products';
   const value =
     publication.type === 'discount' && publication.percentage !== null
       ? translate('percentOff', { percentage: publication.percentage })
@@ -52,7 +58,11 @@ export function PublicationPage({ publicationId }: { publicationId: string }) {
 
   return (
     <div className="flex w-full flex-col gap-6 py-6 lg:gap-8 lg:py-12">
-      <PageHeader title={publication.title} backHref="/marketplace" backLabel={translate('back')} />
+      <PageHeader
+        title={publication.title}
+        backHref={section === 'products' ? '/marketplace' : `/${section}`}
+        backLabel={translate(section === 'products' ? 'back' : `backs.${section}`)}
+      />
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-start">
         <div className="flex flex-col gap-6">

@@ -113,8 +113,16 @@
     "title": "Marketplace",
     "searchLabel": "Buscar en el marketplace",
     "searchPlaceholder": "Producto, servicio o promoción",
+    "searchHints": {
+      "promotions": "Buscar una promoción",
+      "discounts": "Buscar un descuento"
+    },
     "summary": "Mostrando {from}–{to} de {total} publicaciones",
     "empty": "Todavía no hay publicaciones con ese criterio.",
+    "empties": {
+      "promotions": "Todavía no hay promociones vigentes.",
+      "discounts": "Todavía no hay descuentos vigentes."
+    },
     "until": "Vigente hasta el {date}",
     "validUntil": "Vigente hasta el {date}",
     "percentOff": "{percentage}% de descuento",
@@ -138,6 +146,24 @@
     "note": {
       "title": "Publicado por agremiados",
       "message": "Estas publicaciones las cargan los comercios con un plan de pago. La Cámara no vende ni cobra por lo que se ofrece acá."
+    },
+    "titles": {
+      "promotions": "Promociones",
+      "discounts": "Descuentos para agremiados"
+    },
+    "tabs": {
+      "products": "Productos y servicios",
+      "promotions": "Promociones",
+      "discounts": "Descuentos"
+    },
+    "sectionsLabel": "Secciones del marketplace",
+    "summaries": {
+      "promotions": "Mostrando {from}–{to} de {total} promociones",
+      "discounts": "Mostrando {from}–{to} de {total} descuentos"
+    },
+    "backs": {
+      "promotions": "Volver a promociones",
+      "discounts": "Volver a descuentos"
     }
   },
   "jobs": {
