@@ -41,5 +41,6 @@
   "invalid_request": "No pudimos procesar la solicitud. Intentá de nuevo.",
   "internal_error": "Algo salió mal. Intentá de nuevo.",
   "network_error": "No pudimos conectarnos. Revisá tu conexión e intentá de nuevo.",
-  "already_subscribed": "Este correo ya está suscrito a las promociones."
+  "already_subscribed": "Este correo ya está suscrito a las promociones.",
+  "activity_already_listed": "Ese nombre ya está en el catálogo."
 }
