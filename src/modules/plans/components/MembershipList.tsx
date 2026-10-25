@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { DataList, NameCell, type DataColumn } from '@/shared/components/DataList';
 import { ListCard } from '@/shared/components/ListCard';
 import { useDates } from '@/shared/hooks/useDates';
-import type { AdminMembership } from '../api/adminMemberships';
+import type { AdminMembership, MembershipListView } from '../api/adminMemberships';
 import { PlanBadge } from '@/shared/components/PlanBadge';
 
 // The member's own page in the panel. It shows "En construcción" until the
@@ -38,9 +38,18 @@ function PlanCell({ membership }: { membership: AdminMembership }) {
   );
 }
 
-export function MembershipList({ items }: { items: AdminMembership[] }) {
+// An expired row ends in the past, so the column and the card say so instead of
+// promising a date still to come.
+export function MembershipList({
+  items,
+  view,
+}: {
+  items: AdminMembership[];
+  view: MembershipListView;
+}) {
   const translate = useTranslations('admin.memberships');
   const text = useMembershipText();
+  const expired = view === 'expired';
   const viewLabel = (membership: AdminMembership) =>
     translate('viewMemberNamed', { name: membership.businessName });
 
@@ -59,7 +68,11 @@ export function MembershipList({ items }: { items: AdminMembership[] }) {
     },
     { id: 'frequency', header: translate('columns.frequency'), cell: text.frequency },
     { id: 'lastPayment', header: translate('columns.lastPayment'), cell: text.lastPayment },
-    { id: 'expires', header: translate('columns.expires'), cell: text.end },
+    {
+      id: 'expires',
+      header: translate(expired ? 'columns.expired' : 'columns.expires'),
+      cell: text.end,
+    },
     {
       id: 'actions',
       header: translate('columns.actions'),
@@ -87,7 +100,7 @@ export function MembershipList({ items }: { items: AdminMembership[] }) {
       card={(membership) => (
         <ListCard
           name={membership.businessName}
-          line={translate('cardLine', {
+          line={translate(expired ? 'cardLineExpired' : 'cardLine', {
             code: membership.memberCode,
             end: text.end(membership),
             frequency: text.frequency(membership),
