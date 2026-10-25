@@ -272,5 +272,29 @@
       "active": "Activa",
       "suspended": "Suspendida"
     }
+  },
+  "profile": {
+    "title": "Mi perfil",
+    "description": "Su cuenta en el panel de la Cámara.",
+    "accountTitle": "Datos de la cuenta",
+    "accountHelp": "Su nombre es el que aparece en el panel. El correo no se cambia desde aquí.",
+    "name": "Nombre completo",
+    "email": "Correo electrónico",
+    "statusHelp": "El estado de la cuenta lo cambia otro administrador.",
+    "saveName": "Guardar nombre",
+    "savedName": "Nombre guardado",
+    "passwordTitle": "Contraseña",
+    "passwordHelp": "Para cambiarla necesitamos la actual: así una sesión abierta no puede quedarse con la cuenta.",
+    "currentPassword": "Contraseña actual",
+    "newPassword": "Contraseña nueva",
+    "savePassword": "Cambiar contraseña",
+    "savedPassword": "Contraseña actualizada",
+    "loadFailed": "No pudimos cargar su cuenta.",
+    "statuses": {
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "invitation_pending": "Invitación pendiente",
+      "invitation_expired": "Invitación vencida"
+    }
   }
 }
