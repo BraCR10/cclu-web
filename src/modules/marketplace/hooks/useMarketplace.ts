@@ -11,10 +11,12 @@ import {
   type MarketplacePublication,
 } from '../api/marketplace';
 
-export function useMarketplace() {
+// The marketplace proper asks for every kind; the promotions and discounts
+// pages ask for one, and start from that filter rather than offering it.
+export function useMarketplace(initial: MarketplaceFilters = NO_MARKETPLACE_FILTERS) {
   return usePagedList<MarketplaceFilters, Paginated<MarketplacePublication>>(
     readMarketplace,
-    NO_MARKETPLACE_FILTERS,
+    initial,
   );
 }
 
