@@ -273,6 +273,50 @@
       "suspended": "Suspendida"
     }
   },
+  "activities": {
+    "title": "Catálogo de actividades",
+    "description": "Las actividades económicas con las que la Cámara clasifica a sus agremiados.",
+    "searchLabel": "Buscar actividad",
+    "searchPlaceholder": "Nombre de la actividad",
+    "filterLegend": "Estado de las actividades",
+    "filters": {
+      "all": "Todas",
+      "pending": "Por aceptar ({count})",
+      "active": "Activas ({count})",
+      "inactive": "Retiradas ({count})"
+    },
+    "add": "Agregar actividad",
+    "addTitle": "Agregar actividad",
+    "addHelp": "Se agrega al catálogo como activa y queda disponible en el registro.",
+    "name": "Nombre de la actividad",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "accept": "Aceptar",
+    "rename": "Renombrar",
+    "renameTitle": "Renombrar actividad",
+    "renameHelp": "Los agremiados apuntan a la actividad, no al nombre: cambiarlo no los toca.",
+    "retire": "Retirar",
+    "reactivate": "Reactivar",
+    "remove": "Eliminar",
+    "created": "Actividad agregada",
+    "renamed": "Actividad renombrada",
+    "accepted": "Actividad aceptada",
+    "retired": "Actividad retirada",
+    "removed": "Actividad eliminada",
+    "empty": "No hay actividades que mostrar.",
+    "loadFailed": "No pudimos cargar el catálogo.",
+    "members": "{count} agremiados",
+    "columns": {
+      "activity": "Actividad",
+      "status": "Estado",
+      "actions": "Acciones"
+    },
+    "statuses": {
+      "active": "Activa",
+      "pending": "Por aceptar",
+      "inactive": "Retirada"
+    }
+  },
   "profile": {
     "title": "Mi perfil",
     "description": "Su cuenta en el panel de la Cámara.",
