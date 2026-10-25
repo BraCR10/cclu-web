@@ -75,7 +75,11 @@
       "payment_approved": "Aprobamos tu pago de {amount}. Tu membresía vence el {validUntil}.",
       "payment_rejected": "Rechazamos tu pago de {amount}: {reason}",
       "membership_expiring": "Tu plan {planName} vence el {validUntil}. Renovalo para no perder sus beneficios.",
-      "membership_lapsed": "Tu plan {planName} venció y volviste a Gratuita."
+      "membership_lapsed": "Tu plan {planName} venció y volviste a Gratuita.",
+      "publication_taken_down": "Retiramos tu publicación «{title}»: {reason}",
+      "publication_restored": "Tu publicación «{title}» vuelve a estar visible.",
+      "vacancy_taken_down": "Retiramos tu vacante «{title}»: {reason}",
+      "vacancy_restored": "Tu vacante «{title}» vuelve a estar visible."
     }
   }
 }
