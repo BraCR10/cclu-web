@@ -36,6 +36,7 @@ const mariana: Administrator = {
   status: 'active',
   invitationExpiresAt: null,
   createdAt: '2026-01-04T10:00:00.000Z',
+  lastSignInAt: '2026-02-03T15:30:00.000Z',
 };
 
 const invited: Administrator = {
@@ -45,6 +46,7 @@ const invited: Administrator = {
   status: 'invitation_pending',
   invitationExpiresAt: '2026-02-11T10:00:00.000Z',
   createdAt: '2026-02-04T10:00:00.000Z',
+  lastSignInAt: null,
 };
 
 function renderPanel() {
@@ -70,6 +72,24 @@ describe('AdministratorsPage', () => {
     expect((await screen.findAllByText('Mariana Solís')).length).toBeGreaterThan(0);
     expect(screen.getAllByText('Activo').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Invitación pendiente').length).toBeGreaterThan(0);
+  });
+
+  it('says when each administrator last came in, or when their invitation runs out', async () => {
+    const neverSignedIn: Administrator = { ...mariana, id: 'a4', lastSignInAt: null };
+    // An answer from before the field existed must not break the row.
+    const older: Partial<Administrator> = { ...mariana, id: 'a5' };
+    delete older.lastSignInAt;
+    readAdministrators.mockResolvedValue({
+      items: [mariana, invited, neverSignedIn, older as Administrator],
+    });
+
+    renderPanel();
+
+    await screen.findAllByText('Mariana Solís');
+
+    expect(screen.getAllByText(/3 feb 2026/).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/^Vence el 11 feb 2026/).length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Nunca')).toHaveLength(4);
   });
 
   it('invites an administrator by name and address and confirms with a toast', async () => {
