@@ -551,7 +551,6 @@
   },
   "administrators": {
     "title": "Administradores",
-    "description": "Quiénes pueden entrar al panel y en qué estado está su cuenta.",
     "invite": "Invitar administrador",
     "inviteTitle": "Invitar administrador",
     "inviteDescription": "Le enviaremos un enlace para que cree su contraseña.",
@@ -562,23 +561,29 @@
     "resend": "Reenviar invitación",
     "inactivate": "Inactivar",
     "reactivate": "Reactivar",
-    "loading": "Cargando administradores…",
     "loadFailed": "No pudimos cargar los administradores.",
     "invited": "Invitación enviada",
     "resent": "Invitación reenviada",
     "inactivated": "Administrador inactivado",
     "reactivated": "Administrador reactivado",
     "columns": {
-      "administrator": "Administrador",
+      "name": "Nombre",
+      "email": "Correo",
       "status": "Estado",
+      "lastAccess": "Último acceso",
       "actions": "Acciones"
     },
     "statuses": {
       "active": "Activo",
       "invitation_pending": "Invitación pendiente",
-      "invitation_expired": "Invitación vencida",
+      "invitation_expired": "Invitación expirada",
       "inactive": "Inactivo"
     },
-    "yourAccount": "Tu cuenta"
+    "yourAccount": "Tu cuenta",
+    "lastAccess": {
+      "never": "Nunca",
+      "expires": "Vence el {date}",
+      "expired": "Venció el {date}"
+    }
   }
 }

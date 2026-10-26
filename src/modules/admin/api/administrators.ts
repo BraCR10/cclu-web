@@ -10,6 +10,7 @@ export type Administrator = {
   status: AdministratorStatus;
   invitationExpiresAt: string | null;
   createdAt: string | null;
+  lastSignInAt: string | null;
 };
 
 export function readAdministrators() {
